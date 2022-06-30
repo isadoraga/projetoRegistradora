@@ -1,0 +1,1373 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1j4lgg7" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.10.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:collaboration id="Collaboration_0zq2bxe">
+    <bpmn:participant id="Participant_0ah79lo" name="FLUXO OPT-IN CERC" processRef="Fluxo_Opt_In_Cerc" />
+  </bpmn:collaboration>
+  <bpmn:signal id="Signal_08j79i6" name="Iniciar_fluxo_consulta_agenda" />
+  <bpmn:message id="Message_1h07yr5" name="MSG_SolicitanteCorrigiuInformacaoOptIn" />
+  <bpmn:message id="Message_15fu1it" name="MSG_UsuarioCancelouSolicitacao" />
+  <bpmn:message id="Message_1vpwoys" name="MSG_SolicitanteCorrigiuInformacaoOptOut" />
+  <bpmn:process id="Fluxo_Opt_In_Cerc" name="Fluxo Opt-In CERC" isExecutable="true">
+    <bpmn:sequenceFlow id="Flow_0ygpgmo" sourceRef="Activity_0tyybjn" targetRef="Event_0m05lq0" />
+    <bpmn:sequenceFlow id="Flow_1clu4ut" sourceRef="Event_0ne5p6h" targetRef="Activity_0tyybjn" />
+    <bpmn:startEvent id="Event_0ne5p6h" name="Fluxo de consulta de agenda solicitado">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="tipoOperacao" label="Tipo operação:" type="string" defaultValue="c" />
+          <camunda:formField id="referenciaExterna" label="Referencia externa:" type="string" />
+          <camunda:formField id="cnpjSolicitante" label="Cnpj solicitante:" type="string" defaultValue="19687535000100" />
+          <camunda:formField id="dataAssinaturaOptIn" label="Data Assinatura Opt In:" type="string" defaultValue="2022-05-09" />
+          <camunda:formField id="listaCnpjCredenciadora" label="Lista cnpj credenciadora:" type="string" defaultValue="99T" />
+          <camunda:formField id="listaCodigoArranjoPagamento" label="Lista código arranjo pagamento:" type="string" defaultValue="99T" />
+          <camunda:formField id="dataInicioOptin" label="Data início:" type="string" defaultValue="2022-05-09" />
+          <camunda:formField id="dataFimOptin" label="Data fim:" type="string" defaultValue="2022-05-20" />
+          <camunda:formField id="documentoUsuarioFinalRecebedor" label="Documento usuário final recebedor:" type="string" defaultValue="28606684000199" />
+          <camunda:formField id="documentoTitular" label="Documento Titular:" type="string" defaultValue="28606684000199" />
+          <camunda:formField id="cnpjFinanciador" label="Cnpj Financiador:" type="string" defaultValue="19687535000100" />
+          <camunda:formField id="cnpjRecebedorAgenda" label="Cnpj recebedor da agenda:" type="string" defaultValue="19687535000100" />
+          <camunda:formField id="carteira" label="Carteira:" type="string" />
+          <camunda:formField id="protocolo" label="Protocolo:" type="string" />
+          <camunda:formField id="tipoAvaliacao" label="Tipo de Avaliação:" type="string" defaultValue="avaliacao_agenda_basica_ap" />
+          <camunda:formField id="dataInicioAgenda" label="dataInicioAgenda" type="string" defaultValue="2022-05-09" />
+          <camunda:formField id="dataFimAgenda" label="dataFimAgenda" type="string" defaultValue="2022-05-10" />
+        </camunda:formData>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_1_consulta_iniciada', new Date());</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_1clu4ut</bpmn:outgoing>
+      <bpmn:signalEventDefinition id="SignalEventDefinition_06vsuzd" signalRef="Signal_08j79i6" />
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_0m05lq0">
+      <bpmn:incoming>Flow_0ygpgmo</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:subProcess id="Activity_0tyybjn">
+      <bpmn:incoming>Flow_1clu4ut</bpmn:incoming>
+      <bpmn:outgoing>Flow_0ygpgmo</bpmn:outgoing>
+      <bpmn:startEvent id="Event_0natnff" name="Inicia fluxo de consulta de agenda">
+        <bpmn:outgoing>Flow_1k8ha7x</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:endEvent id="Event_056wc3i">
+        <bpmn:incoming>Flow_1o0b60s</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:exclusiveGateway id="Gateway_0qlhutr" default="Flow_1asg51a">
+        <bpmn:incoming>Flow_0qiav5k</bpmn:incoming>
+        <bpmn:outgoing>Flow_1vouvgd</bpmn:outgoing>
+        <bpmn:outgoing>Flow_1asg51a</bpmn:outgoing>
+        <bpmn:outgoing>Flow_0tph4ld</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:serviceTask id="Activity_1a3mv5d" name="Consultar código do erro no opt-out" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://pdi.zaz.vc:8082/kettle/executeTrans/?rep=ServidorPentahoAws&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_erro_opt_out&amp;level=info&amp;referenciaExterna=${referenciaExterna}
+</camunda:inputParameter>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2FtdW5kYTpoWkFFaFdRMDBGd3I=</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1pga82r</bpmn:incoming>
+        <bpmn:outgoing>Flow_1je4js0</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:scriptTask id="Activity_1r7v7sh" name="Processar resultado da consulta" scriptFormat="javascript">
+        <bpmn:incoming>Flow_1je4js0</bpmn:incoming>
+        <bpmn:outgoing>Flow_1vjk5z2</bpmn:outgoing>
+        <bpmn:script>var system = java.lang.System;
+var resultado = JSON.parse((S(execution.getVariable('result'))));
+
+var retorno = resultado.response;
+
+var ultimoStatus = retorno[0];
+
+execution.setVariable("codOptOut", ultimoStatus.codigo);</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:serviceTask id="Activity_080q6p5" name="Realizar o opt-ou na cerc" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://pdi.zaz.vc:8082/kettle/executeTrans/?rep=ServidorPentahoAws&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/opt_out_cerc&amp;referenciaExterna=${referenciaExterna}&amp;token_completo=${token_completo}&amp;cnpjSolicitante=${cnpjSolicitante}&amp;carteira=${carteira}&amp;protocoloOptIn=${protocoloOptIn}</camunda:inputParameter>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2FtdW5kYTpoWkFFaFdRMDBGd3I=</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1y93mas</bpmn:incoming>
+        <bpmn:outgoing>Flow_08v6u79</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:serviceTask id="Activity_0a5nhd7" name="Realizar opt-in cerc" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://pdi.zaz.vc:8082/kettle/executeTrans/?rep=ServidorPentahoAws&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/opt_in_cerc&amp;level=info&amp;tipoOperacao=${tipoOperacao}&amp;referenciaExterna=${referenciaExterna}&amp;cnpjSolicitante=${cnpjSolicitante}&amp;dataAssinaturaOptIn=${dataAssinaturaOptIn}&amp;listaCnpjCredenciadora=${listaCnpjCredenciadora}&amp;listaCodigoArranjoPagamento=${listaCodigoArranjoPagamento}&amp;dataInicioOptin=${dataInicioOptin}&amp;dataFimOptin=${dataFimOptin}&amp;documentoUsuarioFinalRecebedor=${documentoUsuarioFinalRecebedor}&amp;documentoTitular=${documentoTitular}&amp;cnpjFinanciador=${cnpjFinanciador}&amp;cnpjRecebedorAgenda=${cnpjRecebedorAgenda}&amp;carteira=${carteira}&amp;protocolo=${protocolo}&amp;token_completo=${token_completo}</camunda:inputParameter>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2FtdW5kYTpoWkFFaFdRMDBGd3I=</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1r5sl98</bpmn:incoming>
+        <bpmn:outgoing>Flow_1nfgofq</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:exclusiveGateway id="Gateway_09gjg7i" name="Retorno vazio Pentaho" default="Flow_1k6izb7">
+        <bpmn:incoming>Flow_0wm9gqt</bpmn:incoming>
+        <bpmn:outgoing>Flow_1rogses</bpmn:outgoing>
+        <bpmn:outgoing>Flow_1wqnjqc</bpmn:outgoing>
+        <bpmn:outgoing>Flow_1k6izb7</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:serviceTask id="Activity_1n2ql0s" name="Consultar código do erro no opt-in" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://pdi.zaz.vc:8082/kettle/executeTrans/?rep=ServidorPentahoAws&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_erro_opt_in&amp;level=info&amp;referenciaExterna=${referenciaExterna}</camunda:inputParameter>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2FtdW5kYTpoWkFFaFdRMDBGd3I=</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1at0a3y</bpmn:incoming>
+        <bpmn:outgoing>Flow_0i6b7hl</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:scriptTask id="Activity_0kfga92" name="Processar resultado da consulta" scriptFormat="javascript">
+        <bpmn:incoming>Flow_0i6b7hl</bpmn:incoming>
+        <bpmn:outgoing>Flow_0e92gzf</bpmn:outgoing>
+        <bpmn:script>var resultado = JSON.parse((S(execution.getVariable('result'))));
+var codigo = "Pentaho retornou vazio"
+if( resultado &amp;&amp; resultado.retorno){
+    var retorno = resultado.retorno;
+    codigo = retorno[0].codigo;
+}
+
+execution.setVariable("codConsultaAgenda", codigo);</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:userTask id="Activity_14lgj3y" name="Avaliar retorno vazio pentaho">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="carteira" label="Carteira:" type="string" defaultValue="${carteira}" />
+            <camunda:formField id="cnpjFinanciador" label="CNPJ Financiador:" type="string" defaultValue="${cnpjFinanciador}" />
+            <camunda:formField id="cnpjRecebedorAgenda" label="CNPJ Recebedor da Agenda:" type="string" defaultValue="${cnpjRecebedorAgenda}" />
+            <camunda:formField id="cnpjSolicitante" label="CNPJ solicitante:" type="string" defaultValue="${cnpjSolicitante}" />
+            <camunda:formField id="dataAssinaturaOptIn" label="Data assinatura da assinatura do Opt-In:" type="string" defaultValue="${dataAssinaturaOptIn}" />
+            <camunda:formField id="dataFimOptin" label="Data Fim:" type="string" defaultValue="${dataFimOptin}" />
+            <camunda:formField id="dataInicioOptin" label="Data início:" type="string" defaultValue="${dataInicioOptin}" />
+            <camunda:formField id="documentoTitular" label="Documento Titular:" type="string" defaultValue="${documentoTitular}" />
+            <camunda:formField id="documentoUsuarioFinalRecebedor" label="Documento usuário final recebedor:" type="string" defaultValue="${documentoUsuarioFinalRecebedor}" />
+            <camunda:formField id="listaCnpjCredenciadora" label="Lista CNPJ de Credenciadoras:" type="string" defaultValue="${listaCnpjCredenciadora}" />
+            <camunda:formField id="listaCodigoArranjoPagamento" label="Lista de código de Arranjo Pagamento:" type="string" defaultValue="${listaCodigoArranjoPagamento}" />
+            <camunda:formField id="tipoAvaliacao" label="Tipo de avaliação de agenda:" type="string" defaultValue="${tipoAvaliacao}" />
+            <camunda:formField id="tipoOperacao" label="Tipo de operação de agenda:" type="string" defaultValue="${tipoOperacao}" />
+            <camunda:formField id="codOptIn" label="Motivo do erro no Opt-In" type="string" defaultValue="${result}" />
+            <camunda:formField id="dataInicioAgenda" label="dataInicioAgenda" type="string" defaultValue="${dataInicioAgenda}" />
+            <camunda:formField id="dataFimAgenda" label="dataFimAgenda" type="string" defaultValue="${dataFimAgenda}" />
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1ll0xbp</bpmn:incoming>
+        <bpmn:outgoing>Flow_1f53g6x</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:userTask id="Activity_1jzbch5" name="Avaliar retorno vazio pentaho Consulta Opt-Out">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="carteira" label="Carteira:" type="string" defaultValue="${carteira}" />
+            <camunda:formField id="cnpjFinanciador" label="CNPJ Financiador:" type="string" defaultValue="${cnpjFinanciador}" />
+            <camunda:formField id="cnpjRecebedorAgenda" label="CNPJ Recebedor da Agenda:" type="string" defaultValue="${cnpjRecebedorAgenda}" />
+            <camunda:formField id="cnpjSolicitante" label="CNPJ solicitante:" type="string" defaultValue="${cnpjSolicitante}" />
+            <camunda:formField id="dataAssinaturaOptIn" label="Data assinatura da assinatura do Opt-In:" type="string" defaultValue="${dataAssinaturaOptIn}" />
+            <camunda:formField id="dataFimOptin" label="Data Fim:" type="string" defaultValue="${dataFimOptin}" />
+            <camunda:formField id="dataInicioOptin" label="Data início:" type="string" defaultValue="${dataInicioOptin}" />
+            <camunda:formField id="documentoTitular" label="Documento Titular:" type="string" defaultValue="${documentoTitular}" />
+            <camunda:formField id="documentoUsuarioFinalRecebedor" label="Documento usuário final recebedor:" type="string" defaultValue="${documentoUsuarioFinalRecebedor}" />
+            <camunda:formField id="listaCnpjCredenciadora" label="Lista CNPJ de Credenciadoras:" type="string" defaultValue="${listaCnpjCredenciadora}" />
+            <camunda:formField id="listaCodigoArranjoPagamento" label="Lista de código de Arranjo Pagamento:" type="string" defaultValue="${listaCodigoArranjoPagamento}" />
+            <camunda:formField id="tipoAvaliacao" label="Tipo de avaliação de agenda:" type="string" defaultValue="${tipoAvaliacao}" />
+            <camunda:formField id="tipoOperacao" label="Tipo de operação de agenda:" type="string" defaultValue="${tipoOperacao}" />
+            <camunda:formField id="codOptIn" label="Motivo do erro no Opt-In" type="string" defaultValue="${result}" />
+            <camunda:formField id="dataInicioAgenda" label="dataInicioAgenda" type="string" defaultValue="${dataInicioAgenda}" />
+            <camunda:formField id="dataFimAgenda" label="dataFimAgenda" type="string" defaultValue="${dataFimAgenda}" />
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1lkiuxj</bpmn:incoming>
+        <bpmn:outgoing>Flow_02j8vbx</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:userTask id="Activity_0dtpeob" name="Corrigir dados para realização de opt-in">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="carteira" label="Carteira:" type="string" defaultValue="${carteira}" />
+            <camunda:formField id="cnpjFinanciador" label="CNPJ Financiador:" type="string" defaultValue="${cnpjFinanciador}" />
+            <camunda:formField id="cnpjRecebedorAgenda" label="CNPJ Recebedor da Agenda:" type="string" defaultValue="${cnpjRecebedorAgenda}" />
+            <camunda:formField id="cnpjSolicitante" label="CNPJ solicitante:" type="string" defaultValue="${cnpjSolicitante}" />
+            <camunda:formField id="dataAssinaturaOptIn" label="Data assinatura da assinatura do Opt-In:" type="string" defaultValue="${dataAssinaturaOptIn}" />
+            <camunda:formField id="dataFimOptin" label="Data Fim:" type="string" defaultValue="${dataFimOptin}" />
+            <camunda:formField id="dataInicioOptin" label="Data início:" type="string" defaultValue="${dataInicioOptin}" />
+            <camunda:formField id="documentoTitular" label="Documento Titular:" type="string" defaultValue="${documentoTitular}" />
+            <camunda:formField id="documentoUsuarioFinalRecebedor" label="Documento usuário final recebedor:" type="string" defaultValue="${documentoUsuarioFinalRecebedor}" />
+            <camunda:formField id="listaCnpjCredenciadora" label="Lista CNPJ de Credenciadoras:" type="string" defaultValue="${listaCnpjCredenciadora}" />
+            <camunda:formField id="listaCodigoArranjoPagamento" label="Lista de código de Arranjo Pagamento:" type="string" defaultValue="${listaCodigoArranjoPagamento}" />
+            <camunda:formField id="tipoAvaliacao" label="Tipo de avaliação de agenda:" type="string" defaultValue="${tipoAvaliacao}" />
+            <camunda:formField id="tipoOperacao" label="Tipo de operação de agenda:" type="string" defaultValue="${tipoOperacao}" />
+            <camunda:formField id="codConsultaAgenda" label="Motivo do erro na agenda" type="string" defaultValue="${result}" />
+            <camunda:formField id="dataInicioAgenda" label="dataInicioAgenda" type="string" defaultValue="${dataInicioAgenda}" />
+            <camunda:formField id="dataFimAgenda" label="dataFimAgenda" type="string" defaultValue="${dataFimAgenda}" />
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0e92gzf</bpmn:incoming>
+        <bpmn:outgoing>Flow_15zcxxt</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:userTask id="Activity_0rg5msg" name="Corrigir dados para solicitação de opt-out">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="carteira" label="Carteira:" type="string" defaultValue="${carteira}" />
+            <camunda:formField id="cnpjFinanciador" label="CNPJ Financiador:" type="string" defaultValue="${cnpjFinanciador}" />
+            <camunda:formField id="cnpjRecebedorAgenda" label="CNPJ Recebedor da Agenda:" type="string" defaultValue="${cnpjRecebedorAgenda}" />
+            <camunda:formField id="cnpjSolicitante" label="CNPJ solicitante:" type="string" defaultValue="${cnpjSolicitante}" />
+            <camunda:formField id="dataAssinaturaOptIn" label="Data assinatura da assinatura do Opt-In:" type="string" defaultValue="${dataAssinaturaOptIn}" />
+            <camunda:formField id="dataFimOptin" label="Data Fim:" type="string" defaultValue="${dataFimOptin}" />
+            <camunda:formField id="dataInicioOptin" label="Data início:" type="string" defaultValue="${dataInicioOptin}" />
+            <camunda:formField id="documentoTitular" label="Documento Titular:" type="string" defaultValue="${documentoTitular}" />
+            <camunda:formField id="documentoUsuarioFinalRecebedor" label="Documento usuário final recebedor:" type="string" defaultValue="${documentoUsuarioFinalRecebedor}" />
+            <camunda:formField id="listaCnpjCredenciadora" label="Lista CNPJ de Credenciadoras:" type="string" defaultValue="${listaCnpjCredenciadora}" />
+            <camunda:formField id="listaCodigoArranjoPagamento" label="Lista de código de Arranjo Pagamento:" type="string" defaultValue="${listaCodigoArranjoPagamento}" />
+            <camunda:formField id="tipoAvaliacao" label="Tipo de avaliação de agenda:" type="string" defaultValue="${tipoAvaliacao}" />
+            <camunda:formField id="tipoOperacao" label="Tipo de operação de agenda:" type="string" defaultValue="${tipoOperacao}" />
+            <camunda:formField id="codOptOut" label="Motivo do erro na consulta de Opt-Out" type="string" defaultValue="${result}" />
+            <camunda:formField id="dataInicioAgenda" label="dataInicioAgenda" type="string" defaultValue="${dataInicioAgenda}" />
+            <camunda:formField id="dataFimAgenda" label="dataFimAgenda" type="string" defaultValue="${dataFimAgenda}" />
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1vjk5z2</bpmn:incoming>
+        <bpmn:outgoing>Flow_0ovrvo0</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="Flow_0ovrvo0" sourceRef="Activity_0rg5msg" targetRef="Gateway_1p2ro19" />
+      <bpmn:sequenceFlow id="Flow_15zcxxt" sourceRef="Activity_0dtpeob" targetRef="Activity_1o2j68a" />
+      <bpmn:sequenceFlow id="Flow_02j8vbx" sourceRef="Activity_1jzbch5" targetRef="Gateway_1p2ro19" />
+      <bpmn:sequenceFlow id="Flow_1vouvgd" name="Retorno vazio pentaho" sourceRef="Gateway_0qlhutr" targetRef="Event_1tjs1fq">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${status &lt; 0}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_1rogses" sourceRef="Gateway_09gjg7i" targetRef="Event_191red1">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${status &lt; 0}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_1wqnjqc" name="Insucesso&#10;no opt-in" sourceRef="Gateway_09gjg7i" targetRef="Event_1ywjd20">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${status &gt;= 1}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_0i6b7hl" sourceRef="Activity_1n2ql0s" targetRef="Activity_0kfga92" />
+      <bpmn:sequenceFlow id="Flow_0e92gzf" sourceRef="Activity_0kfga92" targetRef="Activity_0dtpeob" />
+      <bpmn:sequenceFlow id="Flow_1k6izb7" name="Sucesso&#10;no opt-in" sourceRef="Gateway_09gjg7i" targetRef="Event_0zfvpd6" />
+      <bpmn:sequenceFlow id="Flow_1nfgofq" sourceRef="Activity_0a5nhd7" targetRef="Gateway_1kr4668" />
+      <bpmn:sequenceFlow id="Flow_08v6u79" sourceRef="Activity_080q6p5" targetRef="Gateway_17rzs7m" />
+      <bpmn:sequenceFlow id="Flow_1asg51a" name="Sucesso&#10;opt-out" sourceRef="Gateway_0qlhutr" targetRef="Event_0fj8eoh" />
+      <bpmn:sequenceFlow id="Flow_1vjk5z2" sourceRef="Activity_1r7v7sh" targetRef="Activity_0rg5msg" />
+      <bpmn:sequenceFlow id="Flow_1je4js0" sourceRef="Activity_1a3mv5d" targetRef="Activity_1r7v7sh" />
+      <bpmn:sequenceFlow id="Flow_0tph4ld" name="Insucesso&#10;opt-out" sourceRef="Gateway_0qlhutr" targetRef="Event_1hz2xvh">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${status &gt;= 1}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_1k8ha7x" sourceRef="Event_0natnff" targetRef="Activity_0rufo4h" />
+      <bpmn:serviceTask id="Activity_0kq5eyd" name="Consultar agenda CERC" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://pdi.zaz.vc:8082/kettle/executeTrans/?rep=ServidorPentahoAws&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_agenda&amp;referenciaExterna=${referenciaExterna}&amp;listaCnpjCredenciadora=${listaCnpjCredenciadora}&amp;listaCodigoArranjoPagamento=${listaCodigoArranjoPagamento}&amp;documentoTitular=${documentoTitular}&amp;tipoAvaliacao=${tipoAvaliacao}&amp;dataFimAgenda=${dataFimAgenda}&amp;dataInicioAgenda=${dataInicioAgenda}&amp;token_completo=${token_completo}&amp;documentoUsuarioFinalRecebedor=${documentoUsuarioFinalRecebedor}</camunda:inputParameter>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2FtdW5kYTpoWkFFaFdRMDBGd3I=</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0juchgt</bpmn:incoming>
+        <bpmn:outgoing>Flow_0bt9ly7</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:exclusiveGateway id="Gateway_1t9f851" default="Flow_0o4n6um">
+        <bpmn:incoming>Flow_0f6od4v</bpmn:incoming>
+        <bpmn:outgoing>Flow_1rpx83q</bpmn:outgoing>
+        <bpmn:outgoing>Flow_15twuq2</bpmn:outgoing>
+        <bpmn:outgoing>Flow_0o4n6um</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:serviceTask id="Activity_065ccca" name="Consultar código do erro na consulta agenda" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://pdi.zaz.vc:8082/kettle/executeTrans/?rep=ServidorPentahoAws&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_erro_agenda_cerc&amp;level=info&amp;referenciaExterna=${referenciaExterna}</camunda:inputParameter>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2FtdW5kYTpoWkFFaFdRMDBGd3I=</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_018kl31</bpmn:incoming>
+        <bpmn:outgoing>Flow_1e4aq3j</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:scriptTask id="Activity_0rqhy44" name="Processar resultado da consulta" scriptFormat="javascript">
+        <bpmn:incoming>Flow_1e4aq3j</bpmn:incoming>
+        <bpmn:outgoing>Flow_09z8ye0</bpmn:outgoing>
+        <bpmn:script>var system = java.lang.System;
+var resultado = JSON.parse((S(execution.getVariable('result'))));
+
+var retorno = resultado.response;
+
+var ultimoStatus = retorno[0];
+
+execution.setVariable("codConsultaAgenda", ultimoStatus.codigo);</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:userTask id="Activity_00ktymd" name="Avaliar retorno vazio pentaho">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="carteira" label="Carteira:" type="string" defaultValue="${carteira}" />
+            <camunda:formField id="cnpjFinanciador" label="CNPJ Financiador:" type="string" defaultValue="${cnpjFinanciador}" />
+            <camunda:formField id="cnpjRecebedorAgenda" label="CNPJ Recebedor da Agenda:" type="string" defaultValue="${cnpjRecebedorAgenda}" />
+            <camunda:formField id="cnpjSolicitante" label="CNPJ solicitante:" type="string" defaultValue="${cnpjSolicitante}" />
+            <camunda:formField id="dataAssinaturaOptIn" label="Data assinatura da assinatura do Opt-In:" type="string" defaultValue="${dataAssinaturaOptIn}" />
+            <camunda:formField id="dataFimOptin" label="Data Fim:" type="string" defaultValue="${dataFimOptin}" />
+            <camunda:formField id="dataInicioOptin" label="Data início:" type="string" defaultValue="${dataInicioOptin}" />
+            <camunda:formField id="documentoTitular" label="Documento Titular:" type="string" defaultValue="${documentoTitular}" />
+            <camunda:formField id="documentoUsuarioFinalRecebedor" label="Documento usuário final recebedor:" type="string" defaultValue="${documentoUsuarioFinalRecebedor}" />
+            <camunda:formField id="listaCnpjCredenciadora" label="Lista CNPJ de Credenciadoras:" type="string" defaultValue="${listaCnpjCredenciadora}" />
+            <camunda:formField id="listaCodigoArranjoPagamento" label="Lista de código de Arranjo Pagamento:" type="string" defaultValue="${listaCodigoArranjoPagamento}" />
+            <camunda:formField id="tipoAvaliacao" label="Tipo de avaliação de agenda:" type="string" defaultValue="${tipoAvaliacao}" />
+            <camunda:formField id="tipoOperacao" label="Tipo de operação de agenda:" type="string" defaultValue="${tipoOperacao}" />
+            <camunda:formField id="codOptIn" label="Motivo do erro no Opt-In" type="string" defaultValue="${result}" />
+            <camunda:formField id="dataInicioAgenda" label="dataInicioAgenda" type="string" defaultValue="${dataInicioAgenda}" />
+            <camunda:formField id="dataFimAgenda" label="dataFimAgenda" type="string" defaultValue="${dataFimAgenda}" />
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1sltf8s</bpmn:incoming>
+        <bpmn:outgoing>Flow_1wrrdvt</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:userTask id="Activity_1tqng6r" name="Corrigir dados para solicitação de agenda">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="carteira" label="Carteira:" type="string" defaultValue="${carteira}" />
+            <camunda:formField id="cnpjFinanciador" label="CNPJ Financiador:" type="string" defaultValue="${cnpjFinanciador}" />
+            <camunda:formField id="cnpjRecebedorAgenda" label="CNPJ Recebedor da Agenda:" type="string" defaultValue="${cnpjRecebedorAgenda}" />
+            <camunda:formField id="cnpjSolicitante" label="CNPJ solicitante:" type="string" defaultValue="${cnpjSolicitante}" />
+            <camunda:formField id="dataAssinaturaOptIn" label="Data assinatura da assinatura do Opt-In:" type="string" defaultValue="${dataAssinaturaOptIn}" />
+            <camunda:formField id="dataFimOptin" label="Data Fim:" type="string" defaultValue="${dataFimOptin}" />
+            <camunda:formField id="dataInicioOptin" label="Data início:" type="string" defaultValue="${dataInicioOptin}" />
+            <camunda:formField id="documentoTitular" label="Documento Titular:" type="string" defaultValue="${documentoTitular}" />
+            <camunda:formField id="documentoUsuarioFinalRecebedor" label="Documento usuário final recebedor:" type="string" defaultValue="${documentoUsuarioFinalRecebedor}" />
+            <camunda:formField id="listaCnpjCredenciadora" label="Lista CNPJ de Credenciadoras:" type="string" defaultValue="${listaCnpjCredenciadora}" />
+            <camunda:formField id="listaCodigoArranjoPagamento" label="Lista de código de Arranjo Pagamento:" type="string" defaultValue="${listaCodigoArranjoPagamento}" />
+            <camunda:formField id="tipoAvaliacao" label="Tipo de avaliação de agenda:" type="string" defaultValue="${tipoAvaliacao}" />
+            <camunda:formField id="tipoOperacao" label="Tipo de operação de agenda:" type="string" defaultValue="${tipoOperacao}" />
+            <camunda:formField id="codConsultaAgenda" label="Motivo do erro na agenda" type="string" defaultValue="${result}" />
+            <camunda:formField id="dataInicioAgenda" label="dataInicioAgenda" type="string" defaultValue="${dataInicioAgenda}" />
+            <camunda:formField id="dataFimAgenda" label="dataFimAgenda" type="string" defaultValue="${dataFimAgenda}" />
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_09z8ye0</bpmn:incoming>
+        <bpmn:outgoing>Flow_0rioyyl</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="Flow_0rioyyl" sourceRef="Activity_1tqng6r" targetRef="Gateway_09qpdva" />
+      <bpmn:sequenceFlow id="Flow_1wrrdvt" sourceRef="Activity_00ktymd" targetRef="Gateway_09qpdva" />
+      <bpmn:sequenceFlow id="Flow_0bt9ly7" sourceRef="Activity_0kq5eyd" targetRef="Gateway_1en5o92" />
+      <bpmn:sequenceFlow id="Flow_1rpx83q" name="Retorno vazio pentaho" sourceRef="Gateway_1t9f851" targetRef="Event_1oqspdk">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${status &lt; 0}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_15twuq2" name="Insucesso consulta agenda" sourceRef="Gateway_1t9f851" targetRef="Event_1jqlzmz">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${status &gt;= 1}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_1e4aq3j" sourceRef="Activity_065ccca" targetRef="Activity_0rqhy44" />
+      <bpmn:sequenceFlow id="Flow_09z8ye0" sourceRef="Activity_0rqhy44" targetRef="Activity_1tqng6r" />
+      <bpmn:serviceTask id="Activity_0rufo4h" name="Recebimento de parametros" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2FtdW5kYTpoWkFFaFdRMDBGd3I=</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://pdi.zaz.vc:8082/kettle/executeTrans/?rep=ServidorPentahoAws&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/inicio_fluxo_cerc_camunda&amp;level=Debug&amp;tipoOperacao=${tipoOperacao}&amp;referenciaExterna=${referenciaExterna}&amp;cnpjSolicitante=${cnpjSolicitante}&amp;dataAssinaturaOptIn=${dataAssinaturaOptIn}&amp;listaCodigoArranjoPagamento=${listaCodigoArranjoPagamento}&amp;dataInicioOptin=${dataInicioOptin}&amp;dataFimOptin=${dataFimOptin}&amp;documentoUsuarioFinalRecebedor=${documentoUsuarioFinalRecebedor}&amp;documentoTitular=${documentoTitular}&amp;cnpjFinanciador=${cnpjFinanciador}&amp;cnpjRecebedorAgenda=${cnpjRecebedorAgenda}&amp;listaCnpjCredenciadora=${listaCnpjCredenciadora}&amp;tipoAvaliacao=${tipoAvaliacao}&amp;carteira=${carteira}&amp;protocolo=${protocolo}&amp;dataFimAgenda=${dataFimAgenda}&amp;dataInicioAgenda=${dataInicioAgenda}</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1k8ha7x</bpmn:incoming>
+        <bpmn:outgoing>Flow_0jkujfp</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:exclusiveGateway id="Gateway_1kr4668" default="Flow_01et8dh">
+        <bpmn:incoming>Flow_1nfgofq</bpmn:incoming>
+        <bpmn:outgoing>Flow_0p12oyc</bpmn:outgoing>
+        <bpmn:outgoing>Flow_01et8dh</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:intermediateCatchEvent id="Event_03mjumh" name="1 M">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_5_optin_falhaSolicitacao', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0p12oyc</bpmn:incoming>
+        <bpmn:outgoing>Flow_0kvvxvd</bpmn:outgoing>
+        <bpmn:timerEventDefinition id="TimerEventDefinition_115194r">
+          <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+        </bpmn:timerEventDefinition>
+      </bpmn:intermediateCatchEvent>
+      <bpmn:sequenceFlow id="Flow_0p12oyc" name="Insucesso&#10;API Pentaho" sourceRef="Gateway_1kr4668" targetRef="Event_03mjumh">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${statusCode &gt;= 500}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_01et8dh" name="Sucesso API Pentaho" sourceRef="Gateway_1kr4668" targetRef="Activity_0jxtlzq" />
+      <bpmn:serviceTask id="Activity_0jxtlzq" name="Consultar resultado opt-in" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://pdi.zaz.vc:8082/kettle/executeTrans/?rep=ServidorPentahoAws&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_sucesso_opt_in&amp;level=info&amp;referenciaExterna=${referenciaExterna}</camunda:inputParameter>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2FtdW5kYTpoWkFFaFdRMDBGd3I=</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_01et8dh</bpmn:incoming>
+        <bpmn:outgoing>Flow_0h0nkxb</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:sequenceFlow id="Flow_0h0nkxb" sourceRef="Activity_0jxtlzq" targetRef="Activity_0njf1xt" />
+      <bpmn:serviceTask id="Activity_1vfjd9l" name="Consultar armazenar protocolo Opt-In" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://pdi.zaz.vc:8082/kettle/executeTrans/?rep=ServidorPentahoAws&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_protocolo_opt_in&amp;level=info&amp;referenciaExterna=${referenciaExterna}</camunda:inputParameter>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2FtdW5kYTpoWkFFaFdRMDBGd3I=</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1f2v5e9</bpmn:incoming>
+        <bpmn:outgoing>Flow_0rg0vfm</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:sequenceFlow id="Flow_0rg0vfm" sourceRef="Activity_1vfjd9l" targetRef="Activity_1pbwlp0" />
+      <bpmn:exclusiveGateway id="Gateway_1w5osst" default="Flow_0o9khly">
+        <bpmn:incoming>Flow_1jgut9k</bpmn:incoming>
+        <bpmn:outgoing>Flow_0o9khly</bpmn:outgoing>
+        <bpmn:outgoing>Flow_1ujgytg</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:sequenceFlow id="Flow_0o9khly" sourceRef="Gateway_1w5osst" targetRef="Event_1vibob7" />
+      <bpmn:userTask id="Activity_1ikts1k" name="Avaliar retorno vazio pentaho">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="carteira" label="Carteira:" type="string" defaultValue="${carteira}" />
+            <camunda:formField id="cnpjFinanciador" label="CNPJ Financiador:" type="string" defaultValue="${cnpjFinanciador}" />
+            <camunda:formField id="cnpjRecebedorAgenda" label="CNPJ Recebedor da Agenda:" type="string" defaultValue="${cnpjRecebedorAgenda}" />
+            <camunda:formField id="cnpjSolicitante" label="CNPJ solicitante:" type="string" defaultValue="${cnpjSolicitante}" />
+            <camunda:formField id="dataAssinaturaOptIn" label="Data assinatura da assinatura do Opt-In:" type="string" defaultValue="${dataAssinaturaOptIn}" />
+            <camunda:formField id="dataFimOptin" label="Data Fim:" type="string" defaultValue="${dataFimOptin}" />
+            <camunda:formField id="dataInicioOptin" label="Data início:" type="string" defaultValue="${dataInicioOptin}" />
+            <camunda:formField id="documentoTitular" label="Documento Titular:" type="string" defaultValue="${documentoTitular}" />
+            <camunda:formField id="documentoUsuarioFinalRecebedor" label="Documento usuário final recebedor:" type="string" defaultValue="${documentoUsuarioFinalRecebedor}" />
+            <camunda:formField id="listaCnpjCredenciadora" label="Lista CNPJ de Credenciadoras:" type="string" defaultValue="${listaCnpjCredenciadora}" />
+            <camunda:formField id="listaCodigoArranjoPagamento" label="Lista de código de Arranjo Pagamento:" type="string" defaultValue="${listaCodigoArranjoPagamento}" />
+            <camunda:formField id="tipoAvaliacao" label="Tipo de avaliação de agenda:" type="string" defaultValue="${tipoAvaliacao}" />
+            <camunda:formField id="tipoOperacao" label="Tipo de operação de agenda:" type="string" defaultValue="${tipoOperacao}" />
+            <camunda:formField id="codOptIn" label="Motivo do erro no Opt-In" type="string" defaultValue="${result}" />
+            <camunda:formField id="dataInicioAgenda" label="dataInicioAgenda" type="string" defaultValue="${dataInicioAgenda}" />
+            <camunda:formField id="dataFimAgenda" label="dataFimAgenda" type="string" defaultValue="${dataFimAgenda}" />
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1w8lj8d</bpmn:incoming>
+        <bpmn:outgoing>Flow_0biu1c3</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="Flow_1ujgytg" name="Retorno pentaho vazio" sourceRef="Gateway_1w5osst" targetRef="Event_0l8q5km">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${status &lt; 0}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:exclusiveGateway id="Gateway_1en5o92" default="Flow_0lp3a0r">
+        <bpmn:incoming>Flow_0bt9ly7</bpmn:incoming>
+        <bpmn:outgoing>Flow_0zk5psn</bpmn:outgoing>
+        <bpmn:outgoing>Flow_0lp3a0r</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:intermediateCatchEvent id="Event_1wsup4c" name="1 M">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_13_consultaAgenda_falhaSolicitacao', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0zk5psn</bpmn:incoming>
+        <bpmn:outgoing>Flow_1ntt264</bpmn:outgoing>
+        <bpmn:timerEventDefinition id="TimerEventDefinition_1dov5w4">
+          <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+        </bpmn:timerEventDefinition>
+      </bpmn:intermediateCatchEvent>
+      <bpmn:sequenceFlow id="Flow_0zk5psn" name="Insucesso&#10;API Pentaho" sourceRef="Gateway_1en5o92" targetRef="Event_1wsup4c">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${statusCode &gt;= 500}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_0lp3a0r" name="Sucesso API Pentaho" sourceRef="Gateway_1en5o92" targetRef="Activity_1re7rel" />
+      <bpmn:sequenceFlow id="Flow_1ntt264" sourceRef="Event_1wsup4c" targetRef="Gateway_09qpdva" />
+      <bpmn:serviceTask id="Activity_1re7rel" name="Consultar resultado agenda" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://pdi.zaz.vc:8082/kettle/executeTrans/?rep=ServidorPentahoAws&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_sucesso_agenda_cerc&amp;level=info&amp;referenciaExterna=${referenciaExterna}</camunda:inputParameter>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2FtdW5kYTpoWkFFaFdRMDBGd3I=</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0lp3a0r</bpmn:incoming>
+        <bpmn:outgoing>Flow_1lxunoy</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:sequenceFlow id="Flow_1lxunoy" sourceRef="Activity_1re7rel" targetRef="Activity_1v4osnc" />
+      <bpmn:exclusiveGateway id="Gateway_17rzs7m" default="Flow_17sk9bt">
+        <bpmn:incoming>Flow_08v6u79</bpmn:incoming>
+        <bpmn:outgoing>Flow_0d8oxpa</bpmn:outgoing>
+        <bpmn:outgoing>Flow_17sk9bt</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:intermediateCatchEvent id="Event_1jy60vm" name="1 M">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_18_optout_falhaSolicitacao', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0d8oxpa</bpmn:incoming>
+        <bpmn:outgoing>Flow_1lyecup</bpmn:outgoing>
+        <bpmn:timerEventDefinition id="TimerEventDefinition_0dk2mqu">
+          <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+        </bpmn:timerEventDefinition>
+      </bpmn:intermediateCatchEvent>
+      <bpmn:sequenceFlow id="Flow_0d8oxpa" name="Insucesso&#10;API Pentaho" sourceRef="Gateway_17rzs7m" targetRef="Event_1jy60vm">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${statusCode &gt;= 500}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_17sk9bt" name="Sucesso API Pentaho" sourceRef="Gateway_17rzs7m" targetRef="Activity_1lnjfe4" />
+      <bpmn:sequenceFlow id="Flow_1lyecup" sourceRef="Event_1jy60vm" targetRef="Gateway_1p2ro19" />
+      <bpmn:serviceTask id="Activity_1lnjfe4" name="Consultar resultado opt-out" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://pdi.zaz.vc:8082/kettle/executeTrans/?rep=ServidorPentahoAws&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_sucesso_opt_out&amp;referenciaExterna=${referenciaExterna}</camunda:inputParameter>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2FtdW5kYTpoWkFFaFdRMDBGd3I=</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_17sk9bt</bpmn:incoming>
+        <bpmn:outgoing>Flow_1mkrllt</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:sequenceFlow id="Flow_1mkrllt" sourceRef="Activity_1lnjfe4" targetRef="Activity_1lt3vci" />
+      <bpmn:serviceTask id="Activity_14pbgf4" name="Consultar protocolo opt-out" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://pdi.zaz.vc:8082/kettle/executeTrans/?rep=ServidorPentahoAws&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_protocolo_opt_out&amp;level=info&amp;referenciaExterna=${referenciaExterna}</camunda:inputParameter>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2FtdW5kYTpoWkFFaFdRMDBGd3I=</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1qcyto1</bpmn:incoming>
+        <bpmn:outgoing>Flow_0639att</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:sequenceFlow id="Flow_0639att" sourceRef="Activity_14pbgf4" targetRef="Activity_173whb3" />
+      <bpmn:sequenceFlow id="Flow_0o4n6um" name="Sucesso na consulta agenda" sourceRef="Gateway_1t9f851" targetRef="Event_1iwd6nn" />
+      <bpmn:sequenceFlow id="Flow_0jkujfp" sourceRef="Activity_0rufo4h" targetRef="Event_1dlkp4r" />
+      <bpmn:callActivity id="Process_0h5i8uv" name="Gerar Token Cerc" calledElement="gerar_token_cerc">
+        <bpmn:extensionElements>
+          <camunda:in businessKey="#{execution.processBusinessKey}" />
+          <camunda:in variables="all" />
+          <camunda:out variables="all" />
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0pyqf53</bpmn:incoming>
+        <bpmn:outgoing>Flow_06vxjpp</bpmn:outgoing>
+      </bpmn:callActivity>
+      <bpmn:sequenceFlow id="Flow_06vxjpp" sourceRef="Process_0h5i8uv" targetRef="Event_0z0sfys" />
+      <bpmn:exclusiveGateway id="Gateway_0qkrga3" default="Flow_16abn42">
+        <bpmn:incoming>Flow_0kvvxvd</bpmn:incoming>
+        <bpmn:incoming>Flow_0oqir6p</bpmn:incoming>
+        <bpmn:incoming>Flow_1f53g6x</bpmn:incoming>
+        <bpmn:incoming>Flow_0biu1c3</bpmn:incoming>
+        <bpmn:incoming>Flow_1pdqajr</bpmn:incoming>
+        <bpmn:outgoing>Flow_16abn42</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:sequenceFlow id="Flow_16abn42" sourceRef="Gateway_0qkrga3" targetRef="Event_1gljajm" />
+      <bpmn:sequenceFlow id="Flow_0kvvxvd" sourceRef="Event_03mjumh" targetRef="Gateway_0qkrga3" />
+      <bpmn:scriptTask id="Activity_1o2j68a" name="Gerar nova referencia externa" scriptFormat="javascript">
+        <bpmn:incoming>Flow_15zcxxt</bpmn:incoming>
+        <bpmn:outgoing>Flow_0oqir6p</bpmn:outgoing>
+        <bpmn:script>if(execution.hasVariable("count")){
+    var count = execution.getVariable("count") + 1;
+    execution.setVariable("count",count);
+    execution.setVariable("referenciaExterna",count + "-" + businessKey);
+}</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:sequenceFlow id="Flow_0oqir6p" sourceRef="Activity_1o2j68a" targetRef="Gateway_0qkrga3" />
+      <bpmn:sequenceFlow id="Flow_1f53g6x" sourceRef="Activity_14lgj3y" targetRef="Gateway_0qkrga3" />
+      <bpmn:sequenceFlow id="Flow_0biu1c3" sourceRef="Activity_1ikts1k" targetRef="Gateway_0qkrga3" />
+      <bpmn:exclusiveGateway id="Gateway_09qpdva" default="Flow_1uvg5lt">
+        <bpmn:incoming>Flow_0rioyyl</bpmn:incoming>
+        <bpmn:incoming>Flow_1ntt264</bpmn:incoming>
+        <bpmn:incoming>Flow_1wrrdvt</bpmn:incoming>
+        <bpmn:incoming>Flow_0a91w5g</bpmn:incoming>
+        <bpmn:outgoing>Flow_1uvg5lt</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:sequenceFlow id="Flow_1uvg5lt" sourceRef="Gateway_09qpdva" targetRef="Event_07rivz7" />
+      <bpmn:exclusiveGateway id="Gateway_1p2ro19" default="Flow_0lusa13">
+        <bpmn:incoming>Flow_0ovrvo0</bpmn:incoming>
+        <bpmn:incoming>Flow_1lyecup</bpmn:incoming>
+        <bpmn:incoming>Flow_02j8vbx</bpmn:incoming>
+        <bpmn:incoming>Flow_1ozjg6o</bpmn:incoming>
+        <bpmn:outgoing>Flow_0lusa13</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:sequenceFlow id="Flow_0lusa13" sourceRef="Gateway_1p2ro19" targetRef="Event_01j8jld" />
+      <bpmn:intermediateThrowEvent id="Event_1dlkp4r">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_2_geracaoToken_iniciada', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0jkujfp</bpmn:incoming>
+        <bpmn:outgoing>Flow_0pyqf53</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_0pyqf53" sourceRef="Event_1dlkp4r" targetRef="Process_0h5i8uv" />
+      <bpmn:intermediateThrowEvent id="Event_0z0sfys">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_3_geracaoToken_concluida', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_06vxjpp</bpmn:incoming>
+        <bpmn:outgoing>Flow_1pdqajr</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_1pdqajr" sourceRef="Event_0z0sfys" targetRef="Gateway_0qkrga3" />
+      <bpmn:intermediateThrowEvent id="Event_1gljajm">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_4_optin_iniciado', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_16abn42</bpmn:incoming>
+        <bpmn:outgoing>Flow_1r5sl98</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_1r5sl98" sourceRef="Event_1gljajm" targetRef="Activity_0a5nhd7" />
+      <bpmn:intermediateThrowEvent id="Event_0zfvpd6">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_8_optin_sucesso', new Date());
+execution.setVariable('status_CERC_9_protocoloOptin_iniciado', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1k6izb7</bpmn:incoming>
+        <bpmn:outgoing>Flow_1f2v5e9</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_1f2v5e9" sourceRef="Event_0zfvpd6" targetRef="Activity_1vfjd9l" />
+      <bpmn:intermediateThrowEvent id="Event_191red1">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_7_optin_falhaPentaho', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1rogses</bpmn:incoming>
+        <bpmn:outgoing>Flow_1ll0xbp</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_1ll0xbp" sourceRef="Event_191red1" targetRef="Activity_14lgj3y" />
+      <bpmn:intermediateThrowEvent id="Event_1ywjd20">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_6_optin_falhaConsulta', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1wqnjqc</bpmn:incoming>
+        <bpmn:outgoing>Flow_1at0a3y</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_1at0a3y" sourceRef="Event_1ywjd20" targetRef="Activity_1n2ql0s" />
+      <bpmn:intermediateThrowEvent id="Event_1vibob7">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_11_protocoloOptin_sucesso', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0o9khly</bpmn:incoming>
+        <bpmn:outgoing>Flow_0a91w5g</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_0a91w5g" sourceRef="Event_1vibob7" targetRef="Gateway_09qpdva" />
+      <bpmn:intermediateThrowEvent id="Event_0l8q5km">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_10_protocoloOptin_falha', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1ujgytg</bpmn:incoming>
+        <bpmn:outgoing>Flow_1w8lj8d</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_1w8lj8d" sourceRef="Event_0l8q5km" targetRef="Activity_1ikts1k" />
+      <bpmn:intermediateThrowEvent id="Event_07rivz7">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_12_consultaAgenda_iniciada', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1uvg5lt</bpmn:incoming>
+        <bpmn:outgoing>Flow_0juchgt</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_0juchgt" sourceRef="Event_07rivz7" targetRef="Activity_0kq5eyd" />
+      <bpmn:intermediateThrowEvent id="Event_1jqlzmz">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_14_consultaAgenda_falhaConsulta', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_15twuq2</bpmn:incoming>
+        <bpmn:outgoing>Flow_018kl31</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_018kl31" sourceRef="Event_1jqlzmz" targetRef="Activity_065ccca" />
+      <bpmn:intermediateThrowEvent id="Event_1oqspdk">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_15_consultaAgenda_falhaPentaho', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1rpx83q</bpmn:incoming>
+        <bpmn:outgoing>Flow_1sltf8s</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_1sltf8s" sourceRef="Event_1oqspdk" targetRef="Activity_00ktymd" />
+      <bpmn:intermediateThrowEvent id="Event_1iwd6nn">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_16_consultaAgenda_sucesso', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0o4n6um</bpmn:incoming>
+        <bpmn:outgoing>Flow_1ozjg6o</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_1ozjg6o" sourceRef="Event_1iwd6nn" targetRef="Gateway_1p2ro19" />
+      <bpmn:intermediateThrowEvent id="Event_01j8jld">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_17_optout_iniciado', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0lusa13</bpmn:incoming>
+        <bpmn:outgoing>Flow_1y93mas</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_1y93mas" sourceRef="Event_01j8jld" targetRef="Activity_080q6p5" />
+      <bpmn:intermediateThrowEvent id="Event_1hz2xvh">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_19_optout_falhaConsulta', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0tph4ld</bpmn:incoming>
+        <bpmn:outgoing>Flow_1pga82r</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_1pga82r" sourceRef="Event_1hz2xvh" targetRef="Activity_1a3mv5d" />
+      <bpmn:intermediateThrowEvent id="Event_1tjs1fq">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_20_optout_falhaPentaho', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1vouvgd</bpmn:incoming>
+        <bpmn:outgoing>Flow_1lkiuxj</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_1lkiuxj" sourceRef="Event_1tjs1fq" targetRef="Activity_1jzbch5" />
+      <bpmn:intermediateThrowEvent id="Event_0fj8eoh">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="groovy">execution.setVariable('status_CERC_21_optout_sucesso', new Date());
+execution.setVariable('status_CERC_22_consulta_concluida', new Date());</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1asg51a</bpmn:incoming>
+        <bpmn:outgoing>Flow_1qcyto1</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_1qcyto1" sourceRef="Event_0fj8eoh" targetRef="Activity_14pbgf4" />
+      <bpmn:sequenceFlow id="Flow_0wm9gqt" sourceRef="Activity_0njf1xt" targetRef="Gateway_09gjg7i" />
+      <bpmn:scriptTask id="Activity_0njf1xt" name="Processar resultado consulta Optin" scriptFormat="javascript">
+        <bpmn:incoming>Flow_0h0nkxb</bpmn:incoming>
+        <bpmn:outgoing>Flow_0wm9gqt</bpmn:outgoing>
+        <bpmn:script>var resultado = JSON.parse((S(execution.getVariable('result'))));
+var status = -1;
+if(resultado &amp;&amp; resultado.data){
+    var retorno = resultado.data;
+  	status = retorno[0].status;
+}
+
+execution.setVariable("status", status);</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:sequenceFlow id="Flow_1jgut9k" sourceRef="Activity_1pbwlp0" targetRef="Gateway_1w5osst" />
+      <bpmn:scriptTask id="Activity_1pbwlp0" name="Processar resultado protocolo Optin" scriptFormat="javascript">
+        <bpmn:incoming>Flow_0rg0vfm</bpmn:incoming>
+        <bpmn:outgoing>Flow_1jgut9k</bpmn:outgoing>
+        <bpmn:script>var resultado = JSON.parse((S(execution.getVariable('result'))));
+var status = -1;
+if(resultado &amp;&amp; resultado.retorno){
+    var retorno = resultado.retorno[0];
+    var protocoloOptIn = retorno.protocoloOptIn;
+  	status = retorno.status;
+
+    execution.setVariable("protocoloOptIn", protocoloOptIn);
+}
+
+execution.setVariable("status", status);</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:sequenceFlow id="Flow_0f6od4v" sourceRef="Activity_1v4osnc" targetRef="Gateway_1t9f851" />
+      <bpmn:scriptTask id="Activity_1v4osnc" name="Processar retorno agenda" scriptFormat="javascript">
+        <bpmn:incoming>Flow_1lxunoy</bpmn:incoming>
+        <bpmn:outgoing>Flow_0f6od4v</bpmn:outgoing>
+        <bpmn:script>var resultado = JSON.parse((S(execution.getVariable('result'))));
+var cod_http = "1000";
+if(resultado &amp;&amp; resultado.retorno){
+    var retorno = resultado.retorno;
+    cod_http = retorno[0].cod_http;
+}
+
+execution.setVariable("cod_http", cod_http);</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:sequenceFlow id="Flow_0qiav5k" sourceRef="Activity_1lt3vci" targetRef="Gateway_0qlhutr" />
+      <bpmn:scriptTask id="Activity_1lt3vci" name="Processar resultado optout" scriptFormat="javascript">
+        <bpmn:incoming>Flow_1mkrllt</bpmn:incoming>
+        <bpmn:outgoing>Flow_0qiav5k</bpmn:outgoing>
+        <bpmn:script>var resultado = JSON.parse((S(execution.getVariable('result'))));
+var status = -1;
+if(resultado &amp;&amp; resultado.retorno){
+    var retorno = resultado.retorno;
+  	status = retorno[0].status
+}
+
+execution.setVariable("status", status);</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:sequenceFlow id="Flow_1o0b60s" sourceRef="Activity_173whb3" targetRef="Event_056wc3i" />
+      <bpmn:scriptTask id="Activity_173whb3" name="Processar resultado consulta optout" scriptFormat="javascript">
+        <bpmn:incoming>Flow_0639att</bpmn:incoming>
+        <bpmn:outgoing>Flow_1o0b60s</bpmn:outgoing>
+        <bpmn:script>var resultado = JSON.parse((S(execution.getVariable('result'))));
+var status = -1;
+if(resultado &amp;&amp; resultado.retorno){
+    var retorno = resultado.retorno[0];
+    var protocoloOptOut = retorno.protocoloOptOut
+
+    execution.setVariable("protocoloOptOut", protocoloOptOut);
+}
+
+execution.setVariable("status", status);</bpmn:script>
+      </bpmn:scriptTask>
+    </bpmn:subProcess>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0zq2bxe">
+      <bpmndi:BPMNShape id="Participant_0ah79lo_di" bpmnElement="Participant_0ah79lo" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="4350" height="650" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1clu4ut_di" bpmnElement="Flow_1clu4ut">
+        <di:waypoint x="253" y="390" />
+        <di:waypoint x="295" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ygpgmo_di" bpmnElement="Flow_0ygpgmo">
+        <di:waypoint x="4410" y="390" />
+        <di:waypoint x="4442" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0ne5p6h_di" bpmnElement="Event_0ne5p6h" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="217" y="372" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="192" y="415" width="87" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0m05lq0_di" bpmnElement="Event_0m05lq0">
+        <dc:Bounds x="4442" y="372" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tyybjn_di" bpmnElement="Activity_0tyybjn" isExpanded="true">
+        <dc:Bounds x="295" y="130" width="4115" height="540" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0lusa13_di" bpmnElement="Flow_0lusa13">
+        <di:waypoint x="3235" y="390" />
+        <di:waypoint x="3262" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1uvg5lt_di" bpmnElement="Flow_1uvg5lt">
+        <di:waypoint x="2325" y="390" />
+        <di:waypoint x="2352" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0biu1c3_di" bpmnElement="Flow_0biu1c3">
+        <di:waypoint x="2060" y="190" />
+        <di:waypoint x="880" y="190" />
+        <di:waypoint x="880" y="375" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1f53g6x_di" bpmnElement="Flow_1f53g6x">
+        <di:waypoint x="1490" y="270" />
+        <di:waypoint x="900" y="270" />
+        <di:waypoint x="900" y="375" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0oqir6p_di" bpmnElement="Flow_0oqir6p">
+        <di:waypoint x="880" y="530" />
+        <di:waypoint x="880" y="405" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0kvvxvd_di" bpmnElement="Flow_0kvvxvd">
+        <di:waypoint x="1222" y="480" />
+        <di:waypoint x="900" y="480" />
+        <di:waypoint x="900" y="405" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16abn42_di" bpmnElement="Flow_16abn42">
+        <di:waypoint x="915" y="390" />
+        <di:waypoint x="962" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06vxjpp_di" bpmnElement="Flow_06vxjpp">
+        <di:waypoint x="750" y="390" />
+        <di:waypoint x="792" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jkujfp_di" bpmnElement="Flow_0jkujfp">
+        <di:waypoint x="520" y="390" />
+        <di:waypoint x="572" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0o4n6um_di" bpmnElement="Flow_0o4n6um">
+        <di:waypoint x="3035" y="390" />
+        <di:waypoint x="3102" y="390" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3030" y="373" width="81" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0639att_di" bpmnElement="Flow_0639att">
+        <di:waypoint x="4140" y="390" />
+        <di:waypoint x="4200" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1mkrllt_di" bpmnElement="Flow_1mkrllt">
+        <di:waypoint x="3680" y="390" />
+        <di:waypoint x="3730" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lyecup_di" bpmnElement="Flow_1lyecup">
+        <di:waypoint x="3472" y="480" />
+        <di:waypoint x="3220" y="480" />
+        <di:waypoint x="3220" y="405" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17sk9bt_di" bpmnElement="Flow_17sk9bt">
+        <di:waypoint x="3515" y="390" />
+        <di:waypoint x="3580" y="390" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3516" y="372" width="63" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0d8oxpa_di" bpmnElement="Flow_0d8oxpa">
+        <di:waypoint x="3490" y="415" />
+        <di:waypoint x="3490" y="462" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3463" y="410" width="61" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lxunoy_di" bpmnElement="Flow_1lxunoy">
+        <di:waypoint x="2790" y="390" />
+        <di:waypoint x="2840" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ntt264_di" bpmnElement="Flow_1ntt264">
+        <di:waypoint x="2582" y="480" />
+        <di:waypoint x="2310" y="480" />
+        <di:waypoint x="2310" y="405" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0lp3a0r_di" bpmnElement="Flow_0lp3a0r">
+        <di:waypoint x="2625" y="390" />
+        <di:waypoint x="2690" y="390" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2617" y="373" width="63" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zk5psn_di" bpmnElement="Flow_0zk5psn">
+        <di:waypoint x="2600" y="415" />
+        <di:waypoint x="2600" y="462" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2573" y="408" width="61" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ujgytg_di" bpmnElement="Flow_1ujgytg">
+        <di:waypoint x="2110" y="365" />
+        <di:waypoint x="2110" y="308" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2070" y="326" width="82" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0o9khly_di" bpmnElement="Flow_0o9khly">
+        <di:waypoint x="2135" y="390" />
+        <di:waypoint x="2192" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rg0vfm_di" bpmnElement="Flow_0rg0vfm">
+        <di:waypoint x="1910" y="390" />
+        <di:waypoint x="1950" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0h0nkxb_di" bpmnElement="Flow_0h0nkxb">
+        <di:waypoint x="1440" y="390" />
+        <di:waypoint x="1490" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_01et8dh_di" bpmnElement="Flow_01et8dh">
+        <di:waypoint x="1265" y="390" />
+        <di:waypoint x="1340" y="390" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1269" y="373" width="63" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0p12oyc_di" bpmnElement="Flow_0p12oyc">
+        <di:waypoint x="1240" y="415" />
+        <di:waypoint x="1240" y="462" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1213" y="415" width="61" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_09z8ye0_di" bpmnElement="Flow_09z8ye0">
+        <di:waypoint x="2700" y="570" />
+        <di:waypoint x="2650" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1e4aq3j_di" bpmnElement="Flow_1e4aq3j">
+        <di:waypoint x="2840" y="570" />
+        <di:waypoint x="2800" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15twuq2_di" bpmnElement="Flow_15twuq2">
+        <di:waypoint x="3010" y="415" />
+        <di:waypoint x="3010" y="552" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2970" y="425" width="81" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rpx83q_di" bpmnElement="Flow_1rpx83q">
+        <di:waypoint x="3010" y="365" />
+        <di:waypoint x="3010" y="288" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2977" y="318" width="68" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bt9ly7_di" bpmnElement="Flow_0bt9ly7">
+        <di:waypoint x="2530" y="390" />
+        <di:waypoint x="2575" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wrrdvt_di" bpmnElement="Flow_1wrrdvt">
+        <di:waypoint x="2840" y="270" />
+        <di:waypoint x="2300" y="270" />
+        <di:waypoint x="2300" y="365" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rioyyl_di" bpmnElement="Flow_0rioyyl">
+        <di:waypoint x="2550" y="570" />
+        <di:waypoint x="2290" y="570" />
+        <di:waypoint x="2290" y="405" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1k8ha7x_di" bpmnElement="Flow_1k8ha7x">
+        <di:waypoint x="373" y="390" />
+        <di:waypoint x="420" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0tph4ld_di" bpmnElement="Flow_0tph4ld">
+        <di:waypoint x="3890" y="415" />
+        <di:waypoint x="3890" y="552" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3866" y="431" width="50" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1je4js0_di" bpmnElement="Flow_1je4js0">
+        <di:waypoint x="3730" y="570" />
+        <di:waypoint x="3680" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vjk5z2_di" bpmnElement="Flow_1vjk5z2">
+        <di:waypoint x="3580" y="570" />
+        <di:waypoint x="3540" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1asg51a_di" bpmnElement="Flow_1asg51a">
+        <di:waypoint x="3915" y="390" />
+        <di:waypoint x="3962" y="390" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3918" y="373" width="43" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08v6u79_di" bpmnElement="Flow_08v6u79">
+        <di:waypoint x="3440" y="390" />
+        <di:waypoint x="3465" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nfgofq_di" bpmnElement="Flow_1nfgofq">
+        <di:waypoint x="1140" y="390" />
+        <di:waypoint x="1215" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1k6izb7_di" bpmnElement="Flow_1k6izb7">
+        <di:waypoint x="1675" y="390" />
+        <di:waypoint x="1732" y="390" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1678" y="373" width="43" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0e92gzf_di" bpmnElement="Flow_0e92gzf">
+        <di:waypoint x="1340" y="570" />
+        <di:waypoint x="1290" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0i6b7hl_di" bpmnElement="Flow_0i6b7hl">
+        <di:waypoint x="1490" y="570" />
+        <di:waypoint x="1440" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1wqnjqc_di" bpmnElement="Flow_1wqnjqc">
+        <di:waypoint x="1650" y="415" />
+        <di:waypoint x="1650" y="552" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1625" y="425" width="50" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rogses_di" bpmnElement="Flow_1rogses">
+        <di:waypoint x="1650" y="365" />
+        <di:waypoint x="1650" y="288" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vouvgd_di" bpmnElement="Flow_1vouvgd">
+        <di:waypoint x="3890" y="365" />
+        <di:waypoint x="3890" y="278" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3857" y="326" width="68" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02j8vbx_di" bpmnElement="Flow_02j8vbx">
+        <di:waypoint x="3720" y="260" />
+        <di:waypoint x="3210" y="260" />
+        <di:waypoint x="3210" y="365" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_15zcxxt_di" bpmnElement="Flow_15zcxxt">
+        <di:waypoint x="1190" y="570" />
+        <di:waypoint x="930" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ovrvo0_di" bpmnElement="Flow_0ovrvo0">
+        <di:waypoint x="3440" y="570" />
+        <di:waypoint x="3200" y="570" />
+        <di:waypoint x="3200" y="405" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0pyqf53_di" bpmnElement="Flow_0pyqf53">
+        <di:waypoint x="608" y="390" />
+        <di:waypoint x="650" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1pdqajr_di" bpmnElement="Flow_1pdqajr">
+        <di:waypoint x="828" y="390" />
+        <di:waypoint x="865" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1r5sl98_di" bpmnElement="Flow_1r5sl98">
+        <di:waypoint x="998" y="390" />
+        <di:waypoint x="1040" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1f2v5e9_di" bpmnElement="Flow_1f2v5e9">
+        <di:waypoint x="1768" y="390" />
+        <di:waypoint x="1810" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ll0xbp_di" bpmnElement="Flow_1ll0xbp">
+        <di:waypoint x="1632" y="270" />
+        <di:waypoint x="1590" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1at0a3y_di" bpmnElement="Flow_1at0a3y">
+        <di:waypoint x="1632" y="570" />
+        <di:waypoint x="1590" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0a91w5g_di" bpmnElement="Flow_0a91w5g">
+        <di:waypoint x="2228" y="390" />
+        <di:waypoint x="2275" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1w8lj8d_di" bpmnElement="Flow_1w8lj8d">
+        <di:waypoint x="2110" y="272" />
+        <di:waypoint x="2110" y="230" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0juchgt_di" bpmnElement="Flow_0juchgt">
+        <di:waypoint x="2388" y="390" />
+        <di:waypoint x="2430" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_018kl31_di" bpmnElement="Flow_018kl31">
+        <di:waypoint x="2992" y="570" />
+        <di:waypoint x="2940" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1sltf8s_di" bpmnElement="Flow_1sltf8s">
+        <di:waypoint x="2992" y="270" />
+        <di:waypoint x="2940" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ozjg6o_di" bpmnElement="Flow_1ozjg6o">
+        <di:waypoint x="3138" y="390" />
+        <di:waypoint x="3185" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1y93mas_di" bpmnElement="Flow_1y93mas">
+        <di:waypoint x="3298" y="390" />
+        <di:waypoint x="3340" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1pga82r_di" bpmnElement="Flow_1pga82r">
+        <di:waypoint x="3872" y="570" />
+        <di:waypoint x="3830" y="570" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1lkiuxj_di" bpmnElement="Flow_1lkiuxj">
+        <di:waypoint x="3872" y="260" />
+        <di:waypoint x="3820" y="260" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1qcyto1_di" bpmnElement="Flow_1qcyto1">
+        <di:waypoint x="3998" y="390" />
+        <di:waypoint x="4040" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0wm9gqt_di" bpmnElement="Flow_0wm9gqt">
+        <di:waypoint x="1590" y="390" />
+        <di:waypoint x="1625" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jgut9k_di" bpmnElement="Flow_1jgut9k">
+        <di:waypoint x="2050" y="390" />
+        <di:waypoint x="2085" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0f6od4v_di" bpmnElement="Flow_0f6od4v">
+        <di:waypoint x="2940" y="390" />
+        <di:waypoint x="2985" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qiav5k_di" bpmnElement="Flow_0qiav5k">
+        <di:waypoint x="3830" y="390" />
+        <di:waypoint x="3865" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1o0b60s_di" bpmnElement="Flow_1o0b60s">
+        <di:waypoint x="4300" y="390" />
+        <di:waypoint x="4342" y="390" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0natnff_di" bpmnElement="Event_0natnff" bioc:stroke="#000000" bioc:fill="#ffffff" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="337" y="372" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="321" y="410" width="68" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0rufo4h_di" bpmnElement="Activity_0rufo4h">
+        <dc:Bounds x="420" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1dlkp4r_di" bpmnElement="Event_1dlkp4r" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="572" y="372" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1wjj9vn_di" bpmnElement="Process_0h5i8uv">
+        <dc:Bounds x="650" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0qkrga3_di" bpmnElement="Gateway_0qkrga3" isMarkerVisible="true">
+        <dc:Bounds x="865" y="365" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1o2j68a_di" bpmnElement="Activity_1o2j68a">
+        <dc:Bounds x="830" y="530" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0z0sfys_di" bpmnElement="Event_0z0sfys" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="792" y="372" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1gljajm_di" bpmnElement="Event_1gljajm" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="962" y="372" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0a5nhd7_di" bpmnElement="Activity_0a5nhd7">
+        <dc:Bounds x="1040" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_09gjg7i_di" bpmnElement="Gateway_09gjg7i" isMarkerVisible="true">
+        <dc:Bounds x="1625" y="365" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1607" y="318" width="68" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1kr4668_di" bpmnElement="Gateway_1kr4668" isMarkerVisible="true">
+        <dc:Bounds x="1215" y="365" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1164" y="563" width="52" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_03mjumh_di" bpmnElement="Event_03mjumh" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="1222" y="462" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1230" y="508" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_14lgj3y_di" bpmnElement="Activity_14lgj3y">
+        <dc:Bounds x="1490" y="230" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_191red1_di" bpmnElement="Event_191red1" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="1632" y="252" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0dtpeob_di" bpmnElement="Activity_0dtpeob">
+        <dc:Bounds x="1190" y="530" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1n2ql0s_di" bpmnElement="Activity_1n2ql0s">
+        <dc:Bounds x="1490" y="530" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1ywjd20_di" bpmnElement="Event_1ywjd20" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="1632" y="552" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0kfga92_di" bpmnElement="Activity_0kfga92" bioc:stroke="#000000" bioc:fill="#ffffff" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="1340" y="530" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1w5osst_di" bpmnElement="Gateway_1w5osst" isMarkerVisible="true">
+        <dc:Bounds x="2085" y="365" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_09qpdva_di" bpmnElement="Gateway_09qpdva" isMarkerVisible="true">
+        <dc:Bounds x="2275" y="365" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1vibob7_di" bpmnElement="Event_1vibob7" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="2192" y="372" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ikts1k_di" bpmnElement="Activity_1ikts1k">
+        <dc:Bounds x="2060" y="150" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0l8q5km_di" bpmnElement="Event_0l8q5km" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="2092" y="272" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1t9f851_di" bpmnElement="Gateway_1t9f851" isMarkerVisible="true">
+        <dc:Bounds x="2985" y="365" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3216" y="644.5" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00ktymd_di" bpmnElement="Activity_00ktymd">
+        <dc:Bounds x="2840" y="230" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1oqspdk_di" bpmnElement="Event_1oqspdk" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="2992" y="252" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_065ccca_di" bpmnElement="Activity_065ccca">
+        <dc:Bounds x="2840" y="530" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1jqlzmz_di" bpmnElement="Event_1jqlzmz" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="2992" y="552" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0jxtlzq_di" bpmnElement="Activity_0jxtlzq">
+        <dc:Bounds x="1340" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_03ttbu5_di" bpmnElement="Activity_0njf1xt">
+        <dc:Bounds x="1490" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0zfvpd6_di" bpmnElement="Event_0zfvpd6" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="1732" y="372" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_13zizjw_di" bpmnElement="Activity_1pbwlp0">
+        <dc:Bounds x="1950" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1vfjd9l_di" bpmnElement="Activity_1vfjd9l">
+        <dc:Bounds x="1810" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0rqhy44_di" bpmnElement="Activity_0rqhy44" bioc:stroke="#000000" bioc:fill="#ffffff" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="2700" y="530" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1tqng6r_di" bpmnElement="Activity_1tqng6r">
+        <dc:Bounds x="2550" y="530" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_07rivz7_di" bpmnElement="Event_07rivz7" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="2352" y="372" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0kq5eyd_di" bpmnElement="Activity_0kq5eyd">
+        <dc:Bounds x="2430" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1en5o92_di" bpmnElement="Gateway_1en5o92" isMarkerVisible="true">
+        <dc:Bounds x="2575" y="365" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2734" y="563" width="52" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1wsup4c_di" bpmnElement="Event_1wsup4c" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="2582" y="462" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2590" y="508" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1re7rel_di" bpmnElement="Activity_1re7rel">
+        <dc:Bounds x="2690" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09mp7en_di" bpmnElement="Activity_1v4osnc">
+        <dc:Bounds x="2840" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1iwd6nn_di" bpmnElement="Event_1iwd6nn" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="3102" y="372" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1p2ro19_di" bpmnElement="Gateway_1p2ro19" isMarkerVisible="true">
+        <dc:Bounds x="3185" y="365" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_01j8jld_di" bpmnElement="Event_01j8jld" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="3262" y="372" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0qlhutr_di" bpmnElement="Gateway_0qlhutr" isMarkerVisible="true">
+        <dc:Bounds x="3865" y="365" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4351" y="546" width="58" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_080q6p5_di" bpmnElement="Activity_080q6p5">
+        <dc:Bounds x="3340" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0rg5msg_di" bpmnElement="Activity_0rg5msg">
+        <dc:Bounds x="3440" y="530" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1r7v7sh_di" bpmnElement="Activity_1r7v7sh">
+        <dc:Bounds x="3580" y="530" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1a3mv5d_di" bpmnElement="Activity_1a3mv5d">
+        <dc:Bounds x="3730" y="530" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1hz2xvh_di" bpmnElement="Event_1hz2xvh" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="3872" y="552" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1tjs1fq_di" bpmnElement="Event_1tjs1fq" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="3872" y="242" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1jzbch5_di" bpmnElement="Activity_1jzbch5">
+        <dc:Bounds x="3720" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_17rzs7m_di" bpmnElement="Gateway_17rzs7m" isMarkerVisible="true">
+        <dc:Bounds x="3465" y="365" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3074" y="343" width="52" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1jy60vm_di" bpmnElement="Event_1jy60vm" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="3472" y="462" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="3480" y="508" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1lnjfe4_di" bpmnElement="Activity_1lnjfe4">
+        <dc:Bounds x="3580" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1wp18h0_di" bpmnElement="Activity_1lt3vci">
+        <dc:Bounds x="3730" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0fj8eoh_di" bpmnElement="Event_0fj8eoh" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="3962" y="372" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_14pbgf4_di" bpmnElement="Activity_14pbgf4">
+        <dc:Bounds x="4040" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1a4f6gi_di" bpmnElement="Activity_173whb3">
+        <dc:Bounds x="4200" y="350" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_056wc3i_di" bpmnElement="Event_056wc3i" bioc:stroke="#000000" bioc:fill="#ffffff" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="4342" y="372" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

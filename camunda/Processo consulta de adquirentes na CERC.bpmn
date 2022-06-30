@@ -1,0 +1,567 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_06ee5ia" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:collaboration id="Collaboration_123uhh3">
+    <bpmn:participant id="Participant_18t54wc" name="Processo consulta de adquirentes na CERC" processRef="consulta_adquirentes_cerc" />
+  </bpmn:collaboration>
+  <bpmn:process id="consulta_adquirentes_cerc" name="Processo consulta de adquirentes na CERC" isExecutable="true">
+    <bpmn:sequenceFlow id="Flow_02q1gh8" sourceRef="Activity_025ov89" targetRef="Activity_0h9p7g7" />
+    <bpmn:sequenceFlow id="Flow_1b96308" sourceRef="Activity_0jrq2yg" targetRef="Activity_025ov89" />
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="javascript">execution.setProcessBusinessKey(execution.getVariable('businessKey'));
+execution.setVariable('processoAtual','Consulta adquirentes Cerc');</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_164beq7</bpmn:outgoing>
+      <bpmn:signalEventDefinition id="SignalEventDefinition_1eu2sg5" signalRef="Signal_0zgvqhu" />
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1idknqw" sourceRef="Activity_1un5uzs" targetRef="Activity_1gkd7x3" />
+    <bpmn:sequenceFlow id="Flow_1scfo54" sourceRef="Activity_1rkxnbq" targetRef="Activity_13e90ef" />
+    <bpmn:sequenceFlow id="Flow_13sj1fd" sourceRef="Activity_0h9p7g7" targetRef="Activity_14tbcxp" />
+    <bpmn:sequenceFlow id="Flow_1ojz41u" sourceRef="Activity_1gkd7x3" targetRef="Activity_1rkxnbq" />
+    <bpmn:sequenceFlow id="Flow_1l2zzlm" sourceRef="Activity_13e90ef" targetRef="Activity_0jrq2yg" />
+    <bpmn:sequenceFlow id="Flow_13wwmlo" sourceRef="Activity_14tbcxp" targetRef="Activity_183vrzm" />
+    <bpmn:sequenceFlow id="Flow_04eiesu" sourceRef="Activity_183vrzm" targetRef="Event_11u4w8f" />
+    <bpmn:sequenceFlow id="Flow_0rnrco6" sourceRef="Activity_00jx3fd" targetRef="Activity_0wfbgnf" />
+    <bpmn:sequenceFlow id="Flow_164beq7" sourceRef="StartEvent_1" targetRef="Activity_00jx3fd" />
+    <bpmn:sequenceFlow id="Flow_1ei4whz" sourceRef="Activity_0wfbgnf" targetRef="Activity_1un5uzs" />
+    <bpmn:scriptTask id="Activity_00jx3fd" name="Gerar obj CRM" scriptFormat="javascript">
+      <bpmn:incoming>Flow_164beq7</bpmn:incoming>
+      <bpmn:outgoing>Flow_0rnrco6</bpmn:outgoing>
+      <bpmn:script>var objCRM = {
+                "nome": "",
+                "razaoSocial": "",
+                "dataNascimentoFundacao": "",
+                "cpfCnpj": cnpj,
+                "classificacao": 2,
+                "informacoesAdicionais": "",
+                "enderecos": [],
+                "contasBancarias": [],
+                "links": [],
+                "telefones": [],
+                "documentos": [],
+                "relacionamentos": []
+            };
+
+execution.setVariable('objCRM', S(JSON.stringify(objCRM)).mapTo("java.util.HashMap"));</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:callActivity id="Activity_0wfbgnf" name="Cadastrar no CRM" calledElement="sub_processo_cadastrar_crm">
+      <bpmn:extensionElements>
+        <camunda:in businessKey="#{execution.processBusinessKey}" />
+        <camunda:in variables="all" />
+        <camunda:out variables="all" />
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0rnrco6</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ei4whz</bpmn:outgoing>
+    </bpmn:callActivity>
+    <bpmn:scriptTask id="Activity_1un5uzs" name="Pegar datas para consulta" scriptFormat="javascript">
+      <bpmn:incoming>Flow_1ei4whz</bpmn:incoming>
+      <bpmn:outgoing>Flow_1idknqw</bpmn:outgoing>
+      <bpmn:script>function dataToString(data) {
+  var mesString = (data.getMonth() + 1).toString();
+  if(mesString.length == 1){
+      mesString = '0' + mesString;
+  }
+  var diaString = data.getDate().toString();
+  if(diaString.length == 1){
+      diaString = '0' + diaString;
+  }
+  return "" + data.getFullYear() + "-" + mesString + "-" + diaString;
+}
+
+var dataAtual = new Date();
+var dataFimOptin = dataToString(dataAtual);
+execution.setVariable("dataFimOptin", dataFimOptin);
+
+dataAtual.setDate(dataAtual.getDate() - 1);
+
+while(dataAtual.getDay() != 1){
+  dataAtual.setDate(dataAtual.getDate() - 1);
+}
+
+var datas = [];
+
+datas.push(dataToString(dataAtual));
+
+dataAtual = new Date();
+
+while(datas.length &lt;= 5){
+  dataAtual.setDate(dataAtual.getDate() - 1);
+  if(dataAtual.getDay() == 3){
+      datas.push(dataToString(dataAtual));
+  }
+}
+execution.setVariable("datas", JSON.stringify(datas));
+execution.setVariable("adquirentesCliente", JSON.stringify([]));</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:businessRuleTask id="Activity_14tbcxp" name="Identificar processos&#10;redirecionamento" camunda:resultVariable="listaProcessos" camunda:decisionRef="RedirecionamentoProcessos" camunda:mapDecisionResult="collectEntries">
+      <bpmn:incoming>Flow_13sj1fd</bpmn:incoming>
+      <bpmn:outgoing>Flow_13wwmlo</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:endEvent id="Event_11u4w8f">
+      <bpmn:incoming>Flow_04eiesu</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:scriptTask id="Activity_1gkd7x3" name="Setar variaveis" scriptFormat="javascript">
+      <bpmn:incoming>Flow_1idknqw</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ojz41u</bpmn:outgoing>
+      <bpmn:script>execution.setVariable("datas", S(datas).mapTo("java.util.ArrayList"));
+
+execution.setVariable("adquirentesCliente", S(adquirentesCliente).mapTo("java.util.ArrayList"));
+
+execution.setVariable("count", 1);</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:scriptTask id="Activity_13e90ef" name="Converter dados" scriptFormat="javascript">
+      <bpmn:incoming>Flow_1scfo54</bpmn:incoming>
+      <bpmn:outgoing>Flow_1l2zzlm</bpmn:outgoing>
+      <bpmn:script>execution.setVariable("listaAdquirentes", S(listaAdquirentes).mapTo("java.util.ArrayList"));
+execution.setVariable("listaContasBancarias", S(listaContasBancarias).mapTo("java.util.ArrayList"));</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:userTask id="Activity_0h9p7g7">
+      <bpmn:incoming>Flow_02q1gh8</bpmn:incoming>
+      <bpmn:outgoing>Flow_13sj1fd</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:subProcess id="Activity_1rkxnbq">
+      <bpmn:incoming>Flow_1ojz41u</bpmn:incoming>
+      <bpmn:outgoing>Flow_1scfo54</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="true" camunda:collection="datas" camunda:elementVariable="dataConsulta" />
+      <bpmn:startEvent id="Event_1rh0w9d">
+        <bpmn:outgoing>Flow_0sx21hw</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:callActivity id="Activity_1q68uha" name="Fluxo de Opt-In Cerc" calledElement="Fluxo_Opt_In_Cerc">
+        <bpmn:extensionElements>
+          <camunda:in sourceExpression="C" target="tipoOperacao" />
+          <camunda:in sourceExpression="${count}-${businessKey}" target="referenciaExterna" />
+          <camunda:in sourceExpression="19687535000100" target="cnpjSolicitante" />
+          <camunda:in sourceExpression="${dataConsulta}" target="dataAssinaturaOptIn" />
+          <camunda:in sourceExpression="16501555000157,01027058000191,01425787000104,10440482000154,08561701000101,16668076000120,10573521000191,31872495000172,04962772000165,14380200000121" target="listaCnpjCredenciadora" />
+          <camunda:in sourceExpression="MCC" target="listaCodigoArranjoPagamento" />
+          <camunda:in sourceExpression="${dataConsulta}" target="dataInicioOptin" />
+          <camunda:in sourceExpression="${dataFimOptin}" target="dataFimOptin" />
+          <camunda:in sourceExpression="${cnpj}" target="documentoUsuarioFinalRecebedor" />
+          <camunda:in sourceExpression="${cnpj}" target="documentoTitular" />
+          <camunda:in sourceExpression="19687535000100" target="cnpjFinanciador" />
+          <camunda:in sourceExpression="19687535000100" target="cnpjRecebedorAgenda" />
+          <camunda:in sourceExpression="${&#34;&#34;}" target="carteira" />
+          <camunda:in sourceExpression="${&#34;&#34;}" target="protocolo" />
+          <camunda:in sourceExpression="${&#34;avaliacao_agenda_basica_ap&#34;}" target="tipoAvaliacao" />
+          <camunda:in sourceExpression="${dataConsulta}" target="dataInicioAgenda" />
+          <camunda:in sourceExpression="${dataConsulta}" target="dataFimAgenda" />
+          <camunda:in businessKey="#{execution.processBusinessKey}" />
+          <camunda:out variables="all" />
+          <camunda:in sourceExpression="${businessKey}" target="businessKey" />
+          <camunda:in sourceExpression="${count}" target="count" />
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0sx21hw</bpmn:incoming>
+        <bpmn:outgoing>Flow_1i68mg1</bpmn:outgoing>
+      </bpmn:callActivity>
+      <bpmn:serviceTask id="Activity_10qai8e" name="Consultar as adquirentes" camunda:type="external" camunda:topic="consultarAgendaCerc">
+        <bpmn:incoming>Flow_1i68mg1</bpmn:incoming>
+        <bpmn:outgoing>Flow_1dvtjuf</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:sequenceFlow id="Flow_1i68mg1" sourceRef="Activity_1q68uha" targetRef="Activity_10qai8e" />
+      <bpmn:endEvent id="Event_02x85zz">
+        <bpmn:incoming>Flow_1txz452</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_1dvtjuf" sourceRef="Activity_10qai8e" targetRef="Activity_1tnpz5x" />
+      <bpmn:scriptTask id="Activity_1tnpz5x" name="Transformar dados" scriptFormat="javascript">
+        <bpmn:incoming>Flow_1dvtjuf</bpmn:incoming>
+        <bpmn:outgoing>Flow_1txz452</bpmn:outgoing>
+        <bpmn:script>if(execution.hasVariable("listaAdquirentes")){
+    var listaAdquirentes = JSON.parse(execution.getVariable("listaAdquirentes"));
+    var adquirentes = JSON.parse(execution.getVariable("adquirentes"));
+    
+    for (var index = 0; index &lt; adquirentes.length; index++) {
+        var element = adquirentes[index];
+        if(listaAdquirentes.indexOf(element) == -1){
+            listaAdquirentes.push(element);
+        }
+    }
+    execution.setVariable("listaAdquirentes", JSON.stringify(listaAdquirentes));
+}else{
+    var listaAdquirentes = [];
+    var adquirentes = JSON.parse(execution.getVariable("adquirentes"));
+    
+    for (var index = 0; index &lt; adquirentes.length; index++) {
+        var element = adquirentes[index];
+        if(listaAdquirentes.indexOf(element) == -1){
+            listaAdquirentes.push(element);
+        }
+    }
+    execution.setVariable("listaAdquirentes", JSON.stringify(listaAdquirentes));
+}
+
+if(execution.hasVariable("listaContasBancarias")){
+    var listaContasBancarias = JSON.parse(execution.getVariable("listaContasBancarias"));
+    var listaAux = JSON.parse(execution.getVariable("listaAux"));
+    var contasBancarias = JSON.parse(execution.getVariable("contasBancarias"));
+    
+    for (var index = 0; index &lt; contasBancarias.length; index++) {
+        var element = contasBancarias[index];
+        if(listaAux.indexOf(element.numeroConta) == -1){
+            listaContasBancarias.push(element);
+            listaAux.push(element.numeroConta);
+        }
+    }
+    execution.setVariable("listaContasBancarias", JSON.stringify(listaContasBancarias));
+    execution.setVariable("listaAux", JSON.stringify(listaAux));
+}else{
+    var listaContasBancarias = [];
+    var listaAux = [];
+    var contasBancarias = JSON.parse(execution.getVariable("contasBancarias"));
+    
+    for (var index = 0; index &lt; contasBancarias.length; index++) {
+        var element = contasBancarias[index];
+        if(listaAux.indexOf(element.numeroConta) == -1){
+            listaContasBancarias.push(element);
+            listaAux.push(element.numeroConta);
+        }
+    }
+    execution.setVariable("listaContasBancarias", JSON.stringify(listaContasBancarias));
+    execution.setVariable("listaAux", JSON.stringify(listaAux));
+}
+
+execution.setVariable("count", count + 1);</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:sequenceFlow id="Flow_1txz452" sourceRef="Activity_1tnpz5x" targetRef="Event_02x85zz" />
+      <bpmn:sequenceFlow id="Flow_0sx21hw" sourceRef="Event_1rh0w9d" targetRef="Activity_1q68uha" />
+    </bpmn:subProcess>
+    <bpmn:subProcess id="Activity_0jrq2yg">
+      <bpmn:incoming>Flow_1l2zzlm</bpmn:incoming>
+      <bpmn:outgoing>Flow_1b96308</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="true" camunda:collection="listaContasBancarias" camunda:elementVariable="contaBancaria" />
+      <bpmn:startEvent id="Event_120w911">
+        <bpmn:outgoing>Flow_1rw5w9n</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:sequenceFlow id="Flow_1rw5w9n" sourceRef="Event_120w911" targetRef="Activity_12oq5xh" />
+      <bpmn:sequenceFlow id="Flow_02zrwww" sourceRef="Activity_12oq5xh" targetRef="Gateway_0xg456p" />
+      <bpmn:endEvent id="Event_19egmrc">
+        <bpmn:incoming>Flow_0epjsj4</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:businessRuleTask id="Activity_12oq5xh" name="Identificar banco pelo ispb" camunda:resultVariable="bancoRetorno" camunda:decisionRef="banco_ispb" camunda:mapDecisionResult="singleResult">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="ispb">${contaBancaria.ispb}</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1rw5w9n</bpmn:incoming>
+        <bpmn:outgoing>Flow_02zrwww</bpmn:outgoing>
+      </bpmn:businessRuleTask>
+      <bpmn:exclusiveGateway id="Gateway_0xg456p" default="Flow_0h7c25v">
+        <bpmn:incoming>Flow_02zrwww</bpmn:incoming>
+        <bpmn:outgoing>Flow_0f4v4af</bpmn:outgoing>
+        <bpmn:outgoing>Flow_0h7c25v</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:sequenceFlow id="Flow_0f4v4af" sourceRef="Gateway_0xg456p" targetRef="Activity_1qic1mn">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${bancoRetorno.numero != ""}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_0h7c25v" sourceRef="Gateway_0xg456p" targetRef="Gateway_1ibud5r" />
+      <bpmn:sequenceFlow id="Flow_00pyqlt" sourceRef="Activity_1qic1mn" targetRef="Activity_0f4pyla" />
+      <bpmn:scriptTask id="Activity_1qic1mn" name="Gera obj para salvar no CRM" scriptFormat="javascript">
+        <bpmn:incoming>Flow_0f4v4af</bpmn:incoming>
+        <bpmn:outgoing>Flow_00pyqlt</bpmn:outgoing>
+        <bpmn:script>var numeroSplit = !contaBancaria.numeroConta ? [] :  contaBancaria.numeroConta.split("-");
+  var numeroAgenciaSplit = !contaBancaria.agencia ? [] : contaBancaria.agencia.split("-");
+  var contasBancarias = [{
+    numeroConta: parseInt(numeroSplit[0]),
+    digitoConta: numeroSplit.length &gt; 1 ? parseInt(numeroSplit[1]) : 0,
+    numeroAgencia: parseInt(numeroAgenciaSplit[0]),
+    digitoAgencia: numeroAgenciaSplit.length &gt; 1 ? parseInt(numeroAgenciaSplit[1]) : "",
+  }];
+
+  execution.setVariable("contasBancariasString", JSON.stringify(contasBancarias));</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:exclusiveGateway id="Gateway_1ibud5r">
+        <bpmn:incoming>Flow_0h7c25v</bpmn:incoming>
+        <bpmn:incoming>Flow_1dx3lkf</bpmn:incoming>
+        <bpmn:outgoing>Flow_0epjsj4</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:sequenceFlow id="Flow_0epjsj4" sourceRef="Gateway_1ibud5r" targetRef="Event_19egmrc" />
+      <bpmn:sequenceFlow id="Flow_1dx3lkf" sourceRef="Activity_0f4pyla" targetRef="Gateway_1ibud5r" />
+      <bpmn:serviceTask id="Activity_0f4pyla" name="Salvar conta bancaria" camunda:type="external" camunda:topic="contaBancariaCRM">
+        <bpmn:incoming>Flow_00pyqlt</bpmn:incoming>
+        <bpmn:outgoing>Flow_1dx3lkf</bpmn:outgoing>
+      </bpmn:serviceTask>
+    </bpmn:subProcess>
+    <bpmn:subProcess id="Activity_025ov89">
+      <bpmn:incoming>Flow_1b96308</bpmn:incoming>
+      <bpmn:outgoing>Flow_02q1gh8</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics isSequential="true" camunda:collection="listaAdquirentes" camunda:elementVariable="cnpjAdquirente" />
+      <bpmn:startEvent id="Event_01qt27n">
+        <bpmn:outgoing>Flow_14osr86</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:sequenceFlow id="Flow_14osr86" sourceRef="Event_01qt27n" targetRef="Activity_0pmny7v" />
+      <bpmn:sequenceFlow id="Flow_047emh2" sourceRef="Activity_0sviw6c" targetRef="Activity_1i8m4sm" />
+      <bpmn:endEvent id="Event_15raxie">
+        <bpmn:incoming>Flow_02lz3zu</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_02lz3zu" sourceRef="Activity_1i8m4sm" targetRef="Event_15raxie" />
+      <bpmn:businessRuleTask id="Activity_0sviw6c" name="Identificar adquirente pelo CNPJ" camunda:resultVariable="detalheAdquirente" camunda:decisionRef="cnpjs_adquirentes" camunda:mapDecisionResult="singleResult">
+        <bpmn:incoming>Flow_0xr1bhy</bpmn:incoming>
+        <bpmn:outgoing>Flow_047emh2</bpmn:outgoing>
+      </bpmn:businessRuleTask>
+      <bpmn:scriptTask id="Activity_1i8m4sm" name="Adicionar adquirente na lista" scriptFormat="javascript">
+        <bpmn:incoming>Flow_047emh2</bpmn:incoming>
+        <bpmn:outgoing>Flow_02lz3zu</bpmn:outgoing>
+        <bpmn:script>if (detalheAdquirente.apelido) {
+    if (!adquirentesCliente.contains(detalheAdquirente.apelido)) {
+        adquirentesCliente.add(detalheAdquirente.apelido);
+    }
+} else if (detalheAdquirente.nome) {
+    if (!adquirentesCliente.contains(detalheAdquirente.nome)) {
+        adquirentesCliente.add(detalheAdquirente.nome);
+    }
+}</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:sequenceFlow id="Flow_0xr1bhy" sourceRef="Activity_0pmny7v" targetRef="Activity_0sviw6c" />
+      <bpmn:scriptTask id="Activity_0pmny7v" name="Removendo 0 a esquerda do cnpj" scriptFormat="javascript">
+        <bpmn:incoming>Flow_14osr86</bpmn:incoming>
+        <bpmn:outgoing>Flow_0xr1bhy</bpmn:outgoing>
+        <bpmn:script>var cnpjAdquirente = execution.getVariable("cnpjAdquirente");
+
+cnpjAdquirente = parseInt(cnpjAdquirente);
+
+execution.setVariable("cnpjAdquirente", cnpjAdquirente.toString());</bpmn:script>
+      </bpmn:scriptTask>
+    </bpmn:subProcess>
+    <bpmn:subProcess id="Activity_183vrzm" name="Inicializar processos dinâmicos">
+      <bpmn:incoming>Flow_13wwmlo</bpmn:incoming>
+      <bpmn:outgoing>Flow_04eiesu</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics camunda:collection="listaProcessos" camunda:elementVariable="iniciarProcesso" />
+      <bpmn:startEvent id="Event_17ar7eq">
+        <bpmn:outgoing>Flow_0ysqiz7</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:endEvent id="Event_0kxllg6" name="Inicializar processo Cliente Liberado com TPV">
+        <bpmn:incoming>Flow_0ysqiz7</bpmn:incoming>
+        <bpmn:signalEventDefinition id="SignalEventDefinition_1675tc3" signalRef="Signal_1u5g3h0">
+          <bpmn:extensionElements>
+            <camunda:in variables="all" />
+          </bpmn:extensionElements>
+        </bpmn:signalEventDefinition>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_0ysqiz7" sourceRef="Event_17ar7eq" targetRef="Event_0kxllg6" />
+    </bpmn:subProcess>
+  </bpmn:process>
+  <bpmn:signal id="Signal_0zgvqhu" name="SIG_IniciarProcessoConsultaAdquirentesCerc" />
+  <bpmn:signal id="Signal_1u5g3h0" name="${iniciarProcesso}" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_123uhh3">
+      <bpmndi:BPMNShape id="Participant_18t54wc_di" bpmnElement="Participant_18t54wc" isHorizontal="true">
+        <dc:Bounds x="170" y="50" width="4100" height="370" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1ei4whz_di" bpmnElement="Flow_1ei4whz">
+        <di:waypoint x="590" y="180" />
+        <di:waypoint x="650" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_164beq7_di" bpmnElement="Flow_164beq7">
+        <di:waypoint x="265" y="180" />
+        <di:waypoint x="320" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rnrco6_di" bpmnElement="Flow_0rnrco6">
+        <di:waypoint x="420" y="180" />
+        <di:waypoint x="490" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04eiesu_di" bpmnElement="Flow_04eiesu">
+        <di:waypoint x="4130" y="180" />
+        <di:waypoint x="4212" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13wwmlo_di" bpmnElement="Flow_13wwmlo">
+        <di:waypoint x="3830" y="180" />
+        <di:waypoint x="3900" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1l2zzlm_di" bpmnElement="Flow_1l2zzlm">
+        <di:waypoint x="1810" y="180" />
+        <di:waypoint x="1880" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ojz41u_di" bpmnElement="Flow_1ojz41u">
+        <di:waypoint x="900" y="180" />
+        <di:waypoint x="950" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_13sj1fd_di" bpmnElement="Flow_13sj1fd">
+        <di:waypoint x="3660" y="180" />
+        <di:waypoint x="3730" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1scfo54_di" bpmnElement="Flow_1scfo54">
+        <di:waypoint x="1670" y="180" />
+        <di:waypoint x="1710" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1idknqw_di" bpmnElement="Flow_1idknqw">
+        <di:waypoint x="750" y="180" />
+        <di:waypoint x="800" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1b96308_di" bpmnElement="Flow_1b96308">
+        <di:waypoint x="2760" y="177" />
+        <di:waypoint x="2850" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02q1gh8_di" bpmnElement="Flow_02q1gh8">
+        <di:waypoint x="3460" y="180" />
+        <di:waypoint x="3560" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1jc3plw_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="229" y="162" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00jx3fd_di" bpmnElement="Activity_00jx3fd">
+        <dc:Bounds x="320" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0wfbgnf_di" bpmnElement="Activity_0wfbgnf" bioc:stroke="#e53935" bioc:fill="#ffcdd2">
+        <dc:Bounds x="490" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0hbcrnu_di" bpmnElement="Activity_1un5uzs">
+        <dc:Bounds x="650" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_14tbcxp_di" bpmnElement="Activity_14tbcxp" bioc:stroke="#43a047" bioc:fill="#c8e6c9">
+        <dc:Bounds x="3730" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_11u4w8f_di" bpmnElement="Event_11u4w8f">
+        <dc:Bounds x="4212" y="162" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1fs4hdq_di" bpmnElement="Activity_1gkd7x3">
+        <dc:Bounds x="800" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_16uqiti_di" bpmnElement="Activity_13e90ef">
+        <dc:Bounds x="1710" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ukhcls_di" bpmnElement="Activity_0h9p7g7">
+        <dc:Bounds x="3560" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1rkxnbq_di" bpmnElement="Activity_1rkxnbq" isExpanded="true">
+        <dc:Bounds x="950" y="80" width="720" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0sx21hw_di" bpmnElement="Flow_0sx21hw">
+        <di:waypoint x="1026" y="180" />
+        <di:waypoint x="1080" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1txz452_di" bpmnElement="Flow_1txz452">
+        <di:waypoint x="1530" y="180" />
+        <di:waypoint x="1582" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1dvtjuf_di" bpmnElement="Flow_1dvtjuf">
+        <di:waypoint x="1360" y="180" />
+        <di:waypoint x="1430" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1i68mg1_di" bpmnElement="Flow_1i68mg1">
+        <di:waypoint x="1180" y="180" />
+        <di:waypoint x="1260" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_1rh0w9d_di" bpmnElement="Event_1rh0w9d">
+        <dc:Bounds x="990" y="162" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1q68uha_di" bpmnElement="Activity_1q68uha">
+        <dc:Bounds x="1080" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_10qai8e_di" bpmnElement="Activity_10qai8e">
+        <dc:Bounds x="1260" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_02x85zz_di" bpmnElement="Event_02x85zz">
+        <dc:Bounds x="1582" y="162" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1tnpz5x_di" bpmnElement="Activity_1tnpz5x">
+        <dc:Bounds x="1430" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0jrq2yg_di" bpmnElement="Activity_0jrq2yg" isExpanded="true">
+        <dc:Bounds x="1880" y="77" width="880" height="320" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1dx3lkf_di" bpmnElement="Flow_1dx3lkf">
+        <di:waypoint x="2520" y="177" />
+        <di:waypoint x="2575" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0epjsj4_di" bpmnElement="Flow_0epjsj4">
+        <di:waypoint x="2625" y="177" />
+        <di:waypoint x="2702" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00pyqlt_di" bpmnElement="Flow_00pyqlt">
+        <di:waypoint x="2340" y="177" />
+        <di:waypoint x="2420" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0h7c25v_di" bpmnElement="Flow_0h7c25v">
+        <di:waypoint x="2160" y="202" />
+        <di:waypoint x="2160" y="310" />
+        <di:waypoint x="2600" y="310" />
+        <di:waypoint x="2600" y="202" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0f4v4af_di" bpmnElement="Flow_0f4v4af">
+        <di:waypoint x="2185" y="177" />
+        <di:waypoint x="2240" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02zrwww_di" bpmnElement="Flow_02zrwww">
+        <di:waypoint x="2090" y="177" />
+        <di:waypoint x="2135" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1rw5w9n_di" bpmnElement="Flow_1rw5w9n">
+        <di:waypoint x="1936" y="177" />
+        <di:waypoint x="1990" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_120w911_di" bpmnElement="Event_120w911">
+        <dc:Bounds x="1900" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_19egmrc_di" bpmnElement="Event_19egmrc">
+        <dc:Bounds x="2702" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ymjqm2_di" bpmnElement="Activity_12oq5xh">
+        <dc:Bounds x="1990" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0xg456p_di" bpmnElement="Gateway_0xg456p" isMarkerVisible="true">
+        <dc:Bounds x="2135" y="152" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1gy3kbh_di" bpmnElement="Activity_1qic1mn">
+        <dc:Bounds x="2240" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1ibud5r_di" bpmnElement="Gateway_1ibud5r" isMarkerVisible="true">
+        <dc:Bounds x="2575" y="152" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1lwwdv1_di" bpmnElement="Activity_0f4pyla">
+        <dc:Bounds x="2420" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_025ov89_di" bpmnElement="Activity_025ov89" isExpanded="true">
+        <dc:Bounds x="2850" y="77" width="610" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0xr1bhy_di" bpmnElement="Flow_0xr1bhy">
+        <di:waypoint x="3050" y="177" />
+        <di:waypoint x="3110" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02lz3zu_di" bpmnElement="Flow_02lz3zu">
+        <di:waypoint x="3360" y="177" />
+        <di:waypoint x="3402" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_047emh2_di" bpmnElement="Flow_047emh2">
+        <di:waypoint x="3210" y="177" />
+        <di:waypoint x="3260" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_14osr86_di" bpmnElement="Flow_14osr86">
+        <di:waypoint x="2908" y="177" />
+        <di:waypoint x="2950" y="177" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_01qt27n_di" bpmnElement="Event_01qt27n">
+        <dc:Bounds x="2872" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_15raxie_di" bpmnElement="Event_15raxie">
+        <dc:Bounds x="3402" y="159" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1n1qc44_di" bpmnElement="Activity_0sviw6c">
+        <dc:Bounds x="3110" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1mng767_di" bpmnElement="Activity_1i8m4sm">
+        <dc:Bounds x="3260" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ay5wh5_di" bpmnElement="Activity_0pmny7v">
+        <dc:Bounds x="2950" y="137" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_183vrzm_di" bpmnElement="Activity_183vrzm" isExpanded="true" bioc:stroke="#43a047" bioc:fill="#c8e6c9">
+        <dc:Bounds x="3900" y="98" width="230" height="162" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0ysqiz7_di" bpmnElement="Flow_0ysqiz7">
+        <di:waypoint x="3958" y="180" />
+        <di:waypoint x="4052" y="180" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_17ar7eq_di" bpmnElement="Event_17ar7eq">
+        <dc:Bounds x="3922" y="162" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0kxllg6_di" bpmnElement="Event_0kxllg6" bioc:stroke="#000" bioc:fill="#fff">
+        <dc:Bounds x="4052" y="162" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="4030" y="205" width="82" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

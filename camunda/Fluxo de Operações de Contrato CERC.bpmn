@@ -1,0 +1,481 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0f3fdkj" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:collaboration id="Collaboration_1ksumn4">
+    <bpmn:participant id="Participant_013wxbu" name="FLUXO CONTRATO CERC" processRef="Fluco_Operacoes_Contrato_Cerc" />
+  </bpmn:collaboration>
+  <bpmn:process id="Fluco_Operacoes_Contrato_Cerc" name="Fluxo Operações de Contrato CERC" isExecutable="true">
+    <bpmn:sequenceFlow id="Flow_1442tuv" sourceRef="Event_15gyxtz" targetRef="Activity_0bh8p1s" />
+    <bpmn:startEvent id="Event_15gyxtz" name="Fluxo de operações de contrato iniciado">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="javaScript">execution.setProcessBusinessKey(execution.getVariable('businessKey'));
+execution.setVariable('processoAtual','Operacoes de Contrato Cerc');
+</camunda:script>
+        </camunda:executionListener>
+        <camunda:formData>
+          <camunda:formField id="tipoOperacao" label="Tipo operação:" type="string" defaultValue="C" />
+          <camunda:formField id="referenciaExterna" label="Referencia externa:" type="string" />
+          <camunda:formField id="identificadorContrato" label="Identificador de Contrato" type="string" />
+          <camunda:formField id="documentoContratante" label="Documento Contratante:" type="string" defaultValue="19687535000100" />
+          <camunda:formField id="repactuacao" label="Repactuação:" type="string" defaultValue="0" />
+          <camunda:formField id="cnpjParticipante" label="CNPJ Participante:" type="string" defaultValue="19687535000100" />
+          <camunda:formField id="cnpjDetentor" label="CNPJ Detentor:" type="string" defaultValue="19687535000100" />
+          <camunda:formField id="tipoEfeito" label="Tipo Efeito:" type="string" defaultValue="2" />
+          <camunda:formField id="saldoDevedor" label="Saldo Devedor" type="string" defaultValue="852.87" />
+          <camunda:formField id="limiteOperacaoGarantida" label="Limite Operação Garantida:" type="string" defaultValue="852.87" />
+          <camunda:formField id="valorMantido" label="Valor Mantido:" type="string" defaultValue="852.87" />
+          <camunda:formField id="dataVencimento" label="Data Vencimento:" type="string" defaultValue="2022-12-31" />
+          <camunda:formField id="dataAssinatura" label="Data Assinatura:" type="string" defaultValue="2022-12-31" />
+          <camunda:formField id="identificacaoGestaoEntidadeRegistradora" label="Identificação Gestão Entidade Registradora:" type="string" defaultValue="1" />
+          <camunda:formField id="modalidadeOperacao" label="Modalidade Operação:" type="string" defaultValue="3" />
+          <camunda:formField id="listaCnpjCredenciadora" label="Lista CNPJ Credenciadora:" type="string" defaultValue="99T" />
+          <camunda:formField id="listaCodigoArranjoPagamento" label="Lista Código Arranjo Pagamento:" type="string" defaultValue="99T" />
+          <camunda:formField id="dataInicio" label="Data Início:" type="string" defaultValue="2022-12-31" />
+          <camunda:formField id="dataFim" label="Data Fim:" type="string" defaultValue="2022-12-31" />
+          <camunda:formField id="documentoUsuarioFinalRecebedor" label="Documento Usuário Final Recebedor:" type="string" defaultValue="19687535000100" />
+          <camunda:formField id="documentoTitular" label="Documento Titular:" type="string" defaultValue="19687535000100" />
+          <camunda:formField id="regrasDivisao" label="Regras Divisão:" type="string" defaultValue="1" />
+          <camunda:formField id="valorAOnerar" label="Valor a Onerar:" type="string" defaultValue="852.87" />
+          <camunda:formField id="numeroDocumentoTitular" label="Número Documento Titular:" type="string" defaultValue="19687535000100" />
+          <camunda:formField id="tipoConta" label="Tipo Conta:" type="string" defaultValue="CC" />
+          <camunda:formField id="ispb" label="ISPB:" type="string" defaultValue="00000000" />
+          <camunda:formField id="agencia" label="Agência:" type="string" defaultValue="0001" />
+          <camunda:formField id="numeroConta" label="Número Conta:" type="string" defaultValue="10012-3" />
+          <camunda:formField id="nomeTitular" label="Nome Titular:" type="string" defaultValue="carlos" />
+          <camunda:formField id="compe" label="Compe:" type="string" defaultValue="001" />
+          <camunda:formField id="tipoDistribuicao" label="Tipo Distribuição:" type="string" defaultValue="padrao_empilhamento_ap" />
+          <camunda:formField id="identificacaoContratosAnteriores" label="Identificação Contratos Anteriores:" type="string" />
+          <camunda:formField id="vencimento" label="Vencimento:" type="string" />
+          <camunda:formField id="valor" label="Valor" type="string" />
+          <camunda:formField id="carteira" label="Carteira:" type="string" />
+          <camunda:formField id="tipoAvaliacao" label="Tipo Avaliação:" type="string" />
+          <camunda:formField id="taxaJuros" label="Taxa Juros:" type="string" />
+          <camunda:formField id="indexador" label="Indexador:" type="string" />
+          <camunda:formField id="aceiteIncondicional" label="Aceite Incondicional:" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_1442tuv</bpmn:outgoing>
+      <bpmn:signalEventDefinition id="SignalEventDefinition_1qm9mic" signalRef="Signal_1v02jsi" />
+    </bpmn:startEvent>
+    <bpmn:subProcess id="Activity_0bh8p1s">
+      <bpmn:incoming>Flow_1442tuv</bpmn:incoming>
+      <bpmn:startEvent id="Event_0kftemx" name="Inicia fluxo de operações de contrato">
+        <bpmn:outgoing>Flow_0b2zc0g</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:serviceTask id="Activity_1tc90q1" name="Envio de solicitação de operação de contrato" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamicaxi">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2x1c3RlcjpjbHVzdGVy</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8085/kettle/executeTrans/?rep=Github&amp;trans=/home/dados_zaz/registradora/cerc/transformacao/operacoes_contrato_cerc&amp;agencia=${agencia}&amp;cnpjDetentor=${cnpjDetentor}&amp;compe=${compe}&amp;dataAssinatura=${dataAssinatura}&amp;dataFim=${dataFim}&amp;dataVencimento=${dataVencimento}&amp;documentoContratante=${documentoContratante}&amp;documentoTitular=${documentoTitular}&amp;documentoUsuarioFinalRecebedor=${documentoUsuarioFinalRecebedor}&amp;identificacaoGestaoEntidadeRegistradora=${identificacaoGestaoEntidadeRegistradora}&amp;identificadorContrato=${identificadorContrato}&amp;ispb=${ispb}&amp;limiteOperacaoGarantida=${limiteOperacaoGarantida}&amp;listaCnpjCredenciadora=${listaCnpjCredenciadora}&amp;listaCodigoArranjoPagamento=${listaCodigoArranjoPagamento}&amp;modalidadeOperacao=${modalidadeOperacao}&amp;nomeTitular=${nomeTitular}&amp;numeroConta=${numeroConta}&amp;numeroDocumentoTitular=${numeroDocumentoTitular}&amp;referenciaExterna=${referenciaExterna}&amp;regrasDivisao=${regrasDivisao}&amp;repactuacao=${repactuacao}&amp;saldoDevedor=${saldoDevedor}&amp;tipoConta=${tipoConta}&amp;tipoDistribuicao=${tipoDistribuicao}&amp;tipoEfeito=${tipoEfeito}&amp;tipoOperacao=${tipoOperacao}&amp;valorAOnerar=${valorAOnerar}&amp;valorMantido=${valorMantido}&amp;token_completo=${token_completo}&amp;dataInicio=${dataInicio}&amp;cnpjParticipante=${cnpjParticipante}&amp;identificacaoContratosAnteriores=${identificacaoContratosAnteriores}&amp;vencimento=${vencimento}&amp;valor=${valor}&amp;carteira=${carteira}&amp;tipoAvaliacao=${tipoAvaliacao}&amp;taxaJuros=${taxaJuros}&amp;indexador=${indexador}&amp;aceiteIncondicional=${aceiteIncondicional}</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1hstolj</bpmn:incoming>
+        <bpmn:incoming>Flow_0k083e3</bpmn:incoming>
+        <bpmn:incoming>Flow_1njglhk</bpmn:incoming>
+        <bpmn:incoming>Flow_1vhhe77</bpmn:incoming>
+        <bpmn:outgoing>Flow_11pc6at</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:task id="Activity_1fiio60" name="Consultar código de sucesso/insucesso na API pentaho">
+        <bpmn:incoming>Flow_11pc6at</bpmn:incoming>
+        <bpmn:outgoing>Flow_0ilklci</bpmn:outgoing>
+      </bpmn:task>
+      <bpmn:sequenceFlow id="Flow_0ilklci" sourceRef="Activity_1fiio60" targetRef="Gateway_0qkuydw" />
+      <bpmn:sequenceFlow id="Flow_11pc6at" sourceRef="Activity_1tc90q1" targetRef="Activity_1fiio60" />
+      <bpmn:sequenceFlow id="Flow_0b2zc0g" sourceRef="Event_0kftemx" targetRef="Activity_0z85sfl" />
+      <bpmn:intermediateCatchEvent id="Event_0lnlfrh" name="1 M">
+        <bpmn:incoming>Flow_0ap7fsi</bpmn:incoming>
+        <bpmn:outgoing>Flow_1hstolj</bpmn:outgoing>
+        <bpmn:timerEventDefinition id="TimerEventDefinition_1iy73qn">
+          <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+        </bpmn:timerEventDefinition>
+      </bpmn:intermediateCatchEvent>
+      <bpmn:sequenceFlow id="Flow_1hstolj" sourceRef="Event_0lnlfrh" targetRef="Activity_1tc90q1" />
+      <bpmn:exclusiveGateway id="Gateway_0qkuydw" name="Sucesso ?" default="Flow_0oy9fyq">
+        <bpmn:incoming>Flow_0ilklci</bpmn:incoming>
+        <bpmn:outgoing>Flow_0ap7fsi</bpmn:outgoing>
+        <bpmn:outgoing>Flow_0oy9fyq</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:sequenceFlow id="Flow_0ap7fsi" name="Insucesso&#10;API Pentaho" sourceRef="Gateway_0qkuydw" targetRef="Event_0lnlfrh">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${statusCode &gt;= 500}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_0oy9fyq" name="Sucesso&#10;API pentaho" sourceRef="Gateway_0qkuydw" targetRef="Activity_08y2vxc" />
+      <bpmn:serviceTask id="Activity_08y2vxc" name="Consultar sucesso na operação de contrato" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamicaxi">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2x1c3RlcjpjbHVzdGVy</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8085/kettle/executeTrans/?rep=Github&amp;trans=/home/dados_zaz/registradora/cerc/transformacao/consulta_sucesso_contrato&amp;referenciaExterna=${referenciaExterna}</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0oy9fyq</bpmn:incoming>
+        <bpmn:outgoing>Flow_0vbzsry</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:sequenceFlow id="Flow_0vbzsry" sourceRef="Activity_08y2vxc" targetRef="Event_0lz8a52" />
+      <bpmn:serviceTask id="Activity_03w4do1" name="Consultar código do erro na operação de contrato" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamicaxi">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://localhost:8085/kettle/executeTrans/?rep=Github&amp;trans=/home/dados_zaz/registradora/cerc/transformacao/consulta_erro_contrato&amp;referenciaExterna=${referenciaExterna}</camunda:inputParameter>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2x1c3RlcjpjbHVzdGVy</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0t0u08f</bpmn:incoming>
+        <bpmn:outgoing>Flow_0bftl3p</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:scriptTask id="Activity_1t7bysu" name="Resultado da consulta de DMN" camunda:asyncBefore="true" scriptFormat="javaScript">
+        <bpmn:incoming>Flow_0bftl3p</bpmn:incoming>
+        <bpmn:outgoing>Flow_1e1qxfh</bpmn:outgoing>
+        <bpmn:script>var system = java.lang.System;
+var resultado = JSON.parse((S(execution.getVariable('result'))));
+
+var retorno = resultado.response;
+
+var ultimoStatus = retorno[0];
+
+execution.setVariable("codConsultaContrato", ultimoStatus.codigo);</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:exclusiveGateway id="Gateway_0r33fd2" name="Sucesso na operação de contrato?" default="Flow_1aaysqx">
+        <bpmn:incoming>Flow_1j2vsz2</bpmn:incoming>
+        <bpmn:outgoing>Flow_0t0u08f</bpmn:outgoing>
+        <bpmn:outgoing>Flow_1aaysqx</bpmn:outgoing>
+        <bpmn:outgoing>Flow_1uxxgdo</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:userTask id="Activity_0fu4w7w" name="Correção de dados para operação de contrato CERC">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="motivoDoErroContrato" label="Motivo do erro na solicitação:" type="string" defaultValue="${result}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="agencia" label="Agência" type="string" defaultValue="${agencia}" />
+            <camunda:formField id="cnpjDetentor" label="CNPJ detentor:" type="string" defaultValue="${cnpjDetentor}" />
+            <camunda:formField id="cnpjParticipante" label="CNPJ participante:" type="string" defaultValue="${cnpjParticipante}" />
+            <camunda:formField id="compe" label="Compe:" type="string" defaultValue="${compe}" />
+            <camunda:formField id="dataAssinatura" label="Data da assinatura:" type="string" defaultValue="${dataAssinatura}" />
+            <camunda:formField id="dataFim" label="Data fim:" type="string" defaultValue="${dataFim}" />
+            <camunda:formField id="dataInicio" label="Data início:" type="string" defaultValue="${dataInicio}" />
+            <camunda:formField id="dataVencimento" label="Data vencimento:" type="string" defaultValue="${dataVencimento}" />
+            <camunda:formField id="documentoContratante" label="Documento contratante:" type="string" defaultValue="${documentoContratante}" />
+            <camunda:formField id="documentoTitular" label="Documento titular:" type="string" defaultValue="${documentoTitular}" />
+            <camunda:formField id="documentoUsuarioFinalRecebedor" label="Documento usuário final recebedor:" type="string" defaultValue="${documentoUsuarioFinalRecebedor}" />
+            <camunda:formField id="identificacaoGestaoEntidadeRegistradora" label="Identificação gestão entidade registradora:" type="string" defaultValue="${identificacaoGestaoEntidadeRegistradora}" />
+            <camunda:formField id="identificadorContrato" label="Identificador do contrato:" type="string" defaultValue="${identificadorContrato}" />
+            <camunda:formField id="ispb" label="ISPB:" type="string" defaultValue="${ispb}" />
+            <camunda:formField id="limiteOperacaoGarantida" label="Limite operação garantida:" type="string" defaultValue="${limiteOperacaoGarantida}" />
+            <camunda:formField id="listaCnpjCredenciadora" label="Lista CNPJ credenciadora:" type="string" defaultValue="${listaCnpjCredenciadora}" />
+            <camunda:formField id="listaCodigoArranjoPagamento" label="Lista de código de arranjo de pagamento:" type="string" defaultValue="${listaCodigoArranjoPagamento}" />
+            <camunda:formField id="modalidadeOperacao" label="Modalidade de operação:" type="string" defaultValue="${modalidadeOperacao}" />
+            <camunda:formField id="nomeTitular" label="Nome do titular:" type="string" defaultValue="${nomeTitular}" />
+            <camunda:formField id="numeroConta" label="Número da conta bancária:" type="string" defaultValue="${numeroConta}" />
+            <camunda:formField id="numeroDocumentoTitular" label="Número do documento do titular:" type="string" defaultValue="${numeroDocumentoTitular}" />
+            <camunda:formField id="regrasDivisao" label="Regras de Divisão:" type="string" defaultValue="${regrasDivisao}" />
+            <camunda:formField id="repactuacao" label="Repactuação:" type="string" defaultValue="${repactuacao}" />
+            <camunda:formField id="saldoDevedor" label="Saldo Devedor:" type="string" defaultValue="${saldoDevedor}" />
+            <camunda:formField id="tipoConta" label="Tipo de conta bancária:" type="string" defaultValue="${tipoConta}" />
+            <camunda:formField id="tipoDistribuicao" label="Tipo de distribuição:" type="string" defaultValue="${tipoDistribuicao}" />
+            <camunda:formField id="tipoEfeito" label="Tipo de Efeito de Contrato:" type="string" defaultValue="${tipoEfeito}" />
+            <camunda:formField id="tipoOperacao" label="Tipo de operação do contrato:" type="string" defaultValue="${tipoOperacao}" />
+            <camunda:formField id="valorAOnerar" label="Valor a onerar:" type="string" defaultValue="${valorAOnerar}" />
+            <camunda:formField id="valorMantido" label="Valor mantido:" type="string" defaultValue="${valorMantido}">
+              <camunda:properties>
+                <camunda:property id="Property_3kj7s96" />
+              </camunda:properties>
+            </camunda:formField>
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1e1qxfh</bpmn:incoming>
+        <bpmn:outgoing>Flow_0k083e3</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="Flow_1e1qxfh" sourceRef="Activity_1t7bysu" targetRef="Activity_0fu4w7w" />
+      <bpmn:sequenceFlow id="Flow_0t0u08f" name="Insucesso&#10;na operação" sourceRef="Gateway_0r33fd2" targetRef="Activity_03w4do1">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${status &gt;= 1}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_0bftl3p" sourceRef="Activity_03w4do1" targetRef="Activity_1t7bysu" />
+      <bpmn:sequenceFlow id="Flow_0k083e3" sourceRef="Activity_0fu4w7w" targetRef="Activity_1tc90q1" />
+      <bpmn:sequenceFlow id="Flow_1aaysqx" name="Sucesso na operação" sourceRef="Gateway_0r33fd2" targetRef="Activity_0al19nl" />
+      <bpmn:endEvent id="Event_1y6454s">
+        <bpmn:incoming>Flow_1peendm</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:userTask id="Activity_0al19nl">
+        <bpmn:incoming>Flow_1aaysqx</bpmn:incoming>
+        <bpmn:outgoing>Flow_1peendm</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="Flow_1peendm" sourceRef="Activity_0al19nl" targetRef="Event_1y6454s" />
+      <bpmn:sequenceFlow id="Flow_1uxxgdo" sourceRef="Gateway_0r33fd2" targetRef="Activity_1d4yo40">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${status &lt; 0}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:callActivity id="Activity_0dyfwjh" name="Gerar Token Cerc" calledElement="gerar_token_cerc">
+        <bpmn:extensionElements>
+          <camunda:in businessKey="#{execution.processBusinessKey}" />
+          <camunda:in variables="all" />
+          <camunda:out variables="all" />
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0c42jmg</bpmn:incoming>
+        <bpmn:outgoing>Flow_1njglhk</bpmn:outgoing>
+      </bpmn:callActivity>
+      <bpmn:serviceTask id="Activity_0z85sfl" name="Recebimento de parâmetros" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamicaxi">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://localhost:8085/kettle/executeTrans/?rep=Github&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/inicio_fluxo_cerc_op_contrato&amp;agencia=${agencia}&amp;cnpjDetentor=${cnpjDetentor}&amp;compe=${compe}&amp;dataAssinatura=${dataAssinatura}&amp;dataFim=${dataFim}&amp;dataVencimento=${dataVencimento}&amp;documentoContratante=${documentoContratante}&amp;documentoTitular=${documentoTitular}&amp;documentoUsuarioFinalRecebedor=${documentoUsuarioFinalRecebedor}&amp;identificacaoGestaoEntidadeRegistradora=${identificacaoGestaoEntidadeRegistradora}&amp;identificadorContrato=${identificadorContrato}&amp;ispb=${ispb}&amp;limiteOperacaoGarantida=${limiteOperacaoGarantida}&amp;listaCnpjCredenciadora=${listaCnpjCredenciadora}&amp;listaCodigoArranjoPagamento=${listaCodigoArranjoPagamento}&amp;modalidadeOperacao=${modalidadeOperacao}&amp;nomeTitular=${nomeTitular}&amp;numeroConta=${numeroConta}&amp;numeroDocumentoTitular=${numeroDocumentoTitular}&amp;referenciaExterna=${referenciaExterna}&amp;regrasDivisao=${regrasDivisao}&amp;repactuacao=${repactuacao}&amp;saldoDevedor=${saldoDevedor}&amp;tipoConta=${tipoConta}&amp;tipoDistribuicao=${tipoDistribuicao}&amp;tipoEfeito=${tipoEfeito}&amp;tipoOperacao=${tipoOperacao}&amp;valorAOnerar=${valorAOnerar}&amp;valorMantido=${valorMantido}&amp;dataInicio=${dataInicio}&amp;cnpjParticipante=${cnpjParticipante}&amp;identificacaoContratosAnteriores=${identificacaoContratosAnteriores}&amp;vencimento=${vencimento}&amp;valor=${valor}&amp;carteira=${carteira}&amp;tipoAvaliacao=${tipoAvaliacao}&amp;taxaJuros=${taxaJuros}&amp;indexador=${indexador}&amp;aceiteIncondicional=${aceiteIncondicional}</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2x1c3RlcjpjbHVzdGVy</camunda:inputParameter>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0b2zc0g</bpmn:incoming>
+        <bpmn:outgoing>Flow_0c42jmg</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:sequenceFlow id="Flow_0c42jmg" sourceRef="Activity_0z85sfl" targetRef="Activity_0dyfwjh" />
+      <bpmn:sequenceFlow id="Flow_1njglhk" sourceRef="Activity_0dyfwjh" targetRef="Activity_1tc90q1" />
+      <bpmn:intermediateThrowEvent id="Event_0lz8a52">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="javascript">var resultado = JSON.parse((S(execution.getVariable('result'))));
+var status = -1;
+if(resultado &amp;&amp; resultado.response){
+    var retorno = resultado.response;
+  	status = retorno[0].status;
+}
+
+execution.setVariable("status", status);</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0vbzsry</bpmn:incoming>
+        <bpmn:outgoing>Flow_1j2vsz2</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:sequenceFlow id="Flow_1j2vsz2" sourceRef="Event_0lz8a52" targetRef="Gateway_0r33fd2" />
+      <bpmn:userTask id="Activity_1d4yo40" name="Retorno vazio no pentaho:">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="motivoDoErroContrato" label="Motivo do erro na solicitação:" type="string" defaultValue="Consultar no DW o motivo do retorno vazio.">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="agencia" label="Agência" type="string" defaultValue="${agencia}" />
+            <camunda:formField id="cnpjDetentor" label="CNPJ detentor:" type="string" defaultValue="${cnpjDetentor}" />
+            <camunda:formField id="cnpjParticipante" label="CNPJ participante:" type="string" defaultValue="${cnpjParticipante}" />
+            <camunda:formField id="compe" label="Compe:" type="string" defaultValue="${compe}" />
+            <camunda:formField id="dataAssinatura" label="Data da assinatura:" type="string" defaultValue="${dataAssinatura}" />
+            <camunda:formField id="dataFim" label="Data fim:" type="string" defaultValue="${dataFim}" />
+            <camunda:formField id="dataInicio" label="Data início:" type="string" defaultValue="${dataInicio}" />
+            <camunda:formField id="dataVencimento" label="Data vencimento:" type="string" defaultValue="${dataVencimento}" />
+            <camunda:formField id="documentoContratante" label="Documento contratante:" type="string" defaultValue="${documentoContratante}" />
+            <camunda:formField id="documentoTitular" label="Documento titular:" type="string" defaultValue="${documentoTitular}" />
+            <camunda:formField id="documentoUsuarioFinalRecebedor" label="Documento usuário final recebedor:" type="string" defaultValue="${documentoUsuarioFinalRecebedor}" />
+            <camunda:formField id="identificacaoGestaoEntidadeRegistradora" label="Identificação gestão entidade registradora:" type="string" defaultValue="${identificacaoGestaoEntidadeRegistradora}" />
+            <camunda:formField id="identificadorContrato" label="Identificador do contrato:" type="string" defaultValue="${identificadorContrato}" />
+            <camunda:formField id="ispb" label="ISPB:" type="string" defaultValue="${ispb}" />
+            <camunda:formField id="limiteOperacaoGarantida" label="Limite operação garantida:" type="string" defaultValue="${limiteOperacaoGarantida}" />
+            <camunda:formField id="listaCnpjCredenciadora" label="Lista CNPJ credenciadora:" type="string" defaultValue="${listaCnpjCredenciadora}" />
+            <camunda:formField id="listaCodigoArranjoPagamento" label="Lista de código de arranjo de pagamento:" type="string" defaultValue="${listaCodigoArranjoPagamento}" />
+            <camunda:formField id="modalidadeOperacao" label="Modalidade de operação:" type="string" defaultValue="${modalidadeOperacao}" />
+            <camunda:formField id="nomeTitular" label="Nome do titular:" type="string" defaultValue="${nomeTitular}" />
+            <camunda:formField id="numeroConta" label="Número da conta bancária:" type="string" defaultValue="${numeroConta}" />
+            <camunda:formField id="numeroDocumentoTitular" label="Número do documento do titular:" type="string" defaultValue="${numeroDocumentoTitular}" />
+            <camunda:formField id="regrasDivisao" label="Regras de Divisão:" type="string" defaultValue="${regrasDivisao}" />
+            <camunda:formField id="repactuacao" label="Repactuação:" type="string" defaultValue="${repactuacao}" />
+            <camunda:formField id="saldoDevedor" label="Saldo Devedor:" type="string" defaultValue="${saldoDevedor}" />
+            <camunda:formField id="tipoConta" label="Tipo de conta bancária:" type="string" defaultValue="${tipoConta}" />
+            <camunda:formField id="tipoDistribuicao" label="Tipo de distribuição:" type="string" defaultValue="${tipoDistribuicao}" />
+            <camunda:formField id="tipoEfeito" label="Tipo de Efeito de Contrato:" type="string" defaultValue="${tipoEfeito}" />
+            <camunda:formField id="tipoOperacao" label="Tipo de operação do contrato:" type="string" defaultValue="${tipoOperacao}" />
+            <camunda:formField id="valorAOnerar" label="Valor a onerar:" type="string" defaultValue="${valorAOnerar}" />
+            <camunda:formField id="valorMantido" label="Valor mantido:" type="string" defaultValue="${valorMantido}">
+              <camunda:properties>
+                <camunda:property id="Property_3kj7s96" />
+              </camunda:properties>
+            </camunda:formField>
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1uxxgdo</bpmn:incoming>
+        <bpmn:outgoing>Flow_1vhhe77</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="Flow_1vhhe77" sourceRef="Activity_1d4yo40" targetRef="Activity_1tc90q1" />
+    </bpmn:subProcess>
+    <bpmn:textAnnotation id="TextAnnotation_089srfz">
+      <bpmn:text>Qualquer fluxo poderá consumir este serviço, seja cliente Z3, captalys, etc...</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1vt4rfl" sourceRef="Event_15gyxtz" targetRef="TextAnnotation_089srfz" />
+  </bpmn:process>
+  <bpmn:signal id="Signal_1v02jsi" name="Iniciar_fluxo_operacoes_de_contrato" />
+  <bpmn:message id="Message_0hxmbq3" name="MSG_UsuarioCancelouSolicitacao" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1ksumn4">
+      <bpmndi:BPMNShape id="Participant_013wxbu_di" bpmnElement="Participant_013wxbu" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="2290" height="930" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1442tuv_di" bpmnElement="Flow_1442tuv">
+        <di:waypoint x="293" y="460" />
+        <di:waypoint x="335" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_15gyxtz_di" bpmnElement="Event_15gyxtz">
+        <dc:Bounds x="257" y="442" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="237" y="485" width="81" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0bh8p1s_di" bpmnElement="Activity_0bh8p1s" isExpanded="true">
+        <dc:Bounds x="335" y="130" width="1865" height="800" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1vhhe77_di" bpmnElement="Flow_1vhhe77">
+        <di:waypoint x="1540" y="260" />
+        <di:waypoint x="850" y="260" />
+        <di:waypoint x="850" y="420" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1j2vsz2_di" bpmnElement="Flow_1j2vsz2">
+        <di:waypoint x="1488" y="460" />
+        <di:waypoint x="1565" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1njglhk_di" bpmnElement="Flow_1njglhk">
+        <di:waypoint x="730" y="460" />
+        <di:waypoint x="800" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0c42jmg_di" bpmnElement="Flow_0c42jmg">
+        <di:waypoint x="560" y="460" />
+        <di:waypoint x="630" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1uxxgdo_di" bpmnElement="Flow_1uxxgdo">
+        <di:waypoint x="1590" y="435" />
+        <di:waypoint x="1590" y="300" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1590" y="365" width="30" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1peendm_di" bpmnElement="Flow_1peendm">
+        <di:waypoint x="1990" y="460" />
+        <di:waypoint x="2072" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1aaysqx_di" bpmnElement="Flow_1aaysqx">
+        <di:waypoint x="1615" y="460" />
+        <di:waypoint x="1890" y="460" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1701" y="446" width="58" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0k083e3_di" bpmnElement="Flow_0k083e3">
+        <di:waypoint x="1540" y="850" />
+        <di:waypoint x="850" y="850" />
+        <di:waypoint x="850" y="500" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0bftl3p_di" bpmnElement="Flow_0bftl3p">
+        <di:waypoint x="1590" y="640" />
+        <di:waypoint x="1590" y="680" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0t0u08f_di" bpmnElement="Flow_0t0u08f">
+        <di:waypoint x="1590" y="485" />
+        <di:waypoint x="1590" y="560" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1560" y="506" width="62" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1e1qxfh_di" bpmnElement="Flow_1e1qxfh">
+        <di:waypoint x="1590" y="760" />
+        <di:waypoint x="1590" y="810" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0vbzsry_di" bpmnElement="Flow_0vbzsry">
+        <di:waypoint x="1380" y="460" />
+        <di:waypoint x="1452" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0oy9fyq_di" bpmnElement="Flow_0oy9fyq">
+        <di:waypoint x="1170" y="460" />
+        <di:waypoint x="1280" y="460" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1189" y="446" width="61" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ap7fsi_di" bpmnElement="Flow_0ap7fsi">
+        <di:waypoint x="1145" y="485" />
+        <di:waypoint x="1145" y="582" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1115" y="504" width="62" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hstolj_di" bpmnElement="Flow_1hstolj">
+        <di:waypoint x="1127" y="600" />
+        <di:waypoint x="850" y="600" />
+        <di:waypoint x="850" y="500" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0b2zc0g_di" bpmnElement="Flow_0b2zc0g">
+        <di:waypoint x="413" y="460" />
+        <di:waypoint x="460" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11pc6at_di" bpmnElement="Flow_11pc6at">
+        <di:waypoint x="900" y="460" />
+        <di:waypoint x="965" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0ilklci_di" bpmnElement="Flow_0ilklci">
+        <di:waypoint x="1065" y="460" />
+        <di:waypoint x="1120" y="460" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0kftemx_di" bpmnElement="Event_0kftemx" bioc:stroke="#000000" bioc:fill="#ffffff" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="377" y="442" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="361" y="480" width="68" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1tc90q1_di" bpmnElement="Activity_1tc90q1">
+        <dc:Bounds x="800" y="420" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1fiio60_di" bpmnElement="Activity_1fiio60">
+        <dc:Bounds x="965" y="420" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0lnlfrh_di" bpmnElement="Event_0lnlfrh">
+        <dc:Bounds x="1127" y="582" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1136" y="625" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0qkuydw_di" bpmnElement="Gateway_0qkuydw" isMarkerVisible="true">
+        <dc:Bounds x="1120" y="435" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1119" y="411" width="52" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_08y2vxc_di" bpmnElement="Activity_08y2vxc">
+        <dc:Bounds x="1280" y="420" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_03w4do1_di" bpmnElement="Activity_03w4do1">
+        <dc:Bounds x="1540" y="560" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1t7bysu_di" bpmnElement="Activity_1t7bysu" bioc:stroke="#000000" bioc:fill="#ffffff" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="1540" y="680" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0r33fd2_di" bpmnElement="Gateway_0r33fd2" isMarkerVisible="true">
+        <dc:Bounds x="1565" y="435" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1560" y="400" width="62" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0fu4w7w_di" bpmnElement="Activity_0fu4w7w">
+        <dc:Bounds x="1540" y="810" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1y6454s_di" bpmnElement="Event_1y6454s">
+        <dc:Bounds x="2072" y="442" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0al19nl_di" bpmnElement="Activity_0al19nl">
+        <dc:Bounds x="1890" y="420" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0dyfwjh_di" bpmnElement="Activity_0dyfwjh">
+        <dc:Bounds x="630" y="420" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0oyu48a_di" bpmnElement="Activity_0z85sfl">
+        <dc:Bounds x="460" y="420" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0lz8a52_di" bpmnElement="Event_0lz8a52">
+        <dc:Bounds x="1452" y="442" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1d4yo40_di" bpmnElement="Activity_1d4yo40">
+        <dc:Bounds x="1540" y="220" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_089srfz_di" bpmnElement="TextAnnotation_089srfz">
+        <dc:Bounds x="205" y="160" width="100" height="246" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1vt4rfl_di" bpmnElement="Association_1vt4rfl">
+        <di:waypoint x="273" y="442" />
+        <di:waypoint x="268" y="406" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

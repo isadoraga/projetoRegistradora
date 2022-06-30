@@ -1,0 +1,398 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1jk81kx" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:collaboration id="Collaboration_0r98hkm">
+    <bpmn:participant id="Participant_IgmXgzCLl" name="FLUXO DE CONSULTA DE CONTRATO" processRef="fluxo_de_consulta_de_contrato" />
+  </bpmn:collaboration>
+  <bpmn:process id="fluxo_de_consulta_de_contrato" name="Fluxo de Consulta de Contrato CERC" isExecutable="true">
+    <bpmn:startEvent id="Event_13lpjhf" name="Fluxo de consulta de contrato iniciado">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="javaScript">execution.setProcessBusinessKey(execution.getVariable('businessKey'));
+execution.setVariable('processoAtual','Consulta de Contrato CERC');
+</camunda:script>
+        </camunda:executionListener>
+        <camunda:formData>
+          <camunda:formField id="referenciaExterna" label="Referencia externa:" type="string" />
+          <camunda:formField id="identificadorContrato" label="Identificador de Contrato" type="string" />
+          <camunda:formField id="tipoAvaliacao" label="Tipo Avaliação:" type="string" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_132a1tk</bpmn:outgoing>
+      <bpmn:signalEventDefinition id="SignalEventDefinition_19kincj" signalRef="Signal_1hjqquo" />
+    </bpmn:startEvent>
+    <bpmn:subProcess id="Activity_1u9pifn">
+      <bpmn:incoming>Flow_132a1tk</bpmn:incoming>
+      <bpmn:startEvent id="Event_0m6y95d" name="Inicia fluxo de operações de contrato">
+        <bpmn:outgoing>Flow_1batf2v</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:serviceTask id="Activity_1rdfcd4" name="Envio de solicitação de operação de contrato" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamicaxi">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2x1c3RlcjpjbHVzdGVy</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8085/kettle/executeTrans/?rep=Github&amp;trans=/home/dados_zaz/registradora/cerc/transformacao/consultar_contrato_cerc&amp;level=Debug&amp;referenciaExterna=${referenciaExterna}&amp;identificadorContrato=${identificadorContrato}&amp;tipoAvaliacao=${tipoAvaliacao}&amp;token_completo=${token_completo}</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1grkeer</bpmn:incoming>
+        <bpmn:incoming>Flow_0y3u0kg</bpmn:incoming>
+        <bpmn:incoming>Flow_17c55vo</bpmn:incoming>
+        <bpmn:incoming>Flow_0o4jzny</bpmn:incoming>
+        <bpmn:outgoing>Flow_0p5wbju</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:task id="Activity_0tzkyyx" name="Recebimento de parâmetros">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://localhost:8085/kettle/executeTrans/?rep=Github&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/inicio_fluxo_consulta_contrato&amp;referereferenciaExterna=${referenciaExterna}&amp;identificadorContrato=${identificadorContrato}&amp;tipoAvaliacao=${tipoAvaliacao}</camunda:inputParameter>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2x1c3RlcjpjbHVzdGVy</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1batf2v</bpmn:incoming>
+        <bpmn:outgoing>Flow_168hzhr</bpmn:outgoing>
+      </bpmn:task>
+      <bpmn:task id="Activity_1vzhrms" name="Consultar código de sucesso/insucesso na API pentaho">
+        <bpmn:incoming>Flow_0p5wbju</bpmn:incoming>
+        <bpmn:outgoing>Flow_0g44irj</bpmn:outgoing>
+      </bpmn:task>
+      <bpmn:intermediateCatchEvent id="Event_0qt9pss" name="1 M">
+        <bpmn:incoming>Flow_0rl7z8p</bpmn:incoming>
+        <bpmn:outgoing>Flow_0y3u0kg</bpmn:outgoing>
+        <bpmn:timerEventDefinition id="TimerEventDefinition_01yw709">
+          <bpmn:timeDuration xsi:type="bpmn:tFormalExpression">PT1M</bpmn:timeDuration>
+        </bpmn:timerEventDefinition>
+      </bpmn:intermediateCatchEvent>
+      <bpmn:exclusiveGateway id="Gateway_0lq7q4m" name="Sucesso ?" default="Flow_0n4fnwf">
+        <bpmn:incoming>Flow_0g44irj</bpmn:incoming>
+        <bpmn:outgoing>Flow_0n4fnwf</bpmn:outgoing>
+        <bpmn:outgoing>Flow_0rl7z8p</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:intermediateThrowEvent id="Event_0l03wg4">
+        <bpmn:extensionElements>
+          <camunda:executionListener event="start">
+            <camunda:script scriptFormat="javascript">var resultado = JSON.parse((S(execution.getVariable('result'))));
+var codigohttp = "1000";
+if(resultado &amp;&amp; resultado.response){
+    var retorno = resultado.response;
+    codigohttp = retorno[0].codigohttp;
+  	var status =  retorno[0].status;
+}
+
+execution.setVariable("codigohttp", codigohttp)
+execution.setVariable("status", status);</camunda:script>
+          </camunda:executionListener>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0s74hby</bpmn:incoming>
+        <bpmn:outgoing>Flow_1jclq02</bpmn:outgoing>
+      </bpmn:intermediateThrowEvent>
+      <bpmn:serviceTask id="Activity_1ialtns" name="Consultar sucesso na consulta de contrato" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamicaxi">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2x1c3RlcjpjbHVzdGVy</camunda:inputParameter>
+            <camunda:inputParameter name="url">http://localhost:8085/kettle/executeTrans/?rep=Github&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_sucesso_resultado&amp;referenciaExterna=${referenciaExterna}</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_0n4fnwf</bpmn:incoming>
+        <bpmn:outgoing>Flow_0s74hby</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:serviceTask id="Activity_0nimfh6" name="Consultar código do erro na operação de contrato" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamicaxi">
+        <bpmn:extensionElements>
+          <camunda:inputOutput>
+            <camunda:inputParameter name="url">http://localhost:8085/kettle/executeTrans/?rep=Github&amp;trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_erro_consulta_contrato&amp;referenciaExterna=${referenciaExterna}</camunda:inputParameter>
+            <camunda:inputParameter name="httpMethod">GET</camunda:inputParameter>
+            <camunda:inputParameter name="authorization">Basic Y2x1c3RlcjpjbHVzdGVy</camunda:inputParameter>
+          </camunda:inputOutput>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_101nexo</bpmn:incoming>
+        <bpmn:outgoing>Flow_06v3oqv</bpmn:outgoing>
+      </bpmn:serviceTask>
+      <bpmn:scriptTask id="Activity_0zg2awr" name="Resultado da consulta de DMN" camunda:asyncBefore="true" scriptFormat="javaScript">
+        <bpmn:incoming>Flow_06v3oqv</bpmn:incoming>
+        <bpmn:outgoing>Flow_1ge9abx</bpmn:outgoing>
+        <bpmn:script>var system = java.lang.System;
+var resultado = JSON.parse((S(execution.getVariable('result'))));
+
+var retorno = resultado.response;
+
+var ultimoStatus = retorno[0];
+
+execution.setVariable("codConsultaContrato", ultimoStatus.codigo);</bpmn:script>
+      </bpmn:scriptTask>
+      <bpmn:exclusiveGateway id="Gateway_0xukwdj" name="Sucesso consulta contrato?" camunda:asyncBefore="true" default="Flow_1hetwhl">
+        <bpmn:incoming>Flow_1jclq02</bpmn:incoming>
+        <bpmn:outgoing>Flow_1hetwhl</bpmn:outgoing>
+        <bpmn:outgoing>Flow_101nexo</bpmn:outgoing>
+        <bpmn:outgoing>Flow_00g69xu</bpmn:outgoing>
+      </bpmn:exclusiveGateway>
+      <bpmn:endEvent id="Event_1siv50z">
+        <bpmn:incoming>Flow_168xe2e</bpmn:incoming>
+      </bpmn:endEvent>
+      <bpmn:userTask id="Activity_10g1dxc">
+        <bpmn:incoming>Flow_1hetwhl</bpmn:incoming>
+        <bpmn:outgoing>Flow_168xe2e</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:userTask id="Activity_1d75vyh" name="Correção de dados para consulta de contrato CERC">
+        <bpmn:extensionElements>
+          <camunda:formData>
+            <camunda:formField id="motivoDoErroContrato" label="Motivo do erro na solicitação:" type="string" defaultValue="${result}">
+              <camunda:validation>
+                <camunda:constraint name="readonly" />
+              </camunda:validation>
+            </camunda:formField>
+            <camunda:formField id="agencia" label="Agência" type="string" defaultValue="${agencia}" />
+            <camunda:formField id="cnpjDetentor" label="CNPJ detentor:" type="string" defaultValue="${cnpjDetentor}" />
+            <camunda:formField id="cnpjParticipante" label="CNPJ participante:" type="string" defaultValue="${cnpjParticipante}" />
+            <camunda:formField id="compe" label="Compe:" type="string" defaultValue="${compe}" />
+            <camunda:formField id="dataAssinatura" label="Data da assinatura:" type="string" defaultValue="${dataAssinatura}" />
+            <camunda:formField id="dataFim" label="Data fim:" type="string" defaultValue="${dataFim}" />
+            <camunda:formField id="dataInicio" label="Data início:" type="string" defaultValue="${dataInicio}" />
+            <camunda:formField id="dataVencimento" label="Data vencimento:" type="string" defaultValue="${dataVencimento}" />
+            <camunda:formField id="documentoContratante" label="Documento contratante:" type="string" defaultValue="${documentoContratante}" />
+            <camunda:formField id="documentoTitular" label="Documento titular:" type="string" defaultValue="${documentoTitular}" />
+            <camunda:formField id="documentoUsuarioFinalRecebedor" label="Documento usuário final recebedor:" type="string" defaultValue="${documentoUsuarioFinalRecebedor}" />
+            <camunda:formField id="identificacaoGestaoEntidadeRegistradora" label="Identificação gestão entidade registradora:" type="string" defaultValue="${identificacaoGestaoEntidadeRegistradora}" />
+            <camunda:formField id="identificadorContrato" label="Identificador do contrato:" type="string" defaultValue="${identificadorContrato}" />
+            <camunda:formField id="ispb" label="ISPB:" type="string" defaultValue="${ispb}" />
+            <camunda:formField id="limiteOperacaoGarantida" label="Limite operação garantida:" type="string" defaultValue="${limiteOperacaoGarantida}" />
+            <camunda:formField id="listaCnpjCredenciadora" label="Lista CNPJ credenciadora:" type="string" defaultValue="${listaCnpjCredenciadora}" />
+            <camunda:formField id="listaCodigoArranjoPagamento" label="Lista de código de arranjo de pagamento:" type="string" defaultValue="${listaCodigoArranjoPagamento}" />
+            <camunda:formField id="modalidadeOperacao" label="Modalidade de operação:" type="string" defaultValue="${modalidadeOperacao}" />
+            <camunda:formField id="nomeTitular" label="Nome do titular:" type="string" defaultValue="${nomeTitular}" />
+            <camunda:formField id="numeroConta" label="Número da conta bancária:" type="string" defaultValue="${numeroConta}" />
+            <camunda:formField id="numeroDocumentoTitular" label="Número do documento do titular:" type="string" defaultValue="${numeroDocumentoTitular}" />
+            <camunda:formField id="regrasDivisao" label="Regras de Divisão:" type="string" defaultValue="${regrasDivisao}" />
+            <camunda:formField id="repactuacao" label="Repactuação:" type="string" defaultValue="${repactuacao}" />
+            <camunda:formField id="saldoDevedor" label="Saldo Devedor:" type="string" defaultValue="${saldoDevedor}" />
+            <camunda:formField id="tipoConta" label="Tipo de conta bancária:" type="string" defaultValue="${tipoConta}" />
+            <camunda:formField id="tipoDistribuicao" label="Tipo de distribuição:" type="string" defaultValue="${tipoDistribuicao}" />
+            <camunda:formField id="tipoEfeito" label="Tipo de Efeito de Contrato:" type="string" defaultValue="${tipoEfeito}" />
+            <camunda:formField id="tipoOperacao" label="Tipo de operação do contrato:" type="string" defaultValue="${tipoOperacao}" />
+            <camunda:formField id="valorAOnerar" label="Valor a onerar:" type="string" defaultValue="${valorAOnerar}" />
+            <camunda:formField id="valorMantido" label="Valor mantido:" type="string" defaultValue="${valorMantido}">
+              <camunda:properties>
+                <camunda:property id="Property_3kj7s96" />
+              </camunda:properties>
+            </camunda:formField>
+          </camunda:formData>
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_1ge9abx</bpmn:incoming>
+        <bpmn:outgoing>Flow_1grkeer</bpmn:outgoing>
+      </bpmn:userTask>
+      <bpmn:sequenceFlow id="Flow_168xe2e" sourceRef="Activity_10g1dxc" targetRef="Event_1siv50z" />
+      <bpmn:sequenceFlow id="Flow_1hetwhl" sourceRef="Gateway_0xukwdj" targetRef="Activity_10g1dxc" />
+      <bpmn:sequenceFlow id="Flow_1jclq02" sourceRef="Event_0l03wg4" targetRef="Gateway_0xukwdj" />
+      <bpmn:sequenceFlow id="Flow_1grkeer" sourceRef="Activity_1d75vyh" targetRef="Activity_1rdfcd4" />
+      <bpmn:sequenceFlow id="Flow_06v3oqv" sourceRef="Activity_0nimfh6" targetRef="Activity_0zg2awr" />
+      <bpmn:sequenceFlow id="Flow_101nexo" name="Insucesso&#10;consulta" sourceRef="Gateway_0xukwdj" targetRef="Activity_0nimfh6">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${status == "1"}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_1ge9abx" sourceRef="Activity_0zg2awr" targetRef="Activity_1d75vyh" />
+      <bpmn:sequenceFlow id="Flow_0s74hby" sourceRef="Activity_1ialtns" targetRef="Event_0l03wg4" />
+      <bpmn:sequenceFlow id="Flow_0n4fnwf" name="Sucesso&#10;API pentaho" sourceRef="Gateway_0lq7q4m" targetRef="Activity_1ialtns" />
+      <bpmn:sequenceFlow id="Flow_0rl7z8p" name="Insucesso&#10;API Pentaho" sourceRef="Gateway_0lq7q4m" targetRef="Event_0qt9pss">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${statusCode &gt;= 500}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_0y3u0kg" sourceRef="Event_0qt9pss" targetRef="Activity_1rdfcd4" />
+      <bpmn:sequenceFlow id="Flow_1batf2v" sourceRef="Event_0m6y95d" targetRef="Activity_0tzkyyx" />
+      <bpmn:sequenceFlow id="Flow_168hzhr" sourceRef="Activity_0tzkyyx" targetRef="Activity_00ksfi0" />
+      <bpmn:sequenceFlow id="Flow_0p5wbju" sourceRef="Activity_1rdfcd4" targetRef="Activity_1vzhrms" />
+      <bpmn:sequenceFlow id="Flow_0g44irj" sourceRef="Activity_1vzhrms" targetRef="Gateway_0lq7q4m" />
+      <bpmn:callActivity id="Activity_00ksfi0" name="Gerar Token Cerc" calledElement="gerar_token_cerc">
+        <bpmn:extensionElements>
+          <camunda:in businessKey="#{execution.processBusinessKey}" />
+          <camunda:in variables="all" />
+          <camunda:out variables="all" />
+        </bpmn:extensionElements>
+        <bpmn:incoming>Flow_168hzhr</bpmn:incoming>
+        <bpmn:outgoing>Flow_17c55vo</bpmn:outgoing>
+      </bpmn:callActivity>
+      <bpmn:sequenceFlow id="Flow_17c55vo" sourceRef="Activity_00ksfi0" targetRef="Activity_1rdfcd4" />
+      <bpmn:sequenceFlow id="Flow_00g69xu" sourceRef="Gateway_0xukwdj" targetRef="Activity_18t9bmb">
+        <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${codigohttp == "1000"}</bpmn:conditionExpression>
+      </bpmn:sequenceFlow>
+      <bpmn:sequenceFlow id="Flow_0o4jzny" sourceRef="Activity_18t9bmb" targetRef="Activity_1rdfcd4" />
+      <bpmn:userTask id="Activity_18t9bmb" name="Retorno Pentaho Vazio">
+        <bpmn:incoming>Flow_00g69xu</bpmn:incoming>
+        <bpmn:outgoing>Flow_0o4jzny</bpmn:outgoing>
+      </bpmn:userTask>
+    </bpmn:subProcess>
+    <bpmn:sequenceFlow id="Flow_132a1tk" sourceRef="Event_13lpjhf" targetRef="Activity_1u9pifn" />
+    <bpmn:textAnnotation id="TextAnnotation_0l1ji64">
+      <bpmn:text>Qualquer fluxo poderá consumir este serviço, seja cliente Z3, captalys, etc...</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_04i5xy5" sourceRef="Event_13lpjhf" targetRef="TextAnnotation_0l1ji64" />
+  </bpmn:process>
+  <bpmn:signal id="Signal_1hjqquo" name="fluxo_consulta_de_contrato_cerc" />
+  <bpmn:message id="Message_1dtq12x" name="MSG_UsuarioCancelouSolicitacao" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0r98hkm">
+      <bpmndi:BPMNShape id="Participant_1o2ee1t_di" bpmnElement="Participant_IgmXgzCLl" isHorizontal="true">
+        <dc:Bounds x="160" y="80" width="2110" height="780" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_132a1tk_di" bpmnElement="Flow_132a1tk">
+        <di:waypoint x="293" y="310" />
+        <di:waypoint x="335" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_13lpjhf_di" bpmnElement="Event_13lpjhf">
+        <dc:Bounds x="257" y="292" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="235" y="335" width="87" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1u9pifn_di" bpmnElement="Activity_1u9pifn" isExpanded="true">
+        <dc:Bounds x="335" y="130" width="1780" height="650" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0o4jzny_di" bpmnElement="Flow_0o4jzny">
+        <di:waypoint x="1580" y="180" />
+        <di:waypoint x="890" y="180" />
+        <di:waypoint x="890" y="270" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_00g69xu_di" bpmnElement="Flow_00g69xu">
+        <di:waypoint x="1630" y="285" />
+        <di:waypoint x="1630" y="220" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17c55vo_di" bpmnElement="Flow_17c55vo">
+        <di:waypoint x="740" y="310" />
+        <di:waypoint x="840" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0g44irj_di" bpmnElement="Flow_0g44irj">
+        <di:waypoint x="1105" y="310" />
+        <di:waypoint x="1160" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0p5wbju_di" bpmnElement="Flow_0p5wbju">
+        <di:waypoint x="940" y="310" />
+        <di:waypoint x="1005" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_168hzhr_di" bpmnElement="Flow_168hzhr">
+        <di:waypoint x="560" y="310" />
+        <di:waypoint x="640" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1batf2v_di" bpmnElement="Flow_1batf2v">
+        <di:waypoint x="413" y="310" />
+        <di:waypoint x="460" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0y3u0kg_di" bpmnElement="Flow_0y3u0kg">
+        <di:waypoint x="1167" y="450" />
+        <di:waypoint x="890" y="450" />
+        <di:waypoint x="890" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0rl7z8p_di" bpmnElement="Flow_0rl7z8p">
+        <di:waypoint x="1185" y="335" />
+        <di:waypoint x="1185" y="432" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1155" y="354" width="62" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0n4fnwf_di" bpmnElement="Flow_0n4fnwf">
+        <di:waypoint x="1210" y="310" />
+        <di:waypoint x="1320" y="310" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1229" y="296" width="61" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0s74hby_di" bpmnElement="Flow_0s74hby">
+        <di:waypoint x="1420" y="310" />
+        <di:waypoint x="1492" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ge9abx_di" bpmnElement="Flow_1ge9abx">
+        <di:waypoint x="1630" y="610" />
+        <di:waypoint x="1630" y="660" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_101nexo_di" bpmnElement="Flow_101nexo">
+        <di:waypoint x="1630" y="335" />
+        <di:waypoint x="1630" y="410" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1606" y="337" width="50" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06v3oqv_di" bpmnElement="Flow_06v3oqv">
+        <di:waypoint x="1630" y="490" />
+        <di:waypoint x="1630" y="530" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1grkeer_di" bpmnElement="Flow_1grkeer">
+        <di:waypoint x="1580" y="700" />
+        <di:waypoint x="890" y="700" />
+        <di:waypoint x="890" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1jclq02_di" bpmnElement="Flow_1jclq02">
+        <di:waypoint x="1528" y="310" />
+        <di:waypoint x="1605" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1hetwhl_di" bpmnElement="Flow_1hetwhl">
+        <di:waypoint x="1655" y="310" />
+        <di:waypoint x="1840" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_168xe2e_di" bpmnElement="Flow_168xe2e">
+        <di:waypoint x="1940" y="310" />
+        <di:waypoint x="1972" y="310" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0m6y95d_di" bpmnElement="Event_0m6y95d" bioc:stroke="#000000" bioc:fill="#ffffff" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="377" y="292" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="361" y="330" width="68" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1rdfcd4_di" bpmnElement="Activity_1rdfcd4">
+        <dc:Bounds x="840" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tzkyyx_di" bpmnElement="Activity_0tzkyyx">
+        <dc:Bounds x="460" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1vzhrms_di" bpmnElement="Activity_1vzhrms">
+        <dc:Bounds x="1005" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0qt9pss_di" bpmnElement="Event_0qt9pss">
+        <dc:Bounds x="1167" y="432" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1176" y="475" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0lq7q4m_di" bpmnElement="Gateway_0lq7q4m" isMarkerVisible="true">
+        <dc:Bounds x="1160" y="285" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1159" y="263" width="52" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0l03wg4_di" bpmnElement="Event_0l03wg4">
+        <dc:Bounds x="1492" y="292" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ialtns_di" bpmnElement="Activity_1ialtns">
+        <dc:Bounds x="1320" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0nimfh6_di" bpmnElement="Activity_0nimfh6">
+        <dc:Bounds x="1580" y="410" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0zg2awr_di" bpmnElement="Activity_0zg2awr" bioc:stroke="#000000" bioc:fill="#ffffff" color:background-color="#ffffff" color:border-color="#000000">
+        <dc:Bounds x="1580" y="530" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0xukwdj_di" bpmnElement="Gateway_0xukwdj" isMarkerVisible="true">
+        <dc:Bounds x="1605" y="285" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1588" y="256" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1siv50z_di" bpmnElement="Event_1siv50z">
+        <dc:Bounds x="1972" y="292" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_10g1dxc_di" bpmnElement="Activity_10g1dxc">
+        <dc:Bounds x="1840" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1d75vyh_di" bpmnElement="Activity_1d75vyh">
+        <dc:Bounds x="1580" y="660" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00ksfi0_di" bpmnElement="Activity_00ksfi0">
+        <dc:Bounds x="640" y="270" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_00umazr_di" bpmnElement="Activity_18t9bmb">
+        <dc:Bounds x="1580" y="140" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_0l1ji64_di" bpmnElement="TextAnnotation_0l1ji64">
+        <dc:Bounds x="205" y="160" width="100" height="96" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_04i5xy5_di" bpmnElement="Association_04i5xy5">
+        <di:waypoint x="273" y="292" />
+        <di:waypoint x="268" y="256" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
