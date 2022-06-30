@@ -1,0 +1,2579 @@
+{
+	"info": {
+		"_postman_id": "46d0f93c-e028-4869-8c95-e9ddc2364a2e",
+		"name": "Pentaho - Registradora",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "18841724"
+	},
+	"item": [
+		{
+			"name": "Consulta Agenda [Produção]",
+			"item": [
+				{
+					"name": "Inicio fluxo camunda",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "CYjHfrAQPzn3",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pentaho.zaz.vc/pentaho/kettle/executeTrans/?rep=ServidorPentahoAws&trans=/home/dados_zaz/registradora/cerc/CERC_novo/inicio_fluxo_cerc_camunda&level=Debug&tipoOperacao=C&referenciaExterna=abc&cnpjSolicitante=19687535000100&dataAssinaturaOptIn=2022-05-09&listaCodigoArranjoPagamento=99T&dataInicioOptin=2022-05-09&dataFimOptin=2022-05-12&documentoUsuarioFinalRecebedor=28606684000199&documentoTitular=28606684000199&cnpjFinanciador=19687535000100&cnpjRecebedorAgenda=19687535000100&listaCnpjCredenciadora=99T&tipoAvaliacao=avaliacao_agenda_basica_ap&carteira=&protocolo=&dataFimAgenda=2022-05-10&dataInicioAgenda=2022-05-09",
+							"protocol": "http",
+							"host": [
+								"pentaho",
+								"zaz",
+								"vc"
+							],
+							"path": [
+								"pentaho",
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "ServidorPentahoAws"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/inicio_fluxo_cerc_camunda"
+								},
+								{
+									"key": "level",
+									"value": "Debug"
+								},
+								{
+									"key": "tipoOperacao",
+									"value": "C"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "abc"
+								},
+								{
+									"key": "cnpjSolicitante",
+									"value": "19687535000100"
+								},
+								{
+									"key": "dataAssinaturaOptIn",
+									"value": "2022-05-09"
+								},
+								{
+									"key": "listaCodigoArranjoPagamento",
+									"value": "99T"
+								},
+								{
+									"key": "dataInicioOptin",
+									"value": "2022-05-09"
+								},
+								{
+									"key": "dataFimOptin",
+									"value": "2022-05-12"
+								},
+								{
+									"key": "documentoUsuarioFinalRecebedor",
+									"value": "28606684000199"
+								},
+								{
+									"key": "documentoTitular",
+									"value": "28606684000199"
+								},
+								{
+									"key": "cnpjFinanciador",
+									"value": "19687535000100"
+								},
+								{
+									"key": "cnpjRecebedorAgenda",
+									"value": "19687535000100"
+								},
+								{
+									"key": "listaCnpjCredenciadora",
+									"value": "99T"
+								},
+								{
+									"key": "tipoAvaliacao",
+									"value": "avaliacao_agenda_basica_ap"
+								},
+								{
+									"key": "carteira",
+									"value": ""
+								},
+								{
+									"key": "protocolo",
+									"value": ""
+								},
+								{
+									"key": "dataFimAgenda",
+									"value": "2022-05-10"
+								},
+								{
+									"key": "dataInicioAgenda",
+									"value": "2022-05-09"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gerar token cerc",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "CYjHfrAQPzn3",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pentaho.zaz.vc/pentaho/kettle/executeTrans/?rep=ServidorPentahoAws&trans=/home/dados_zaz/registradora/cerc/CERC_novo/authorization_cerc&level=info&referenciaExterna=teste",
+							"protocol": "http",
+							"host": [
+								"pentaho",
+								"zaz",
+								"vc"
+							],
+							"path": [
+								"pentaho",
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "ServidorPentahoAws"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/authorization_cerc"
+								},
+								{
+									"key": "level",
+									"value": "info"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "teste"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta token CERC",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "CYjHfrAQPzn3",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pentaho.zaz.vc/pentaho/kettle/executeTrans/?rep=ServidorPentahoAws&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_token_cerc&level=info&referenciaExterna=teste",
+							"protocol": "http",
+							"host": [
+								"pentaho",
+								"zaz",
+								"vc"
+							],
+							"path": [
+								"pentaho",
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "ServidorPentahoAws"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_token_cerc"
+								},
+								{
+									"key": "level",
+									"value": "info"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "teste"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Opt-in CERC",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "CYjHfrAQPzn3",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pentaho.zaz.vc/pentaho/kettle/executeTrans/?rep=ServidorPentahoAws&trans=/home/dados_zaz/registradora/cerc/CERC_novo/opt_in_cerc&level=info&tipoOperacao=${tipoOperacao}&referenciaExterna=${referenciaExterna}&cnpjSolicitante=${cnpjSolicitante}&dataAssinaturaOptIn=${dataAssinaturaOptIn}&listaCnpjCredenciadora=${listaCnpjCredenciadora}&listaCodigoArranjoPagamento=${listaCodigoArranjoPagamento}&dataInicioOptin=${dataInicioOptin}&dataFimOptin=${dataFimOptin}&documentoUsuarioFinalRecebedor=${documentoUsuarioFinalRecebedor}&documentoTitular=${documentoTitular}&cnpjFinanciador=${cnpjFinanciador}&cnpjRecebedorAgenda=${cnpjRecebedorAgenda}&carteira=${carteira}&protocolo=${protocolo}&token_completo=${token_completo}",
+							"protocol": "http",
+							"host": [
+								"pentaho",
+								"zaz",
+								"vc"
+							],
+							"path": [
+								"pentaho",
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "ServidorPentahoAws"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/opt_in_cerc"
+								},
+								{
+									"key": "level",
+									"value": "info"
+								},
+								{
+									"key": "tipoOperacao",
+									"value": "${tipoOperacao}"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "${referenciaExterna}"
+								},
+								{
+									"key": "cnpjSolicitante",
+									"value": "${cnpjSolicitante}"
+								},
+								{
+									"key": "dataAssinaturaOptIn",
+									"value": "${dataAssinaturaOptIn}"
+								},
+								{
+									"key": "listaCnpjCredenciadora",
+									"value": "${listaCnpjCredenciadora}"
+								},
+								{
+									"key": "listaCodigoArranjoPagamento",
+									"value": "${listaCodigoArranjoPagamento}"
+								},
+								{
+									"key": "dataInicioOptin",
+									"value": "${dataInicioOptin}"
+								},
+								{
+									"key": "dataFimOptin",
+									"value": "${dataFimOptin}"
+								},
+								{
+									"key": "documentoUsuarioFinalRecebedor",
+									"value": "${documentoUsuarioFinalRecebedor}"
+								},
+								{
+									"key": "documentoTitular",
+									"value": "${documentoTitular}"
+								},
+								{
+									"key": "cnpjFinanciador",
+									"value": "${cnpjFinanciador}"
+								},
+								{
+									"key": "cnpjRecebedorAgenda",
+									"value": "${cnpjRecebedorAgenda}"
+								},
+								{
+									"key": "carteira",
+									"value": "${carteira}"
+								},
+								{
+									"key": "protocolo",
+									"value": "${protocolo}"
+								},
+								{
+									"key": "token_completo",
+									"value": "${token_completo}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta Opt-in",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "CYjHfrAQPzn3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pentaho.zaz.vc/pentaho/kettle/executeTrans/?rep=ServidorPentahoAws&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_sucesso_opt_in&level=info&referenciaExterna=${referenciaExterna}",
+							"protocol": "http",
+							"host": [
+								"pentaho",
+								"zaz",
+								"vc"
+							],
+							"path": [
+								"pentaho",
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "ServidorPentahoAws"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_sucesso_opt_in"
+								},
+								{
+									"key": "level",
+									"value": "info"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "${referenciaExterna}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta erro Opt-in",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "CYjHfrAQPzn3",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pentaho.zaz.vc/pentaho/kettle/executeTrans/?rep=ServidorPentahoAws&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_erro_opt_in&level=info&referenciaExterna=${referenciaExterna}",
+							"protocol": "http",
+							"host": [
+								"pentaho",
+								"zaz",
+								"vc"
+							],
+							"path": [
+								"pentaho",
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "ServidorPentahoAws"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_erro_opt_in"
+								},
+								{
+									"key": "level",
+									"value": "info"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "${referenciaExterna}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta Protocolo Opt-in",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "CYjHfrAQPzn3",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pentaho.zaz.vc/pentaho/kettle/executeTrans/?rep=ServidorPentahoAws&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_protocolo_opt_in&level=info&referenciaExterna=${referenciaExterna}",
+							"protocol": "http",
+							"host": [
+								"pentaho",
+								"zaz",
+								"vc"
+							],
+							"path": [
+								"pentaho",
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "ServidorPentahoAws"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_protocolo_opt_in"
+								},
+								{
+									"key": "level",
+									"value": "info"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "${referenciaExterna}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta Agenda",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "CYjHfrAQPzn3",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pentaho.zaz.vc/pentaho/kettle/executeTrans/?rep=ServidorPentahoAws&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_agenda&referenciaExterna=${referenciaExterna}&listaCnpjCredenciadora=${listaCnpjCredenciadora}&listaCodigoArranjoPagamento=${listaCodigoArranjoPagamento}&documentoTitular=${documentoTitular}&tipoAvaliacao=${tipoAvaliacao}&dataFimAgenda=${dataFimAgenda}&dataInicioAgenda=${dataInicioAgenda}&token_completo=${token_completo}&documentoUsuarioFinalRecebedor=${documentoUsuarioFinalRecebedor}",
+							"protocol": "http",
+							"host": [
+								"pentaho",
+								"zaz",
+								"vc"
+							],
+							"path": [
+								"pentaho",
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "ServidorPentahoAws"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_agenda"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "${referenciaExterna}"
+								},
+								{
+									"key": "listaCnpjCredenciadora",
+									"value": "${listaCnpjCredenciadora}"
+								},
+								{
+									"key": "listaCodigoArranjoPagamento",
+									"value": "${listaCodigoArranjoPagamento}"
+								},
+								{
+									"key": "documentoTitular",
+									"value": "${documentoTitular}"
+								},
+								{
+									"key": "tipoAvaliacao",
+									"value": "${tipoAvaliacao}"
+								},
+								{
+									"key": "dataFimAgenda",
+									"value": "${dataFimAgenda}"
+								},
+								{
+									"key": "dataInicioAgenda",
+									"value": "${dataInicioAgenda}"
+								},
+								{
+									"key": "token_completo",
+									"value": "${token_completo}"
+								},
+								{
+									"key": "documentoUsuarioFinalRecebedor",
+									"value": "${documentoUsuarioFinalRecebedor}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta sucesso agenda",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "CYjHfrAQPzn3",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pentaho.zaz.vc/pentaho/kettle/executeTrans/?rep=ServidorPentahoAws&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_sucesso_agenda_cerc&level=info&referenciaExterna=sdoijalskdmklas",
+							"protocol": "http",
+							"host": [
+								"pentaho",
+								"zaz",
+								"vc"
+							],
+							"path": [
+								"pentaho",
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "ServidorPentahoAws"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_sucesso_agenda_cerc"
+								},
+								{
+									"key": "level",
+									"value": "info"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "sdoijalskdmklas"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta erro agenda",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "CYjHfrAQPzn3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pentaho.zaz.vc/pentaho/kettle/executeTrans/?rep=ServidorPentahoAws&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_erro_agenda_cerc&level=info&referenciaExterna=sdoijalskdmklas",
+							"protocol": "http",
+							"host": [
+								"pentaho",
+								"zaz",
+								"vc"
+							],
+							"path": [
+								"pentaho",
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "ServidorPentahoAws"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_erro_agenda_cerc"
+								},
+								{
+									"key": "level",
+									"value": "info"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "sdoijalskdmklas"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Opt-out CERC",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "CYjHfrAQPzn3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pentaho.zaz.vc/pentaho/kettle/executeTrans/?rep=ServidorPentahoAws&trans=/home/dados_zaz/registradora/cerc/CERC_novo/opt_out_cerc&referenciaExterna=${referenciaExterna}&token_completo=${token_completo}&cnpjSolicitante=${cnpjSolicitante}&carteira=${carteira}&protocoloOptIn=${protocoloOptIn}",
+							"protocol": "http",
+							"host": [
+								"pentaho",
+								"zaz",
+								"vc"
+							],
+							"path": [
+								"pentaho",
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "ServidorPentahoAws"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/opt_out_cerc"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "${referenciaExterna}"
+								},
+								{
+									"key": "token_completo",
+									"value": "${token_completo}"
+								},
+								{
+									"key": "cnpjSolicitante",
+									"value": "${cnpjSolicitante}"
+								},
+								{
+									"key": "carteira",
+									"value": "${carteira}"
+								},
+								{
+									"key": "protocoloOptIn",
+									"value": "${protocoloOptIn}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta sucesso opt-out",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "CYjHfrAQPzn3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pentaho.zaz.vc/pentaho/kettle/executeTrans/?rep=ServidorPentahoAws&trans=/home/dados_zaz/registradora/cerc/CERC_novo/onsulta_sucesso_opt_out&level=info&referenciaExterna=abclkdasmlkdmakls",
+							"protocol": "http",
+							"host": [
+								"pentaho",
+								"zaz",
+								"vc"
+							],
+							"path": [
+								"pentaho",
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "ServidorPentahoAws"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/onsulta_sucesso_opt_out"
+								},
+								{
+									"key": "level",
+									"value": "info"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "abclkdasmlkdmakls"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta erro opt-out",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "Admin",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "CYjHfrAQPzn3",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pentaho.zaz.vc/pentaho/kettle/executeTrans/?rep=ServidorPentahoAws&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_erro_opt_out&level=info&referenciaExterna=sdoijalskdmklas",
+							"protocol": "http",
+							"host": [
+								"pentaho",
+								"zaz",
+								"vc"
+							],
+							"path": [
+								"pentaho",
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "ServidorPentahoAws"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_erro_opt_out"
+								},
+								{
+									"key": "level",
+									"value": "info"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "sdoijalskdmklas"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta protocolo opt-out",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://pentaho.zaz.vc/pentaho/kettle/executeTrans/?rep=registradora&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_protocolo_opt_out&level=info&referenciaExterna=sdoijalskdmklas",
+							"protocol": "http",
+							"host": [
+								"pentaho",
+								"zaz",
+								"vc"
+							],
+							"path": [
+								"pentaho",
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "registradora"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_protocolo_opt_out"
+								},
+								{
+									"key": "level",
+									"value": "info"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "sdoijalskdmklas"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "CYjHfrAQPzn3",
+						"type": "string"
+					},
+					{
+						"key": "username",
+						"value": "Admin",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Operações de Contrato [Local]",
+			"item": [
+				{
+					"name": "Inicio Fluxo Camunda",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans/?rep=Github&trans=/home/dados_zaz/registradora/cerc/CERC_novo/inicio_fluxo_cerc_op_contrato&agencia=${agencia}&cnpjDetentor=${cnpjDetentor}&compe=${compe}&dataAssinatura=${dataAssinatura}&dataFim=${dataFim}&dataVencimento=${dataVencimento}&documentoContratante=${documentoContratante}&documentoTitular=${documentoTitular}&documentoUsuarioFinalRecebedor=${documentoUsuarioFinalRecebedor}&identificacaoGestaoEntidadeRegistradora=${identificacaoGestaoEntidadeRegistradora}&identificadorContrato=${identificadorContrato}&ispb=${ispb}&limiteOperacaoGarantida=${limiteOperacaoGarantida}&listaCnpjCredenciadora=${listaCnpjCredenciadora}&listaCodigoArranjoPagamento=${listaCodigoArranjoPagamento}&modalidadeOperacao=${modalidadeOperacao}&nomeTitular=${nomeTitular}&numeroConta=${numeroConta}&numeroDocumentoTitular=${numeroDocumentoTitular}&referenciaExterna=${referenciaExterna}&regrasDivisao=${regrasDivisao}&repactuacao=${repactuacao}&saldoDevedor=${saldoDevedor}&tipoConta=${tipoConta}&tipoDistribuicao=${tipoDistribuicao}&tipoEfeito=${tipoEfeito}&tipoOperacao=${tipoOperacao}&valorAOnerar=${valorAOnerar}&valorMantido=${valorMantido}&dataInicio=${dataInicio}&cnpjParticipante=${cnpjParticipante}&identificacaoContratosAnteriores=${identificacaoContratosAnteriores}&vencimento=${vencimento}&valor=${valor}&carteira=${carteira}&tipoAvaliacao=${tipoAvaliacao}&taxaJuros=${taxaJuros}&indexador=${indexador}&aceiteIncondicional=${aceiteIncondicional}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "Github"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/inicio_fluxo_cerc_op_contrato"
+								},
+								{
+									"key": "agencia",
+									"value": "${agencia}"
+								},
+								{
+									"key": "cnpjDetentor",
+									"value": "${cnpjDetentor}"
+								},
+								{
+									"key": "compe",
+									"value": "${compe}"
+								},
+								{
+									"key": "dataAssinatura",
+									"value": "${dataAssinatura}"
+								},
+								{
+									"key": "dataFim",
+									"value": "${dataFim}"
+								},
+								{
+									"key": "dataVencimento",
+									"value": "${dataVencimento}"
+								},
+								{
+									"key": "documentoContratante",
+									"value": "${documentoContratante}"
+								},
+								{
+									"key": "documentoTitular",
+									"value": "${documentoTitular}"
+								},
+								{
+									"key": "documentoUsuarioFinalRecebedor",
+									"value": "${documentoUsuarioFinalRecebedor}"
+								},
+								{
+									"key": "identificacaoGestaoEntidadeRegistradora",
+									"value": "${identificacaoGestaoEntidadeRegistradora}"
+								},
+								{
+									"key": "identificadorContrato",
+									"value": "${identificadorContrato}"
+								},
+								{
+									"key": "ispb",
+									"value": "${ispb}"
+								},
+								{
+									"key": "limiteOperacaoGarantida",
+									"value": "${limiteOperacaoGarantida}"
+								},
+								{
+									"key": "listaCnpjCredenciadora",
+									"value": "${listaCnpjCredenciadora}"
+								},
+								{
+									"key": "listaCodigoArranjoPagamento",
+									"value": "${listaCodigoArranjoPagamento}"
+								},
+								{
+									"key": "modalidadeOperacao",
+									"value": "${modalidadeOperacao}"
+								},
+								{
+									"key": "nomeTitular",
+									"value": "${nomeTitular}"
+								},
+								{
+									"key": "numeroConta",
+									"value": "${numeroConta}"
+								},
+								{
+									"key": "numeroDocumentoTitular",
+									"value": "${numeroDocumentoTitular}"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "${referenciaExterna}"
+								},
+								{
+									"key": "regrasDivisao",
+									"value": "${regrasDivisao}"
+								},
+								{
+									"key": "repactuacao",
+									"value": "${repactuacao}"
+								},
+								{
+									"key": "saldoDevedor",
+									"value": "${saldoDevedor}"
+								},
+								{
+									"key": "tipoConta",
+									"value": "${tipoConta}"
+								},
+								{
+									"key": "tipoDistribuicao",
+									"value": "${tipoDistribuicao}"
+								},
+								{
+									"key": "tipoEfeito",
+									"value": "${tipoEfeito}"
+								},
+								{
+									"key": "tipoOperacao",
+									"value": "${tipoOperacao}"
+								},
+								{
+									"key": "valorAOnerar",
+									"value": "${valorAOnerar}"
+								},
+								{
+									"key": "valorMantido",
+									"value": "${valorMantido}"
+								},
+								{
+									"key": "dataInicio",
+									"value": "${dataInicio}"
+								},
+								{
+									"key": "cnpjParticipante",
+									"value": "${cnpjParticipante}"
+								},
+								{
+									"key": "identificacaoContratosAnteriores",
+									"value": "${identificacaoContratosAnteriores}"
+								},
+								{
+									"key": "vencimento",
+									"value": "${vencimento}"
+								},
+								{
+									"key": "valor",
+									"value": "${valor}"
+								},
+								{
+									"key": "carteira",
+									"value": "${carteira}"
+								},
+								{
+									"key": "tipoAvaliacao",
+									"value": "${tipoAvaliacao}"
+								},
+								{
+									"key": "taxaJuros",
+									"value": "${taxaJuros}"
+								},
+								{
+									"key": "indexador",
+									"value": "${indexador}"
+								},
+								{
+									"key": "aceiteIncondicional",
+									"value": "${aceiteIncondicional}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gerar token cerc",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans/?rep=Github&trans=/home/dados_zaz/registradora/cerc/CERC_novo/authorization_cerc&level=info&referenciaExterna=sefsfasda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "Github"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/authorization_cerc"
+								},
+								{
+									"key": "level",
+									"value": "info"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "sefsfasda"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta token CERC",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans/?rep=Github&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_token_cerc&level=info&referenciaExterna=sefsfasda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "Github"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_token_cerc"
+								},
+								{
+									"key": "level",
+									"value": "info"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "sefsfasda"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Operação de contrato",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans/?rep=Github&trans=/home/dados_zaz/registradora/cerc/transformacao/operacoes_contrato_cerc&agencia=${agencia}&cnpjDetentor=${cnpjDetentor}&compe=${compe}&dataAssinatura=${dataAssinatura}&dataFim=${dataFim}&dataVencimento=${dataVencimento}&documentoContratante=${documentoContratante}&documentoTitular=${documentoTitular}&documentoUsuarioFinalRecebedor=${documentoUsuarioFinalRecebedor}&identificacaoGestaoEntidadeRegistradora=${identificacaoGestaoEntidadeRegistradora}&identificadorContrato=${identificadorContrato}&ispb=${ispb}&limiteOperacaoGarantida=${limiteOperacaoGarantida}&listaCnpjCredenciadora=${listaCnpjCredenciadora}&listaCodigoArranjoPagamento=${listaCodigoArranjoPagamento}&modalidadeOperacao=${modalidadeOperacao}&nomeTitular=${nomeTitular}&numeroConta=${numeroConta}&numeroDocumentoTitular=${numeroDocumentoTitular}&referenciaExterna=${referenciaExterna}&regrasDivisao=${regrasDivisao}&repactuacao=${repactuacao}&saldoDevedor=${saldoDevedor}&tipoConta=${tipoConta}&tipoDistribuicao=${tipoDistribuicao}&tipoEfeito=${tipoEfeito}&tipoOperacao=${tipoOperacao}&valorAOnerar=${valorAOnerar}&valorMantido=${valorMantido}&token_completo=${token_completo}&dataInicio=${dataInicio}&cnpjParticipante=${cnpjParticipante}&identificacaoContratosAnteriores=${identificacaoContratosAnteriores}&vencimento=${vencimento}&valor=${valor}&carteira=${carteira}&tipoAvaliacao=${tipoAvaliacao}&taxaJuros=${taxaJuros}&indexador=${indexador}&aceiteIncondicional=${aceiteIncondicional}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "Github"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/transformacao/operacoes_contrato_cerc"
+								},
+								{
+									"key": "agencia",
+									"value": "${agencia}"
+								},
+								{
+									"key": "cnpjDetentor",
+									"value": "${cnpjDetentor}"
+								},
+								{
+									"key": "compe",
+									"value": "${compe}"
+								},
+								{
+									"key": "dataAssinatura",
+									"value": "${dataAssinatura}"
+								},
+								{
+									"key": "dataFim",
+									"value": "${dataFim}"
+								},
+								{
+									"key": "dataVencimento",
+									"value": "${dataVencimento}"
+								},
+								{
+									"key": "documentoContratante",
+									"value": "${documentoContratante}"
+								},
+								{
+									"key": "documentoTitular",
+									"value": "${documentoTitular}"
+								},
+								{
+									"key": "documentoUsuarioFinalRecebedor",
+									"value": "${documentoUsuarioFinalRecebedor}"
+								},
+								{
+									"key": "identificacaoGestaoEntidadeRegistradora",
+									"value": "${identificacaoGestaoEntidadeRegistradora}"
+								},
+								{
+									"key": "identificadorContrato",
+									"value": "${identificadorContrato}"
+								},
+								{
+									"key": "ispb",
+									"value": "${ispb}"
+								},
+								{
+									"key": "limiteOperacaoGarantida",
+									"value": "${limiteOperacaoGarantida}"
+								},
+								{
+									"key": "listaCnpjCredenciadora",
+									"value": "${listaCnpjCredenciadora}"
+								},
+								{
+									"key": "listaCodigoArranjoPagamento",
+									"value": "${listaCodigoArranjoPagamento}"
+								},
+								{
+									"key": "modalidadeOperacao",
+									"value": "${modalidadeOperacao}"
+								},
+								{
+									"key": "nomeTitular",
+									"value": "${nomeTitular}"
+								},
+								{
+									"key": "numeroConta",
+									"value": "${numeroConta}"
+								},
+								{
+									"key": "numeroDocumentoTitular",
+									"value": "${numeroDocumentoTitular}"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "${referenciaExterna}"
+								},
+								{
+									"key": "regrasDivisao",
+									"value": "${regrasDivisao}"
+								},
+								{
+									"key": "repactuacao",
+									"value": "${repactuacao}"
+								},
+								{
+									"key": "saldoDevedor",
+									"value": "${saldoDevedor}"
+								},
+								{
+									"key": "tipoConta",
+									"value": "${tipoConta}"
+								},
+								{
+									"key": "tipoDistribuicao",
+									"value": "${tipoDistribuicao}"
+								},
+								{
+									"key": "tipoEfeito",
+									"value": "${tipoEfeito}"
+								},
+								{
+									"key": "tipoOperacao",
+									"value": "${tipoOperacao}"
+								},
+								{
+									"key": "valorAOnerar",
+									"value": "${valorAOnerar}"
+								},
+								{
+									"key": "valorMantido",
+									"value": "${valorMantido}"
+								},
+								{
+									"key": "token_completo",
+									"value": "${token_completo}"
+								},
+								{
+									"key": "dataInicio",
+									"value": "${dataInicio}"
+								},
+								{
+									"key": "cnpjParticipante",
+									"value": "${cnpjParticipante}"
+								},
+								{
+									"key": "identificacaoContratosAnteriores",
+									"value": "${identificacaoContratosAnteriores}"
+								},
+								{
+									"key": "vencimento",
+									"value": "${vencimento}"
+								},
+								{
+									"key": "valor",
+									"value": "${valor}"
+								},
+								{
+									"key": "carteira",
+									"value": "${carteira}"
+								},
+								{
+									"key": "tipoAvaliacao",
+									"value": "${tipoAvaliacao}"
+								},
+								{
+									"key": "taxaJuros",
+									"value": "${taxaJuros}"
+								},
+								{
+									"key": "indexador",
+									"value": "${indexador}"
+								},
+								{
+									"key": "aceiteIncondicional",
+									"value": "${aceiteIncondicional}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta Sucesso Contrato",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans/?rep=GitHub&trans=/home/dados_zaz/registradora/cerc/transformacao/consulta_sucesso_contrato&referenciaExterna=sefsfasda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "GitHub"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/transformacao/consulta_sucesso_contrato"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "sefsfasda"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta Erro Contrato",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans/?rep=GitHub&trans=/home/dados_zaz/registradora/cerc/transformacao/consulta_erro_contrato&referenciaExterna=sefsfasda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "GitHub"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/transformacao/consulta_erro_contrato"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "sefsfasda"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Consulta Contrato [Local]",
+			"item": [
+				{
+					"name": "Inicio Fluxo Camunda",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans/?rep=Github&trans=/home/dados_zaz/registradora/cerc/CERC_novo/inicio_fluxo_consulta_contrato&referereferenciaExterna=${referenciaExterna}&identificadorContrato=${identificadorContrato}&tipoAvaliacao=${tipoAvaliacao}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "Github"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/inicio_fluxo_consulta_contrato"
+								},
+								{
+									"key": "referereferenciaExterna",
+									"value": "${referenciaExterna}"
+								},
+								{
+									"key": "identificadorContrato",
+									"value": "${identificadorContrato}"
+								},
+								{
+									"key": "tipoAvaliacao",
+									"value": "${tipoAvaliacao}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Gerar token cerc",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans/?rep=Github&trans=/home/dados_zaz/registradora/cerc/CERC_novo/authorization_cerc&level=info&referenciaExterna=sefsfasda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "Github"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/authorization_cerc"
+								},
+								{
+									"key": "level",
+									"value": "info"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "sefsfasda"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta token CERC",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans/?rep=Github&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_token_cerc&level=info&referenciaExterna=sefsfasda",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "Github"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_token_cerc"
+								},
+								{
+									"key": "level",
+									"value": "info"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "sefsfasda"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta Contrato",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans/?rep=Github&trans=/home/dados_zaz/registradora/cerc/tranformacao/consultar_contrato_cerc&level=Debug&referenciaExterna=${referenciaExterna}&identificadorContrato=${identificadorContrato}&tipoAvaliacao=${tipoAvaliacao}&token_completo=${token_completo}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "Github"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/tranformacao/consultar_contrato_cerc"
+								},
+								{
+									"key": "level",
+									"value": "Debug"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "${referenciaExterna}"
+								},
+								{
+									"key": "identificadorContrato",
+									"value": "${identificadorContrato}"
+								},
+								{
+									"key": "tipoAvaliacao",
+									"value": "${tipoAvaliacao}"
+								},
+								{
+									"key": "token_completo",
+									"value": "${token_completo}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta Sucesso Contrato",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans/?rep=GitHub&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_sucesso_resultado&referenciaExterna=aMo01dsRx99k",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "GitHub"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_sucesso_resultado"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "aMo01dsRx99k"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta Erro Contrato",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans/?rep=Github&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_erro_consulta_contrato&referenciaExterna=d5a4dee65a4ed65",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "Github"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_erro_consulta_contrato"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "d5a4dee65a4ed65"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "cluster",
+						"type": "string"
+					},
+					{
+						"key": "username",
+						"value": "cluster",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Fluxo de Contestação [Local]",
+			"item": [
+				{
+					"name": "Inicio Fluxo Camunda",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans?rep=Github&trans=/home/dados_zaz/registradora/cerc/CERC_novo/inicio_fluxo_contestacao&referenciaExterna=${referenciaExterna}&identificadorContestacao=${identificadorContestacao}&cnpjRecebedorContestacao=${cnpjRecebedorContestacao}&documentoUsuarioFinalRecebedorOuTitular=${documentoUsuarioFinalRecebedorOuTitular}&cnpjDestinatarioContestacao=${cnpjDestinatarioContestacao}&identificadorOperacaoContrato=${identificadorOperacaoContrato}&codigoMotivo=${codigoMotivo}&descricao=${descricao}&dataContestacao=${dataContestacao}&tipoContestacao=${tipoContestacao}&tipoContestante=${tipoContestante}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans"
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "Github"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/inicio_fluxo_contestacao"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "${referenciaExterna}"
+								},
+								{
+									"key": "identificadorContestacao",
+									"value": "${identificadorContestacao}"
+								},
+								{
+									"key": "cnpjRecebedorContestacao",
+									"value": "${cnpjRecebedorContestacao}"
+								},
+								{
+									"key": "documentoUsuarioFinalRecebedorOuTitular",
+									"value": "${documentoUsuarioFinalRecebedorOuTitular}"
+								},
+								{
+									"key": "cnpjDestinatarioContestacao",
+									"value": "${cnpjDestinatarioContestacao}"
+								},
+								{
+									"key": "identificadorOperacaoContrato",
+									"value": "${identificadorOperacaoContrato}"
+								},
+								{
+									"key": "codigoMotivo",
+									"value": "${codigoMotivo}"
+								},
+								{
+									"key": "descricao",
+									"value": "${descricao}"
+								},
+								{
+									"key": "dataContestacao",
+									"value": "${dataContestacao}"
+								},
+								{
+									"key": "tipoContestacao",
+									"value": "${tipoContestacao}"
+								},
+								{
+									"key": "tipoContestante",
+									"value": "${tipoContestante}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Contestação CERC",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans/?rep=Github&trans=/home/dados_zaz/registradora/cerc/CERC_novo/contestacao_cerc&referenciaExterna=${referenciaExterna}&identificadorContestacao=${identificadorContestacao}&cnpjRecebedorContestacao=${cnpjRecebedorContestacao}&documentoUsuarioFinalRecebedorOuTitular=${documentoUsuarioFinalRecebedorOuTitular}&cnpjDestinatarioContestacao=${cnpjDestinatarioContestacao}&identificadorOperacaoContrato=${identificadorOperacaoContrato}&codigoMotivo=${codigoMotivo}&descricao=${descricao}&dataContestacao=${dataContestacao}&tipoContestacao=${tipoContestacao}&tipoContestante=${tipoContestante}&token_completo=${token_completo}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "Github"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/contestacao_cerc"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "${referenciaExterna}"
+								},
+								{
+									"key": "identificadorContestacao",
+									"value": "${identificadorContestacao}"
+								},
+								{
+									"key": "cnpjRecebedorContestacao",
+									"value": "${cnpjRecebedorContestacao}"
+								},
+								{
+									"key": "documentoUsuarioFinalRecebedorOuTitular",
+									"value": "${documentoUsuarioFinalRecebedorOuTitular}"
+								},
+								{
+									"key": "cnpjDestinatarioContestacao",
+									"value": "${cnpjDestinatarioContestacao}"
+								},
+								{
+									"key": "identificadorOperacaoContrato",
+									"value": "${identificadorOperacaoContrato}"
+								},
+								{
+									"key": "codigoMotivo",
+									"value": "${codigoMotivo}"
+								},
+								{
+									"key": "descricao",
+									"value": "${descricao}"
+								},
+								{
+									"key": "dataContestacao",
+									"value": "${dataContestacao}"
+								},
+								{
+									"key": "tipoContestacao",
+									"value": "${tipoContestacao}"
+								},
+								{
+									"key": "tipoContestante",
+									"value": "${tipoContestante}"
+								},
+								{
+									"key": "token_completo",
+									"value": "${token_completo}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta Sucesso Contestação",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans/?rep=Github&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_sucesso_contrato&referenciaExterna=${referenciaExterna}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "Github"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_sucesso_contrato"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "${referenciaExterna}"
+								}
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Consulta Erro Contestação",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "password",
+									"value": "cluster",
+									"type": "string"
+								},
+								{
+									"key": "username",
+									"value": "cluster",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans/?rep=Github&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_erro_contestacao&referenciaExterna=${referenciaExterna}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans",
+								""
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "Github"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_erro_contestacao"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "${referenciaExterna}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "cluster",
+						"type": "string"
+					},
+					{
+						"key": "username",
+						"value": "cluster",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Fluxo de Conciliação [Local]",
+			"item": [
+				{
+					"name": "Inicio Fluxo Conciliação",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8085/kettle/executeTrans?rep=Github&trans=/home/dados_zaz/registradora/cerc/CERC_novo/&referenciaExterna=${referenciaExterna}&dataReferencia=${dataReferencia}&cnpjParticipante=${cnpjParticipante}&cnpjDetentor=${cnpjDetentor}&tipoEfeito=${tipoEfeito}&modalidadeOperacao=${modalidadeOperacao}&quantidadeContratos=${quantidadeContratos}&quantidadeContratantes=${quantidadeContratantes}&saldoDevedorTotal=${saldoDevedorTotal}&carteira=${carteira}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8085",
+							"path": [
+								"kettle",
+								"executeTrans"
+							],
+							"query": [
+								{
+									"key": "rep",
+									"value": "Github"
+								},
+								{
+									"key": "trans",
+									"value": "/home/dados_zaz/registradora/cerc/CERC_novo/"
+								},
+								{
+									"key": "referenciaExterna",
+									"value": "${referenciaExterna}"
+								},
+								{
+									"key": "dataReferencia",
+									"value": "${dataReferencia}"
+								},
+								{
+									"key": "cnpjParticipante",
+									"value": "${cnpjParticipante}"
+								},
+								{
+									"key": "cnpjDetentor",
+									"value": "${cnpjDetentor}"
+								},
+								{
+									"key": "tipoEfeito",
+									"value": "${tipoEfeito}"
+								},
+								{
+									"key": "modalidadeOperacao",
+									"value": "${modalidadeOperacao}"
+								},
+								{
+									"key": "quantidadeContratos",
+									"value": "${quantidadeContratos}"
+								},
+								{
+									"key": "quantidadeContratantes",
+									"value": "${quantidadeContratantes}"
+								},
+								{
+									"key": "saldoDevedorTotal",
+									"value": "${saldoDevedorTotal}"
+								},
+								{
+									"key": "carteira",
+									"value": "${carteira}"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "basic",
+				"basic": [
+					{
+						"key": "password",
+						"value": "cluster",
+						"type": "string"
+					},
+					{
+						"key": "username",
+						"value": "cluster",
+						"type": "string"
+					}
+				]
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"exec": [
+							""
+						]
+					}
+				}
+			]
+		},
+		{
+			"name": "Trans Consulta Agenda Worker",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "hZAEhWQ00Fwr",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "camunda",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://pdi.zaz.vc:8082/kettle/executeTrans?rep=ServidorPentahoAws&trans=/home/dados_zaz/registradora/cerc/CERC_novo/consulta_agenda_worker&level=info&referenciaExterna=1-70a3eedc-ecda-11ec-a24c-0242ac150002",
+					"protocol": "http",
+					"host": [
+						"pdi",
+						"zaz",
+						"vc"
+					],
+					"port": "8082",
+					"path": [
+						"kettle",
+						"executeTrans"
+					],
+					"query": [
+						{
+							"key": "rep",
+							"value": "ServidorPentahoAws"
+						},
+						{
+							"key": "trans",
+							"value": "/home/dados_zaz/registradora/cerc/CERC_novo/consulta_agenda_worker"
+						},
+						{
+							"key": "level",
+							"value": "info"
+						},
+						{
+							"key": "referenciaExterna",
+							"value": "1-70a3eedc-ecda-11ec-a24c-0242ac150002"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Trans Quebra Agenda",
+			"request": {
+				"auth": {
+					"type": "basic",
+					"basic": [
+						{
+							"key": "password",
+							"value": "CYjHfrAQPzn3",
+							"type": "string"
+						},
+						{
+							"key": "username",
+							"value": "Admin",
+							"type": "string"
+						}
+					]
+				},
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "http://pentaho.zaz.vc/pentaho/kettle/executeTrans/?rep=ServidorPentahoAws&trans=/home/dados_zaz/registradora/cerc/transformacao/quebra_agenda_cerc&level=info&referenciaExterna=3-BjG85dPR0R0p",
+					"protocol": "http",
+					"host": [
+						"pentaho",
+						"zaz",
+						"vc"
+					],
+					"path": [
+						"pentaho",
+						"kettle",
+						"executeTrans",
+						""
+					],
+					"query": [
+						{
+							"key": "rep",
+							"value": "ServidorPentahoAws"
+						},
+						{
+							"key": "trans",
+							"value": "/home/dados_zaz/registradora/cerc/transformacao/quebra_agenda_cerc"
+						},
+						{
+							"key": "level",
+							"value": "info"
+						},
+						{
+							"key": "referenciaExterna",
+							"value": "3-BjG85dPR0R0p"
+						}
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Testes Isa",
+			"request": {
+				"auth": {
+					"type": "bearer",
+					"bearer": [
+						{
+							"key": "token",
+							"value": "131a2f53-380d-4b7c-a232-e0227eb50e12",
+							"type": "string"
+						}
+					]
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\r\n\"primaryEmail\": \"liz@example.com\",\r\n\"name\": {\r\n \"givenName\": \"Elizabeth\",\r\n \"familyName\": \"Smith\"\r\n},\r\n\"suspended\": false,\r\n\"password\": \"new user password\",\r\n\"hashFunction\": \"SHA-1\",\r\n\"changePasswordAtNextLogin\": false,\r\n\"ipWhitelisted\": false,\r\n\"ims\": [\r\n {\r\n  \"type\": \"work\",\r\n  \"protocol\": \"gtalk\",\r\n  \"im\": \"liz_im@talk.example.com\",\r\n  \"primary\": true\r\n }\r\n],\r\n\"emails\": [\r\n {\r\n  \"address\": \"liz@example.com\",\r\n  \"type\": \"home\",\r\n  \"customType\": \"\",\r\n  \"primary\": true\r\n }\r\n],\r\n\"addresses\": [\r\n {\r\n  \"type\": \"work\",\r\n  \"customType\": \"\",\r\n  \"streetAddress\": \"1600 Amphitheatre Parkway\",\r\n  \"locality\": \"Mountain View\",\r\n  \"region\": \"CA\",\r\n  \"postalCode\": \"94043\"\r\n }\r\n],\r\n\"externalIds\": [\r\n {\r\n  \"value\": \"12345\",\r\n  \"type\": \"custom\",\r\n  \"customType\": \"employee\"\r\n }\r\n],\r\n\"relations\": [\r\n {\r\n  \"value\": \"Mom\",\r\n  \"type\": \"mother\",\r\n  \"customType\": \"\"\r\n },\r\n {\r\n  \"value\": \"manager\",\r\n  \"type\": \"referred_by\",\r\n  \"customType\": \"\"\r\n }\r\n],\r\n\"organizations\": [\r\n {\r\n  \"name\": \"Google Inc.\",\r\n  \"title\": \"SWE\",\r\n  \"primary\": true,\r\n  \"type\": \"work\",\r\n  \"description\": \"Software engineer\"\r\n }\r\n],\r\n\"phones\": [\r\n {\r\n  \"value\": \"+1 nnn nnn nnnn\",\r\n  \"type\": \"work\"\r\n }\r\n],\r\n\"orgUnitPath\": \"/corp/engineering\",\r\n\"includeInGlobalAddressList\": true\r\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": {
+					"raw": "https://admin.googleapis.com/admin/directory/v1/users",
+					"protocol": "https",
+					"host": [
+						"admin",
+						"googleapis",
+						"com"
+					],
+					"path": [
+						"admin",
+						"directory",
+						"v1",
+						"users"
+					]
+				}
+			},
+			"response": []
+		}
+	],
+	"variable": [
+		{
+			"key": "listaCnpjCredenciadora",
+			"value": "99T"
+		}
+	]
+}
