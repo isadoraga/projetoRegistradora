@@ -1,0 +1,121 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_1gf6k81" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="PosVenda_ComunicacaoClienteRentabilizacao" name="Comunicação clente">
+    <decisionTable id="DecisionTable_0nrzvnf" hitPolicy="FIRST">
+      <input id="Input_1" label="Idade Pós venda" biodi:width="192" camunda:inputVariable="processamentoPosVenda.idadePosVenda">
+        <inputExpression id="InputExpression_1" typeRef="integer">
+          <text>processamentoPosVenda.idadePosVenda</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0w7dn5r" label="Tpv projetado" camunda:inputVariable="processamentoPosVenda.tpvProjetado">
+        <inputExpression id="LiteralExpression_1n0bjcs" typeRef="double">
+          <text>processamentoPosVenda.tpvProjetado</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_19gacmw" label="Tpv acumulado mês" camunda:inputVariable="processamentoPosVenda.tpvAcumuladoMesAtual">
+        <inputExpression id="LiteralExpression_1jy6fma" typeRef="double">
+          <text>processamentoPosVenda.tpvAcumuladoMesAtual</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Template BLIP" name="templateMensagemCliente" typeRef="string" />
+      <output id="OutputClause_0iiv1qn" label="Evento notificação" name="eventoNotificacaoCliente" typeRef="string" />
+      <rule id="DecisionRule_0ivz4o7">
+        <description>Cliente está projetando passar do limite esperado. Regra recorrente à cada 15º dia de cada mes referente à entrada do cliente</description>
+        <inputEntry id="UnaryTests_1h12kkc">
+          <text>15,45,75,105,135,165,195,225,255,285,315,345</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19hfdx1">
+          <text>&gt;= 9000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02tin4o">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mufz5h">
+          <text>"sumup_rentabilizacao_15dias_bateu"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mqa6rz">
+          <text>"notificacao_resumopush-copy-1"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1lp8qjq">
+        <description>Cliente não está projetando passar do limite esperado. Regra recorrente à cada 15º dia de cada mes referente à entrada do cliente</description>
+        <inputEntry id="UnaryTests_1wa79ti">
+          <text>15,45,75,105,135,165,195,225,255,285,315,345</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qn0v48">
+          <text>&lt; 9000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0da2w2e">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0gtid38">
+          <text>"sumup_rentabilizacao_15dias"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1v4w38b">
+          <text>"notificacao_resumopush-copy-1"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10mqxyl">
+        <description>Notificação para cliente sempre que ao final de cada mês não passa o tpv mínimo esperado</description>
+        <inputEntry id="UnaryTests_0viuiz9">
+          <text>30,60,90,120,150,180,210,240,270,300,330,360</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1n55mgm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hw55jx">
+          <text>&lt; 9000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0hkdszu">
+          <text>"sumup_rentabilizacao_30dias_naobateu"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1dl0r55">
+          <text>"notificacao_resumopush-copy-1"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1h1dpiq">
+        <description>Notificação para cliente sempre que ao final de cada mês passa o tpv mínimo esperado</description>
+        <inputEntry id="UnaryTests_1st9m48">
+          <text>30,60,90,120,150,180,210,240,270,300,330,360</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s327dc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cvn9xu">
+          <text>&gt;= 9000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16ioxup">
+          <text>"sumup_rentabilizacao_30dias_bateu"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ci1wyw">
+          <text>"notificacao_resumopush-copy-1"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_154i78f">
+        <description>Regra default para não enviar nenhuma mensagem caso não se enquadre em nenhuma regra acima</description>
+        <inputEntry id="UnaryTests_0hhcsjk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jkfqit">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ikywam">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1i5r2vg">
+          <text>""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14jrpu5">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="PosVenda_ComunicacaoClienteRentabilizacao">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

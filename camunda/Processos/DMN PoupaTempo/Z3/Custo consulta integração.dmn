@@ -1,0 +1,81 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_1blq08f" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
+  <decision id="custo_consulta_integracao" name="Custo consulta integração">
+    <decisionTable id="DecisionTable_0hiwj76" hitPolicy="FIRST">
+      <input id="Input_1" label="API" camunda:inputVariable="api">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>api</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1h2yi4g">
+          <text>"Serasa"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1hlsly3" label="Consulta" camunda:inputVariable="consulta">
+        <inputExpression id="LiteralExpression_1b4c9tp" typeRef="string">
+          <text>consulta</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1sgfdy1">
+          <text>"cred","credScore"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1i5fqq1" label="Tipo consulta" camunda:inputVariable="tipoConsulta">
+        <inputExpression id="LiteralExpression_1wficxj" typeRef="string">
+          <text>tipoConsulta</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1172e2i">
+          <text>"PJ","PF"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Valor" name="valor" typeRef="double" />
+      <rule id="DecisionRule_042ouuj">
+        <inputEntry id="UnaryTests_17dl6ie">
+          <text>"Serasa"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1i4okiv">
+          <text>"cred"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_058fy3o">
+          <text>"PJ","PF"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0luzzop">
+          <text>4</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1rqg7w7">
+        <inputEntry id="UnaryTests_0qie4a6">
+          <text>"Serasa"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gpvfxh">
+          <text>"credScore"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ws9i6c">
+          <text>"PJ","PF"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lkiz2s">
+          <text>7.5</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wwapuk">
+        <inputEntry id="UnaryTests_0bwjg8x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01di0cx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uypcs7">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0sq605a">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="custo_consulta_integracao">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0rpzrg4" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
+  <decision id="selecao_produto" name="Seleção do produto">
+    <decisionTable id="DecisionTable_0prc26z" hitPolicy="COLLECT">
+      <input id="Input_1" label="Faturamento" camunda:inputVariable="faturamento">
+        <inputExpression id="InputExpression_1" typeRef="double">
+          <text>faturamento</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Máquina disponível" name="maquinaDisponivel" typeRef="string">
+        <outputValues id="UnaryTests_00nib47">
+          <text>"SafraPay Mini","SafraPay Slim","SafraPay Pro"</text>
+        </outputValues>
+      </output>
+      <output id="OutputClause_1lk2uxz" label="Preco Maquina" name="precoMaquina" typeRef="string" />
+      <output id="OutputClause_02tqws9" label="Aluguél Máquina" name="aluguelMaquina" typeRef="string" />
+      <rule id="DecisionRule_060x5lf">
+        <inputEntry id="UnaryTests_1yr74xf">
+          <text>&gt;= 2000, &gt;= 1000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0s70wyt">
+          <text>"SafraPay Slim"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_02p3ai8">
+          <text>"177,60"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0tkhz64">
+          <text>"39,70"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_106kbjx">
+        <inputEntry id="UnaryTests_0y943x6">
+          <text>&gt;= 2000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hplqu4">
+          <text>"SafraPay Pro"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0snhmk6">
+          <text>"297,60"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15pi8eg">
+          <text>"49,90"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0z8x7ve">
+        <inputEntry id="UnaryTests_07jx058">
+          <text>&lt;1000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0rvrxpc">
+          <text>""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18t4hsm">
+          <text>""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ozulcy">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="selecao_produto">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

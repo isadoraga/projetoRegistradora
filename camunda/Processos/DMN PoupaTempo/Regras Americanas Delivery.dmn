@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="regrasAmericanasDelivery" name="Regras Americanas Delivery" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="termosPropostaAmericanasDelivery" name="Termos de proposta Americanas Delivery">
+    <decisionTable id="DecisionTable_1eqiz6x" hitPolicy="FIRST">
+      <input id="Input_1" label="Modelo Parceria" camunda:inputVariable="modeloParceria">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>modeloParceria</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_116hhvd">
+          <text>"MarketPlace","Logística + MarketPlace"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Taxa Adesão" name="taxaAdesao" typeRef="string" biodi:width="192">
+        <outputValues id="UnaryTests_0khw92j">
+          <text>"Isento"</text>
+        </outputValues>
+      </output>
+      <output id="OutputClause_11dl0c6" label="Comissão Online" name="comissaoOnline" typeRef="string" biodi:width="192">
+        <outputValues id="UnaryTests_19fxule">
+          <text>"23%","15%"</text>
+        </outputValues>
+      </output>
+      <output id="OutputClause_1lrbtp3" label="Comissão Especial" name="comissaoEspecial" typeRef="string">
+        <outputValues id="UnaryTests_0srdrhk">
+          <text>"19%","11%"</text>
+        </outputValues>
+      </output>
+      <output id="OutputClause_0lwyvbj" label="Duração da comissão especial" name="duracaoComissaoEspecial" typeRef="string">
+        <outputValues id="UnaryTests_023lkkt">
+          <text>"3 meses"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_10nbs86">
+        <inputEntry id="UnaryTests_00jdfzo">
+          <text>"Logística + MarketPlace"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1heucq1">
+          <text>"Isento"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lahzbg">
+          <text>"23%"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ntoijx">
+          <text>"19%"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0og0t58">
+          <text>"3 meses"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0eb1iw3">
+        <inputEntry id="UnaryTests_1m98kcc">
+          <text>"MarketPlace"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0zx0j87">
+          <text>"Isento"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wlbxn0">
+          <text>"15%"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qz4hz5">
+          <text>"11%"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1p0bfk1">
+          <text>"3 meses"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="termosPropostaAmericanasDelivery">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

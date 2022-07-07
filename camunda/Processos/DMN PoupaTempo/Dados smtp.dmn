@@ -1,0 +1,144 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0znsinz" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="dados_smtp" name="Dados smtp">
+    <decisionTable id="DecisionTable_0hbgdna" hitPolicy="FIRST">
+      <input id="Input_1" label="Operação" camunda:inputVariable="operacao">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_15u7vq7">
+          <text>"SUMUP","B2W","SANTANDER","GETNET","AMERICANAS DELIVERY"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0622zxc" label="Area" camunda:inputVariable="area">
+        <inputExpression id="LiteralExpression_0x01mb7" typeRef="string">
+          <text>area</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_00t5b20">
+          <text>"falta"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Login" name="login" typeRef="string" />
+      <output id="OutputClause_14336gv" label="Chave" name="chave" typeRef="string" />
+      <rule id="DecisionRule_1v2yqnd">
+        <inputEntry id="UnaryTests_0xmlmmz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1uwowla">
+          <text>"falta", "interno"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0sxtptp">
+          <text>"camunda@zazvendas.com.br"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1q2ejze">
+          <text>"zaz@2022"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jdlbux">
+        <inputEntry id="UnaryTests_13tjga0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0t08syw">
+          <text>"compraPatrimonio"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1osab3v">
+          <text>"patrimoniocompras@zazvendas.com.br"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0f26ik2">
+          <text>"QwBXr3A@k5j="</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0groxtu">
+        <inputEntry id="UnaryTests_026okj5">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06du1gp">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03zrvs6">
+          <text>"sumup@zazvendas.com.br"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0s4dtki">
+          <text>"YSUdwv&amp;xmujI"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1eji4ef">
+        <inputEntry id="UnaryTests_01nvorh">
+          <text>"B2W"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19gaiax">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1n50qeq">
+          <text>"b2w@zazvendas.com.br"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1dnj0yt">
+          <text>"scot@zaz2021"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11vnqp2">
+        <inputEntry id="UnaryTests_0u8yhvw">
+          <text>"GETNET"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1e0spyn">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0rgkm43">
+          <text>"getnet@zazvendas.com.br"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0g66dt1">
+          <text>"scot@zaz2021"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19ddzav">
+        <inputEntry id="UnaryTests_1pe84ni">
+          <text>"AMERICANAS DELIVERY"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0h154yy">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1w2umsz">
+          <text>"americanas.delivery@zazvendas.com.br"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1vl7mev">
+          <text>"zaz@2021"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19o9b4u">
+        <inputEntry id="UnaryTests_00pdbnf">
+          <text>"Z3"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11a0lj0">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_050h555">
+          <text>"automacao@z3bank.com.br"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cogbul">
+          <text>"automacao@2021"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1bk1c58">
+        <inputEntry id="UnaryTests_0r5102d">
+          <text>"Tomático"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16xzb7c">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0050zka">
+          <text>"automacao@z3bank.com.br"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0d43qxd">
+          <text>"automacao@2021"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="dados_smtp">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

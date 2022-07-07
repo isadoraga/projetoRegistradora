@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_1f2hm95" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="StatusAtivacaoPendente" name="Status Ativação pendente">
+    <decisionTable id="DecisionTable_0rel05w" hitPolicy="FIRST">
+      <input id="Input_1" label="Idade Pós venda" camunda:inputVariable="processamentoPosVenda.idadePosVenda">
+        <inputExpression id="InputExpression_1" typeRef="integer">
+          <text>processamentoPosVenda.idadePosVenda</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Status Ativação pendente" name="stsAtivacaoPendente" typeRef="string" />
+      <rule id="DecisionRule_1fjdi5x">
+        <inputEntry id="UnaryTests_0i8uxtp">
+          <text>1</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1fz45yd">
+          <text>"21_ativacao_pendente"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_157fpdj">
+        <inputEntry id="UnaryTests_0s9e1g4">
+          <text>3</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12ceceh">
+          <text>"22_ativacao_pendenteD3"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09dsiyr">
+        <inputEntry id="UnaryTests_07k1nd1">
+          <text>7</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03s0dc4">
+          <text>"23_ativacao_pendenteD7"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1uon7db">
+        <inputEntry id="UnaryTests_1cwe3tm">
+          <text>15</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17monb0">
+          <text>"24_ativacao_pendenteD15"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_038z0el">
+        <inputEntry id="UnaryTests_0j0zk94">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vqotz7">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="StatusAtivacaoPendente">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

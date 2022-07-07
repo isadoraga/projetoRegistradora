@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="MarcarStatusDW" name="Marcar Status DW" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0">
+  <decision id="marcar_status_dw" name="Marcar Status DW">
+    <decisionTable id="DecisionTable_0u7hd7u" hitPolicy="FIRST">
+      <input id="Input_1" biodi:width="222">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>codigoStatus</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" name="statusDefinido" typeRef="string" biodi:width="420" />
+      <rule id="DecisionRule_1jtui23">
+        <inputEntry id="UnaryTests_1tw3g11">
+          <text>"ContatoIniciado"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0gnjqoa">
+          <text>"status_Z3_1_Prospeccao_ContatoIniciado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0q05r72">
+        <inputEntry id="UnaryTests_1ijdu7l">
+          <text>"ContatoNaoIniciado"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0oeov17">
+          <text>"status_Z3_2_Prospeccao_ContatoNaoIniciado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1quclz3">
+        <inputEntry id="UnaryTests_0h4o1e0">
+          <text>"ContatoCancelado"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14ssrjn">
+          <text>"status_Z3_3_Prospeccao_ContatoCancelado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0vp2dq3">
+        <inputEntry id="UnaryTests_1dbtpb5">
+          <text>"CPCEncontrado"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0d1j0td">
+          <text>"status_Z3_4_Prospeccao_CPCEncontrado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11ybb31">
+        <inputEntry id="UnaryTests_139dfou">
+          <text>"CPCNaoEncontrado"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jyr1mq">
+          <text>"status_Z3_5_Prospeccao_CPCNaoEncontrado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1pkmhgs">
+        <inputEntry id="UnaryTests_1s84s3s">
+          <text>"TemInteresse"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1p3rstc">
+          <text>"status_Z3_6_Prospeccao_TemInteresse"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nne4my">
+        <description></description>
+        <inputEntry id="UnaryTests_0lx1cdn">
+          <text>"AguardandoTemInteresse"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1j37kcb">
+          <text>"status_Z3_7_Prospeccao_AguardandoTemInteresse"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1c69ad0">
+        <inputEntry id="UnaryTests_1ugkbbn">
+          <text>"NaoTemInteresse"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rimrqs">
+          <text>"status_Z3_8_Prospeccao_NaoTemInteresse"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0tq9lxb">
+        <inputEntry id="UnaryTests_0kcjxic">
+          <text>"CadastroFinalizadoCompleto"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0durixe">
+          <text>"status_Z3_9_Prospeccao_CadastroFinalizadoCompleto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xlqb9b">
+        <inputEntry id="UnaryTests_1l7aup8">
+          <text>"AguardandoCadastroFinalizado"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19sxwx3">
+          <text>"status_Z3_10_Prospeccao_AguardandoCadastroFinalizado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0m98rpt">
+        <inputEntry id="UnaryTests_0bwjpmh">
+          <text>"CadastroFinalizadoIncompleto"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0zfs3qy">
+          <text>"status_Z3_11_Prospeccao_CadastroFinalizadoIncompleto"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_146k99j">
+        <description>default</description>
+        <inputEntry id="UnaryTests_1ai9fw4">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09cgb2k">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="marcar_status_dw">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

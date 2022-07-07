@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_1caa5x2" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
+  <decision id="tabulacaoStatusFaltas" name="Tabulação status auditoria de faltas">
+    <decisionTable id="DecisionTable_0luxjv7" hitPolicy="FIRST">
+      <input id="Input_1" label="Tabulação RH" biodi:width="150" camunda:inputVariable="statusAuditoriaRH">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>statusAuditoriaRH</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1mbyczc">
+          <text>"aprovado","pendente","negado"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_08g4bz3" label="Detalhe tabulação" biodi:width="255" camunda:inputVariable="listaMotivos">
+        <inputExpression id="LiteralExpression_0cdwkmz" typeRef="string">
+          <text>listaMotivos</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Status auditoria faltas" typeRef="string" biodi:width="357" />
+      <rule id="DecisionRule_0aq9y0w">
+        <inputEntry id="UnaryTests_08d796p">
+          <text>"aprovado"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wcb87j">
+          <text>"Atestado Médico"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1cqtp10">
+          <text>"7_faltaJustificada_atestadoMedico"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0oj0xl2">
+        <inputEntry id="UnaryTests_0cw8i7k">
+          <text>"aprovado"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16hap5f">
+          <text>"Atestado Óbito"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0iobrr2">
+          <text>"8_faltaJustificada_atestadoObito"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1lnsi23">
+        <inputEntry id="UnaryTests_0umkukp">
+          <text>"aprovado"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0waj0eo">
+          <text>"Atestado de Horas"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13gbm3q">
+          <text>"9_faltaJustificada_atestadoHoras"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14tm1fz">
+        <inputEntry id="UnaryTests_0dka3em">
+          <text>"aprovado"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0oe6yiy">
+          <text>"Atestado Nascimento"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0xariz6">
+          <text>"10_faltaJustificada_atestadoNascimento"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0bj7lyf">
+        <inputEntry id="UnaryTests_1qgsnrh">
+          <text>"aprovado"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1oimxxy">
+          <text>"Atestado Casamento"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0eovt88">
+          <text>"11_faltaJustificada_atestadoCasamento"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ljoae7">
+        <inputEntry id="UnaryTests_05cu5mr">
+          <text>"aprovado"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15z5g94">
+          <text>"Folga"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0njy0ou">
+          <text>"12_faltaJustificada_folga"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ky0ij0">
+        <inputEntry id="UnaryTests_0d88y6l">
+          <text>"pendente"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0n0ltu3">
+          <text>"Documento errado"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09sfple">
+          <text>"13_faltaPendente_documentoErrado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qevqqn">
+        <inputEntry id="UnaryTests_0xq23c7">
+          <text>"pendente"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f3eabl">
+          <text>"Foto ilegível"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ldtsix">
+          <text>"14_faltaPendente_fotoIlegivel"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_033un6a">
+        <inputEntry id="UnaryTests_0hkzrlp">
+          <text>"pendente"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jkbne9">
+          <text>"Atestado rasurado"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04z5hln">
+          <text>"15_faltaPendente_atestadoRasurado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0fm409v">
+        <inputEntry id="UnaryTests_0q3h9q1">
+          <text>"pendente"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ne60vi">
+          <text>"Sem assinatura ou carimbo médico"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0r6zlwu">
+          <text>"16_faltaPendente_semAssinaturaOuCarimboMedico"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0l98oki">
+        <inputEntry id="UnaryTests_1hamppc">
+          <text>"pendente"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pbsaia">
+          <text>"Nome divergente"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_081h53b">
+          <text>"17_faltaPendente_nomeDivergente"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0bw0wom">
+        <inputEntry id="UnaryTests_0mt2h9d">
+          <text>"pendente"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02ma9yr">
+          <text>"Sem Data"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02cnh30">
+          <text>"18_faltaPendente_semData"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0yb3z00">
+        <inputEntry id="UnaryTests_17ikezd">
+          <text>"pendente"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0h8pwcr">
+          <text>"Fora do prazo"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00se3rl">
+          <text>"19_faltaPendente_foraPrazo"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="tabulacaoStatusFaltas">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

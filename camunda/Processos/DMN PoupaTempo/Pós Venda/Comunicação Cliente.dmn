@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_1gf6k81" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="PosVenda_ComunicacaoCliente" name="Comunicação clente">
+    <decisionTable id="DecisionTable_0nrzvnf" hitPolicy="FIRST">
+      <input id="Input_1" label="Idade Pós venda" biodi:width="192" camunda:inputVariable="processamentoPosVenda.idadePosVenda">
+        <inputExpression id="InputExpression_1" typeRef="integer">
+          <text>processamentoPosVenda.idadePosVenda</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1ta6pk0" label="Ativo" camunda:inputVariable="resultadoAtivacao.ativo">
+        <inputExpression id="LiteralExpression_1kibv2z" typeRef="boolean">
+          <text>resultadoAtivacao.ativo</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1r72s00" label="Modalidade" camunda:inputVariable="tipoPagamento">
+        <inputExpression id="LiteralExpression_0tam267" typeRef="string">
+          <text>tipoPagamento</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0ubnm9v">
+          <text>"Ação TPV"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Template BLIP" name="templateMensagemCliente" typeRef="string" />
+      <output id="OutputClause_0iiv1qn" label="Evento notificação" name="eventoNotificacaoCliente" typeRef="string" />
+      <rule id="DecisionRule_0owg5rt">
+        <description>Mensagem de welcome</description>
+        <inputEntry id="UnaryTests_0gfycry">
+          <text>1</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yrbj5n">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ld4k0v">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0nq51rp">
+          <text>"sumup_posvenda_welcome"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_098m9f7">
+          <text>"notificacao_resumopush-copy-1"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ilxxh2">
+        <description>Mensagem de Incentivo + Oferta + benefícios</description>
+        <inputEntry id="UnaryTests_1mlz5sw">
+          <text>3</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bppmif">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10p0sjp">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0idwm2q">
+          <text>"sumup_posvenda_incentivoativacao"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16yt0v2">
+          <text>"notificacao_resumopush-copy-1"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0jp41eg">
+        <description>Mensagem de Incentivo + Oferta + benefícios + informe de visita do promotor</description>
+        <inputEntry id="UnaryTests_0hq3mkk">
+          <text>7</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_193mlfa">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wegol5">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1az4szn">
+          <text>"sumup_posvenda_incentivoativacaovisita"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0w4sj60">
+          <text>"notificacao_resumopush-copy-1"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01xhroz">
+        <description>Mensagem de coleta de máquina + informe da visita do promotor</description>
+        <inputEntry id="UnaryTests_1sf17rq">
+          <text>15</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lmsenj">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r9xcih">
+          <text>"Ação TPV"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rxz6gd">
+          <text>"sumup_posvenda_recolhimento2"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17ru6re">
+          <text>"notificacao_resumopush-copy-1"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1h1dpiq">
+        <description>Regra default para não enviar nenhuma mensagem caso não se enquadre em nenhuma regra acima</description>
+        <inputEntry id="UnaryTests_1st9m48">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08srz8p">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hb5nwi">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16ioxup">
+          <text>""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ci1wyw">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="PosVenda_ComunicacaoCliente">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

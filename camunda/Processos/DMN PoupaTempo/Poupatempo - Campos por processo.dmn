@@ -1,0 +1,178 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="poupatempoV5" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
+  <inputData id="InputData_17k8xux" name="Processos" />
+  <decision id="camposMinimosPorProcesso" name="Campos mínimos por processo">
+    <informationRequirement id="InformationRequirement_03f5a3r">
+      <requiredInput href="#InputData_17k8xux" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0hng9ue" hitPolicy="COLLECT">
+      <input id="InputClause_18tfrma" label="Processo destino" biodi:width="192" camunda:inputVariable="processoInicializar">
+        <inputExpression id="LiteralExpression_1dmzhxg" typeRef="string" />
+        <inputValues id="UnaryTests_1pnx4ew">
+          <text>"visita","prospeccao","auditoria","logProcessamentoPlanilhaDeExtrato"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0rk4psl" label="Possui Interesse" camunda:inputVariable="possuiInteresse">
+        <inputExpression id="LiteralExpression_1xtvr3q" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0n3yxwg" label="Operação" camunda:inputVariable="operacao">
+        <inputExpression id="LiteralExpression_027xuvr" typeRef="string">
+          <text></text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0bnnays" label="Campos mínimos" name="camposMinimos" typeRef="string" biodi:width="192">
+        <outputValues id="UnaryTests_133nqw4">
+          <text></text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_0fr84k5">
+        <description>usuário do promotor que realizou a visita</description>
+        <inputEntry id="UnaryTests_0sjvzso">
+          <text>"visita","prospeccao"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vfate7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_030ghm5">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13373dz">
+          <text>"login"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16d9vci">
+        <description>operação a que o usuário pertence</description>
+        <inputEntry id="UnaryTests_0iqp81a">
+          <text>"visita","prospeccao"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15prjis">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s1eu4j">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wt9lt1">
+          <text>"operacao"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_097rbxx">
+        <description>resposta de que se o contato com o cliente localizou o decisor, resposta de "Sim" ou "Não"</description>
+        <inputEntry id="UnaryTests_0q4eq7x">
+          <text>"visita","prospeccao"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_183lvot">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s5npj8">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0927h4a">
+          <text>"decisorLocalizado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1wbo6is">
+        <description>resposta de que se o cliente possui interesse em prosseguir, resposta de "Sim" ou "Não"</description>
+        <inputEntry id="UnaryTests_10ei6bz">
+          <text>"visita","prospeccao"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fimx8h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ywp18o">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1n8mskb">
+          <text>"possuiInteresse"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1cyh6dc">
+        <inputEntry id="UnaryTests_1m46nmz">
+          <text>"prospeccao"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ccllir">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0evyusw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0trruf2">
+          <text>"email"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0tjfmhc">
+        <description></description>
+        <inputEntry id="UnaryTests_1b715sv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0z8zgmu">
+          <text>"Sim"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yqpiik">
+          <text>"Z3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0e2spok">
+          <text>"cpf"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1wegkiz">
+        <inputEntry id="UnaryTests_0895i9i">
+          <text>"logProcessamentoPlanilhaDeExtrato"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1br44sj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sbtrxq">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0eap0os">
+          <text>"emailExtrato"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <textAnnotation id="TextAnnotation_0w5wtd4">
+    <text>Campos mínimos</text>
+  </textAnnotation>
+  <association id="Association_0ornxuj">
+    <sourceRef href="#TextAnnotation_0w5wtd4" />
+    <targetRef href="#camposMinimosPorProcesso" />
+  </association>
+  <textAnnotation id="TextAnnotation_0ll0v32">
+    <text>Identifica quais são os campos mínimos que a instância deve conte para que seja direcionada ao processo desejado.</text>
+  </textAnnotation>
+  <association id="Association_1tnk012">
+    <sourceRef href="#TextAnnotation_0ll0v32" />
+    <targetRef href="#camposMinimosPorProcesso" />
+  </association>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="DMNShape_0t5gsif" dmnElementRef="InputData_17k8xux">
+        <dc:Bounds height="45" width="125" x="157" y="207" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_17zov54" dmnElementRef="camposMinimosPorProcesso">
+        <dc:Bounds height="80" width="180" x="330" y="190" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1xi7j1a" dmnElementRef="InformationRequirement_03f5a3r">
+        <di:waypoint x="282" y="230" />
+        <di:waypoint x="310" y="230" />
+        <di:waypoint x="330" y="230" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0qi9483" dmnElementRef="TextAnnotation_0w5wtd4">
+        <dc:Bounds height="40" width="100" x="550" y="210" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0tqfyvh" dmnElementRef="Association_0ornxuj">
+        <di:waypoint x="550" y="230" />
+        <di:waypoint x="510" y="230" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_19x5n9l" dmnElementRef="TextAnnotation_0ll0v32">
+        <dc:Bounds height="70" width="210" x="315" y="85" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1opxqq6" dmnElementRef="Association_1tnk012">
+        <di:waypoint x="381" y="155" />
+        <di:waypoint x="399" y="190" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

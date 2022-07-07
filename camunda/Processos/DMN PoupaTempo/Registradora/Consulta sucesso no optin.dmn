@@ -1,0 +1,399 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Consulta_resultado_optin_cerc" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
+  <decision id="ConsultaResultadoOptInCerc" name="Consulta resultado do Opt-In CERC">
+    <decisionTable id="DecisionTable_1rz0jfp" hitPolicy="FIRST">
+      <input id="Input_1" label="Código response" camunda:inputVariable="codOptIn">
+        <inputExpression id="InputExpression_1" typeRef="string" expressionLanguage="feel">
+          <text>codOptIn</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0d9rxzn" label="Retorno do código" name="retornoDoCodigo" typeRef="string" />
+      <rule id="DecisionRule_1w34058">
+        <description>TIPO DE OPERACAO OBRIGATORIO</description>
+        <inputEntry id="UnaryTests_0qms07j">
+          <text>"104001"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0v9xmel">
+          <text>"TIPO DE OPERACAO OBRIGATORIO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1892gxu">
+        <description>TIPO DE OPERACAO INVALIDO</description>
+        <inputEntry id="UnaryTests_19me5si">
+          <text>"104002"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0f3fqdk">
+          <text>"TIPO DE OPERACAO INVALIDO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0g8ahce">
+        <description>REFERENCIA EXTERNA OBRIGATORIA</description>
+        <inputEntry id="UnaryTests_04jdkdh">
+          <text>"104003"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0pkt9d4">
+          <text>"REFERENCIA EXTERNA OBRIGATORIA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_10bf81r">
+        <description>REFERENCIA EXTERNA JA EXISTE</description>
+        <inputEntry id="UnaryTests_1gb6z0j">
+          <text>"104004"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0l84xtv">
+          <text>"REFERENCIA EXTERNA JA EXISTE"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1bci5mu">
+        <description>REFERENCIA EXTERNA INVALIDA</description>
+        <inputEntry id="UnaryTests_1j2i0pc">
+          <text>"104005"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05smvk3">
+          <text>"REFERENCIA EXTERNA INVALIDA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ufso5k">
+        <description>SOLICITANTE OBRIGATORIO</description>
+        <inputEntry id="UnaryTests_1gon6av">
+          <text>"104006"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ssg237">
+          <text>"SOLICITANTE OBRIGATORIO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0w8ogmy">
+        <description>CNPJ DO SOLICITANTE OBRIGATORIO</description>
+        <inputEntry id="UnaryTests_1qm3do6">
+          <text>"104007"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_06i5q60">
+          <text>"CNPJ DO SOLICITANTE OBRIGATORIO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1cm5qtw">
+        <description>CNPJ DO FINANCIADOR OU NAO FINANCEIRA INVALIDO</description>
+        <inputEntry id="UnaryTests_0fhz0ik">
+          <text>"104008"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0bgt8dm">
+          <text>"CNPJ DO FINANCIADOR OU NAO FINANCEIRA INVALIDO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1g34jnk">
+        <description>FINANCIADOR OU NAO FINANCEIRA NAO ENCONTRADO</description>
+        <inputEntry id="UnaryTests_1nl1ivd">
+          <text>"104009"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1v7qiz1">
+          <text>"FINANCIADOR OU NAO FINANCEIRA NAO ENCONTRADO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_073c4h9">
+        <description>INSTITUICAO CREDENCIADORA OU SUBCREDENCIADORA OBRIGATORIA</description>
+        <inputEntry id="UnaryTests_0vllsxn">
+          <text>"104010"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_166wwg2">
+          <text>"INSTITUICAO CREDENCIADORA OU SUBCREDENCIADORA OBRIGATORIA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0f13q7v">
+        <description>CPF OU CNPJ DA INSTITUICAO CREDENCIADORA OU SUBCREDENCIADORA INVALIDA</description>
+        <inputEntry id="UnaryTests_1p5o2i3">
+          <text>"104011"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_184bgm9">
+          <text>"CPF OU CNPJ DA INSTITUICAO CREDENCIADORA OU SUBCREDENCIADORA INVALIDA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1pu1v0v">
+        <description>INSTITUICAO CREDENCIADORA OU SUBCREDENCIADORA NAO ENCONTRADA NA BASE DE CONTROLE</description>
+        <inputEntry id="UnaryTests_1u23e4a">
+          <text>"104012"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1kr6qx2">
+          <text>"INSTITUICAO CREDENCIADORA OU SUBCREDENCIADORA NAO ENCONTRADA NA BASE DE CONTROLE"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1m8lsq1">
+        <description>USUARIO FINAL RECEBEDOR OBRIGATORIO</description>
+        <inputEntry id="UnaryTests_0ol81nh">
+          <text>"104013"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1mpb2qr">
+          <text>"USUARIO FINAL RECEBEDOR OBRIGATORIO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jr2rhe">
+        <description>CPF OU CNPJ DO USUARIO FINAL RECEBEDOR OBRIGATORIO</description>
+        <inputEntry id="UnaryTests_1b8ctvn">
+          <text>"104014"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1bjsbvu">
+          <text>"CPF OU CNPJ DO USUARIO FINAL RECEBEDOR OBRIGATORIO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1c98buv">
+        <description>ARRANJO DE PAGAMENTO OBRIGATORIO</description>
+        <inputEntry id="UnaryTests_04kv6uv">
+          <text>"104015"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ikv4to">
+          <text>"ARRANJO DE PAGAMENTO OBRIGATORIO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0o2wu3m">
+        <description>ARRANJO DE PAGAMENTO INVALIDO</description>
+        <inputEntry id="UnaryTests_1icel95">
+          <text>"104016"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jggjaf">
+          <text>"ARRANJO DE PAGAMENTO INVALIDO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1h3mzag">
+        <description>DATA DE ASSINATURA DO OPT IN OBRIGATORIA</description>
+        <inputEntry id="UnaryTests_0lgjc1e">
+          <text>"104017"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12f4kee">
+          <text>"DATA DE ASSINATURA DO OPT IN OBRIGATORIA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1eoqwl5">
+        <description>DATA DE ASSINATURA DO OPT IN INVALIDA</description>
+        <inputEntry id="UnaryTests_05jmmpu">
+          <text>"104018"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1uhuzui">
+          <text>"DATA DE ASSINATURA DO OPT IN INVALIDA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0tmacv4">
+        <description>DATA DE INICIO OBRIGATORIA</description>
+        <inputEntry id="UnaryTests_1kynodt">
+          <text>"104019"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14ptws7">
+          <text>"DATA DE INICIO OBRIGATORIA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mumfr4">
+        <description>DATA DE INICIO INVALIDA</description>
+        <inputEntry id="UnaryTests_00i1fja">
+          <text>"104020"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_158kf27">
+          <text>"DATA DE INICIO INVALIDA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1po0uyz">
+        <description>DATA DE FIM OBRIGATORIA</description>
+        <inputEntry id="UnaryTests_1ssmv2x">
+          <text>"104021"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hjpn8a">
+          <text>"DATA DE FIM OBRIGATORIA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_120voyu">
+        <description>DATA DE FIM DEVE SER MAIOR OU IGUAL A DATA DE INICIO</description>
+        <inputEntry id="UnaryTests_0csp0qk">
+          <text>"104022"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1svpm4t">
+          <text>"DATA DE FIM DEVE SER MAIOR OU IGUAL A DATA DE INICIO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1k6qa9j">
+        <description>DATA DE FIM INVALIDA</description>
+        <inputEntry id="UnaryTests_1mjzxb4">
+          <text>"104023"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_11vefyw">
+          <text>"DATA DE FIM INVALIDA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1llpnzv">
+        <description>CPF OU CNPJ DO TITULAR INVALIDO</description>
+        <inputEntry id="UnaryTests_1ozos01">
+          <text>"104024"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1j9jrwm">
+          <text>"CPF OU CNPJ DO TITULAR INVALIDO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0j0sftm">
+        <description>PROTOCOLO OBRIGATORIO PARA TIPO DE OPERACAO</description>
+        <inputEntry id="UnaryTests_1gc3bbp">
+          <text>"104025"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1c6cyee">
+          <text>"PROTOCOLO OBRIGATORIO PARA TIPO DE OPERACAO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_127sgg3">
+        <description>PROTOCOLO NAO ENCONTRADO</description>
+        <inputEntry id="UnaryTests_1qmtjjk">
+          <text>"104026"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0gpgw02">
+          <text>"PROTOCOLO NAO ENCONTRADO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ke1sb2">
+        <description>CARTEIRA INVALIDA</description>
+        <inputEntry id="UnaryTests_08zw4ld">
+          <text>"104027"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ws9526">
+          <text>"CARTEIRA INVALIDA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1njj84r">
+        <description>CARTEIRA NAO ENCONTRADA</description>
+        <inputEntry id="UnaryTests_19g68f8">
+          <text>"104028"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0m3n511">
+          <text>"CARTEIRA NAO ENCONTRADA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0r3lmnt">
+        <description>OPERACAO NAO PERMITIDA - ACESSO NEGADO</description>
+        <inputEntry id="UnaryTests_1n2n3nn">
+          <text>"104801"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13rzs0r">
+          <text>"OPERACAO NAO PERMITIDA - ACESSO NEGADO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14iw00e">
+        <description>
+
+OPERACAO INVALIDA PARA O REGISTRO ATUAL</description>
+        <inputEntry id="UnaryTests_0dk8sw0">
+          <text>"104802"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ccf5ir">
+          <text>"OPERACAO INVALIDA PARA O REGISTRO ATUAL"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mox7ra">
+        <description>OPT-IN JA INFORMADO</description>
+        <inputEntry id="UnaryTests_1jkty8l">
+          <text>"104803"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0hwpwyw">
+          <text>"OPT-IN JA INFORMADO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04hool9">
+        <description>ERRO DEVIDO A ATUALIZACAO DE CAMPOS NAO PERMITIDOS</description>
+        <inputEntry id="UnaryTests_1mfyygr">
+          <text>"104804"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_022t6xz">
+          <text>"ERRO DEVIDO A ATUALIZACAO DE CAMPOS NAO PERMITIDOS"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1o3pvzf">
+        <description>USUARIO FINAL RECEBEDOR NAO ENCONTRADO</description>
+        <inputEntry id="UnaryTests_1qfzefs">
+          <text>"104805"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1q0hai6">
+          <text>"USUARIO FINAL RECEBEDOR NAO ENCONTRADO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1t5rpul">
+        <description>TITULAR NAO ENCONTRADO</description>
+        <inputEntry id="UnaryTests_13kyyc9">
+          <text>"104806"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1qjw5mz">
+          <text>"TITULAR NAO ENCONTRADO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07k6s7o">
+        <description>DATA DE INICIO MENOR QUE DATA DE ASSINATURA DO OPT-IN</description>
+        <inputEntry id="UnaryTests_0ismdej">
+          <text>"104807"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0r8xpt1">
+          <text>"DATA DE INICIO MENOR QUE DATA DE ASSINATURA DO OPT-IN"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_017s1gi">
+        <description>FALHA NO REGISTRO NO AMBIENTE DE INTEROPERABILIDADE</description>
+        <inputEntry id="UnaryTests_136gjpj">
+          <text>"104808"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_039z4pf">
+          <text>"FALHA NO REGISTRO NO AMBIENTE DE INTEROPERABILIDADE"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_098jief">
+        <description>LAYOUT INVALIDO</description>
+        <inputEntry id="UnaryTests_1j6906f">
+          <text>"104901"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0q9i0gi">
+          <text>"LAYOUT INVALIDO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0pc00t3">
+        <description>ARQUIVO ENVIADO FORA DA GRADE HORARIA</description>
+        <inputEntry id="UnaryTests_16nmrbk">
+          <text>"104902"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1kpwber">
+          <text>"ARQUIVO ENVIADO FORA DA GRADE HORARIA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_02ak73h">
+        <description>NOME DO ARQUIVO JA ENVIADO</description>
+        <inputEntry id="UnaryTests_0xn2b5t">
+          <text>"104903"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1a1rzsj">
+          <text>"NOME DO ARQUIVO JA ENVIADO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19dkylx">
+        <description>NOME DO ARQUIVO INVALIDO</description>
+        <inputEntry id="UnaryTests_1ddmdnl">
+          <text>"104904"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04rucbj">
+          <text>"NOME DO ARQUIVO INVALIDO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14licn3">
+        <description>ERRO INESPERADO</description>
+        <inputEntry id="UnaryTests_0sl3ikl">
+          <text>"104999"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1nz0yjp">
+          <text>"ERRO INESPERADO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_15ybrha">
+        <inputEntry id="UnaryTests_17n0ckw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0j2i9sc">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="ConsultaResultadoOptInCerc">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

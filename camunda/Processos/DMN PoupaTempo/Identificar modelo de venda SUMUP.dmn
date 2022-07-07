@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Decision_1tocaps1" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="IdentificarModeloVenda" name="Identificar modelo de venda">
+    <decisionTable id="DecisionTable_0t9tcqs" hitPolicy="COLLECT">
+      <input id="Input_1" label="Operação" camunda:inputVariable="operacao">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1ujznzr">
+          <text>"SUMUP"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_18gkqri" label="Login" camunda:inputVariable="login">
+        <inputExpression id="LiteralExpression_15wtp88" typeRef="string">
+          <text>login</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Modelo" name="modeloVenda" typeRef="string">
+        <outputValues id="UnaryTests_1nxacat">
+          <text>"Ação TPV","Pagamento"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_0qkab4g">
+        <inputEntry id="UnaryTests_1dsxdge">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_093gizh">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_080u1u9">
+          <text>"Pagamento"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="IdentificarModeloVenda">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

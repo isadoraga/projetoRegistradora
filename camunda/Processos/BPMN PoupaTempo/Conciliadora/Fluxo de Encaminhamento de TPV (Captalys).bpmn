@@ -1,0 +1,610 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1re5ndk" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:signal id="Signal_03ohvtu" name="SIG_IniciarEncaminhamentoDeExtrato" />
+  <bpmn:collaboration id="Collaboration_1oqekw1">
+    <bpmn:participant id="Participant_1ep0nzv" name="Encaminhamento de TPV" processRef="Encaminhamento_de_TPV" />
+  </bpmn:collaboration>
+  <bpmn:process id="Encaminhamento_de_TPV" name="Encaminhamento de TPV" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1" name="Iniciar subprocesso de encaminhamento de TPV" camunda:initiator="SIG_IniciarEncaminhamentoDeExtrato">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="javascript">execution.setProcessBusinessKey(execution.getVariable('businessKey'));
+execution.setVariable('processoAtual','Fluxo Encaminhamento de Tpv');
+
+execution.setVariable("tokenCaptalys", "73fec76a-f956-4fdf-b48c-593dd6b24bb5");</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_04l1xm2</bpmn:outgoing>
+      <bpmn:signalEventDefinition id="SignalEventDefinition_1qeurvq" signalRef="Signal_03ohvtu" />
+    </bpmn:startEvent>
+    <bpmn:businessRuleTask id="Activity_1ygyek2" name="Consultar o resultado do TPV (elegibilidade)" camunda:resultVariable="consultaMes" camunda:decisionRef="parametrizacaoPeriodoOperacao" camunda:mapDecisionResult="singleEntry">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="end">
+          <camunda:script scriptFormat="javascript">var parametrosConsultaExtratos = execution.getVariable('consultaMes');
+
+var quantidadeMesesAnaliseExtrato = parametrosConsultaExtratos.quantidadeMesesAnaliseExtratos;
+
+var mesAtual = new Date().getMonth()+1;
+var listaParametrizacaoMesesConsultaExtrato = [];
+for (var i = mesAtual-quantidadeMesesAnaliseExtrato; i &lt; mesAtual; i++) {
+    listaParametrizacaoMesesConsultaExtrato.push(i);
+};
+
+var parametrizacaoConsultaMeses = listaParametrizacaoMesesConsultaExtrato.join(',');
+
+execution.setVariable('parametrizacaoConsultaMeses', "\""+parametrizacaoConsultaMeses+"\"");</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_04l1xm2</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ohvcb9</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:serviceTask id="Activity_0drakgg" name="Consultar resultado da elegibilidade TPV" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="javascript">var url = 'http://pentaho-k8s.zaz.vc/pentaho/kettle/executeTrans/?level=INFO&amp;rep=ServidorAwsZaz&amp;trans=/home/talkbi/fluxoDados/talkbi&amp;requisicao="dimClienteEmail": "' + email + '", "mes_filtro": ' + parametrizacaoConsultaMeses + ',"nomeAdquirente":null, "ano": null&amp;cubo=cuboDadosAdquirente&amp;metricas="valorLiquido","quantidade_dias_transacionados"&amp;user=admin&amp;pass=CYjHfrAQPzn3&amp;filtrometrica=';
+
+execution.setVariable('url', url);
+
+var authorization = 'Basic dGFsa2JpOnp1Q3NEVFNOcGQxdA==';
+
+execution.setVariable('authorization', authorization);
+
+var httpMethod = "POST";
+
+execution.setVariable('httpMethod', httpMethod);</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0qob9iv</bpmn:incoming>
+      <bpmn:outgoing>Flow_1tgz9eq</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:scriptTask id="Activity_11jrmah" name="Transformar retorno da elegibilidade" scriptFormat="javascript">
+      <bpmn:incoming>Flow_1tgz9eq</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qty5lp</bpmn:outgoing>
+      <bpmn:script>var registros = JSON.parse((S(execution.getVariable('result'))));
+var res = [];
+
+if (registros.registros) {
+    registros = registros.registros;
+    for (var i = 0; i &lt; registros.length; i++) {
+        var conteudo = {};
+        var registro = registros[i];
+        var objEntries = Object.keys(registro);
+        for (var j = 0; j &lt; objEntries.length; j++) {
+            var dado = objEntries[j];
+            var key = dado;
+            var value = registro[dado];
+
+            var listaKeys = key.split("].[");
+            var novaKey = listaKeys[listaKeys.length - 1];
+            novaKey = novaKey.replace("[", "").replace("]", "");
+            if (novaKey.indexOf(".") &gt;= 0) {
+                listaKeys = novaKey.split(".");
+                novaKey = listaKeys[listaKeys.length - 1];
+            }
+            if (novaKey.substring(0, 2) == "he") {
+                novaKey = novaKey.substring(2, novaKey.length);
+            }
+            var novoValue;
+            if (typeof value == "string") {
+                var listaValues = value.split("].[");
+                novoValue = listaValues[listaValues.length - 1];
+                novoValue = novoValue.replace("[", "").replace("]", "");
+                if (novoValue.indexOf("�") &gt;= 0) {
+                    novoValue = novoValue.replace("�", "ç");
+                }
+            } else {
+                novoValue = value;
+            }
+            conteudo[novaKey] = novoValue;
+        }
+        res.push(conteudo);
+    }
+}
+
+function groupByKey(array, key) {
+    var groups = {};
+    for (var index = 0; index &lt; array.length; index++) {
+        var element = array[index];
+        var keyIndex = element[key];
+
+        keyIndex = keyIndex.toLowerCase();
+
+        if(groups[keyIndex]){
+            var arrayKey = groups[keyIndex];
+            arrayKey.push(element);
+            groups[keyIndex] = arrayKey;
+        }else{
+            groups[keyIndex] = [element];
+        }
+    }
+    return groups;
+}
+
+//var resultadoConsultaTalkBI = execution.getVariable("resultadoConsultaTalkBI");
+
+//var registros = JSON.parse(resultadoConsultaTalkBI);
+
+var registros = res;
+
+//var registros = [{"ClienteEmail":"isadora.lima@zazvendas.com.br","Adquirente":"SumUp","quantidade_dias_transacionados":6,"MesFiltro":"1","Data":"2021","valorLiquido":13454.300000000001},{"ClienteEmail":"isadora.lima@zazvendas.com.br","Adquirente":"SumUp","quantidade_dias_transacionados":5,"MesFiltro":"2","Data":"2021","valorLiquido":13103.199999999999},{"ClienteEmail":"isadora.lima@zazvendas.com.br","Adquirente":"SumUp","quantidade_dias_transacionados":6,"MesFiltro":"3","Data":"2021","valorLiquido":27821.340000000004},{"ClienteEmail":"isadora.lima@zazvendas.com.br","Adquirente":"SumUp","quantidade_dias_transacionados":7,"MesFiltro":"4","Data":"2021","valorLiquido":50968.47},{"ClienteEmail":"isadora.lima@zazvendas.com.br","Adquirente":"SumUp","quantidade_dias_transacionados":6,"MesFiltro":"5","Data":"2021","valorLiquido":9866.27},{"ClienteEmail":"isadora.lima@zazvendas.com.br","Adquirente":"PagSeguro","quantidade_dias_transacionados":9,"MesFiltro":"6","Data":"2021","valorLiquido":11110.53},{"ClienteEmail":"isadora.lima@zazvendas.com.br","Adquirente":"PagSeguro","quantidade_dias_transacionados":29,"MesFiltro":"7","Data":"2021","valorLiquido":18558.580000000024},{"ClienteEmail":"isadora.lima@zazvendas.com.br","Adquirente":"PagSeguro","quantidade_dias_transacionados":29,"MesFiltro":"8","Data":"2021","valorLiquido":25859.81},{"ClienteEmail":"isadora.lima@zazvendas.com.br","Adquirente":"PagSeguro","quantidade_dias_transacionados":26,"MesFiltro":"9","Data":"2021","valorLiquido":22304.550000000014},{"ClienteEmail":"isadora.lima@zazvendas.com.br","Adquirente":"SumUp","quantidade_dias_transacionados":1,"MesFiltro":"9","Data":"2020","valorLiquido":4},{"ClienteEmail":"isadora.lima@zazvendas.com.br","Adquirente":"SumUp","quantidade_dias_transacionados":13,"MesFiltro":"10","Data":"2020","valorLiquido":35820.25},{"ClienteEmail":"isadora.lima@zazvendas.com.br","Adquirente":"SumUp","quantidade_dias_transacionados":16,"MesFiltro":"11","Data":"2020","valorLiquido":37441.530000000006},{"ClienteEmail":"isadora.lima@zazvendas.com.br","Adquirente":"SumUp","quantidade_dias_transacionados":10,"MesFiltro":"12","Data":"2020","valorLiquido":16271.28}]
+
+var result = groupByKey(registros, 'Adquirente');
+
+//execution.setVariable("resultGroupBy", JSON.stringify(result));
+
+var listaAdquirenteAceita = [];
+var listaAdquirenteNaoAceita = [];
+
+var adquirentes = execution.getVariable("adquirentes");
+var listaAdquirentes = [];
+for (var index = 0; index &lt; adquirentes.length; index++) {
+    var element = adquirentes[index];
+    listaAdquirentes.push(element.toLowerCase());
+}
+
+
+var keys = Object.keys(result);
+for (var index = 0; index &lt; keys.length; index++) {
+    var adquirenteCliente = keys[index];
+    adquirenteCliente = adquirenteCliente.toLowerCase();
+    if(listaAdquirentes.indexOf(adquirenteCliente) &gt;= 0){
+        listaAdquirenteAceita.push(adquirenteCliente);
+    }else{
+        listaAdquirenteNaoAceita.push(adquirenteCliente);
+    }
+    
+}
+
+if(listaAdquirenteAceita.length &gt; 0){
+    execution.setVariable("solicitacaoDeNovaAdquirente", false);
+}else{
+    execution.setVariable("solicitacaoDeNovaAdquirente", true);
+}
+
+execution.setVariable("listaAdquirenteAceita", JSON.stringify(listaAdquirenteAceita));
+execution.setVariable("listaAdquirenteNaoAceita", JSON.stringify(listaAdquirenteNaoAceita));
+
+
+var consultaMes = execution.getVariable("consultaMes");
+
+var mesesFaltanteAdquirentes = "";
+var naoPossuiTodosExtratos = true;
+
+for (var index = 0; index &lt; listaAdquirenteAceita.length; index++) {
+    var adquirenteCliente = listaAdquirenteAceita[index];
+    adquirenteCliente = adquirenteCliente.toLowerCase();
+    var mesesAdquirente = result[adquirenteCliente];
+    
+    var dataAtual = new Date();
+    var listaMeses = [];
+    var listaMesesFaltantes = "";
+    var quantidadeMes = 0;
+    var naoPossuiMeses = false;
+    for (var index2 = 1; index2 &lt;= consultaMes; index2++) {
+        dataAtual.setMonth(dataAtual.getMonth() - 1);
+
+        var mes = dataAtual.getMonth() + 1;
+        var ano = dataAtual.getFullYear();
+
+        var possuiMesAtual = false;
+        for (var index3 = 0; index3 &lt; mesesAdquirente.length; index3++) {
+            var element = mesesAdquirente[index3];
+            if(element.MesFiltro == mes &amp;&amp; element.Data == ano){
+                quantidadeMes++;
+            }
+        }
+
+    }
+
+    if(quantidadeMes == consultaMes){
+        naoPossuiTodosExtratos = false;
+    }
+}
+execution.setVariable("mesesFaltanteAdquirentes", mesesFaltanteAdquirentes);
+execution.setVariable("naoPossuiTodosExtratos", naoPossuiTodosExtratos);
+
+ var resComData = [];
+
+ for (var index = 0; index &lt; res.length; index++) {
+     var element = res[index];
+     element.Date = new Date(element["Data"] + "-" + element["MesFiltro"] + "-01").toISOString();
+
+     resComData.push(element);
+ }
+
+ var resComDateAgrupado = groupByKey(resComData, 'Date');
+
+ var keysAgrupadoDate = Object.keys(resComDateAgrupado);
+
+var fluxoEnviarCaptalys = [];
+
+ for (var index = 0; index &lt; keysAgrupadoDate.length; index++) {
+     var element = keysAgrupadoDate[index];
+     
+     var arrayResComDateAgrupado = resComDateAgrupado[element];
+     var valor = 0.0;
+     for (var index2 = 0; index2 &lt; arrayResComDateAgrupado.length; index2++) {
+         var element2 = arrayResComDateAgrupado[index2];
+         valor = valor + element2["valorLiquido"];
+     }
+     fluxoEnviarCaptalys.push({date: element.toUpperCase(), value: valor});
+ }
+
+execution.setVariable("fluxoEnviarCaptalys", JSON.stringify(fluxoEnviarCaptalys));
+</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:businessRuleTask id="Activity_11us0y7" name="Adquirentes aceitas" camunda:resultVariable="adquirentes" camunda:decisionRef="validacaoAdquirente" camunda:mapDecisionResult="collectEntries">
+      <bpmn:incoming>Flow_1ohvcb9</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qob9iv</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:exclusiveGateway id="Gateway_0jlw3rd">
+      <bpmn:incoming>Flow_0npivxl</bpmn:incoming>
+      <bpmn:outgoing>Flow_036lnvo</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1dwnhqe</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:exclusiveGateway id="Gateway_1vkz6x9">
+      <bpmn:incoming>Flow_0phw4bf</bpmn:incoming>
+      <bpmn:incoming>Flow_0nahww8</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ij4jx8</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:intermediateThrowEvent id="Event_0bipndi" name="TPV não elegivel">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="groovy">execution.setVariable("status_cliente_naoElegivel", new Date());</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1dwnhqe</bpmn:incoming>
+      <bpmn:outgoing>Flow_0phw4bf</bpmn:outgoing>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:intermediateThrowEvent id="Event_05fbbs8" name="TPV elegivel">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="groovy">execution.setVariable("status_cliente_elegivel", new Date());</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_036lnvo</bpmn:incoming>
+      <bpmn:outgoing>Flow_0nahww8</bpmn:outgoing>
+    </bpmn:intermediateThrowEvent>
+    <bpmn:businessRuleTask id="Activity_12pns6r" name="Conciliadora - Verificar a elegibilidade dos extratos" camunda:resultVariable="elegivel" camunda:decisionRef="conciliadora_verificar_elegibilidade_extratos" camunda:mapDecisionResult="singleEntry">
+      <bpmn:incoming>Flow_0qty5lp</bpmn:incoming>
+      <bpmn:outgoing>Flow_0npivxl</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:sequenceFlow id="Flow_1oo55ji" sourceRef="Activity_0bhi4m7" targetRef="Activity_03wfkcf" />
+    <bpmn:sequenceFlow id="Flow_0fd0wu1" sourceRef="Gateway_14itrvy" targetRef="Event_0430004" />
+    <bpmn:sequenceFlow id="Flow_1nep7yp" sourceRef="Activity_0ney2u1" targetRef="Activity_0bhi4m7" />
+    <bpmn:sequenceFlow id="Flow_1f1pnsb" name="statusCode &#62; 299" sourceRef="Gateway_14itrvy" targetRef="Activity_0ney2u1">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${statusCode &gt; 299}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_16vco8r" sourceRef="Activity_03wfkcf" targetRef="Gateway_14itrvy" />
+    <bpmn:sequenceFlow id="Flow_0kwry2q" sourceRef="Gateway_0op39g8" targetRef="Activity_03wfkcf" />
+    <bpmn:sequenceFlow id="Flow_0npivxl" sourceRef="Activity_12pns6r" targetRef="Gateway_0jlw3rd" />
+    <bpmn:sequenceFlow id="Flow_0nahww8" sourceRef="Event_05fbbs8" targetRef="Gateway_1vkz6x9" />
+    <bpmn:sequenceFlow id="Flow_0phw4bf" sourceRef="Event_0bipndi" targetRef="Gateway_1vkz6x9" />
+    <bpmn:sequenceFlow id="Flow_1dwnhqe" sourceRef="Gateway_0jlw3rd" targetRef="Event_0bipndi">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${!elegivel}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1ij4jx8" sourceRef="Gateway_1vkz6x9" targetRef="Activity_19ripu8" />
+    <bpmn:sequenceFlow id="Flow_036lnvo" sourceRef="Gateway_0jlw3rd" targetRef="Event_05fbbs8">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${elegivel}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0qty5lp" sourceRef="Activity_11jrmah" targetRef="Activity_12pns6r" />
+    <bpmn:sequenceFlow id="Flow_0jgr5dq" sourceRef="Gateway_1b1mtz6" targetRef="Gateway_0op39g8" />
+    <bpmn:sequenceFlow id="Flow_1ximbzr" sourceRef="Activity_1454iuf" targetRef="Gateway_0op39g8" />
+    <bpmn:sequenceFlow id="Flow_17ligiz" name="Fluxo já cadastrado" sourceRef="Gateway_1b1mtz6" targetRef="Activity_1454iuf">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${statusCode &gt; 299}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0f9ew5f" sourceRef="Activity_19ripu8" targetRef="Gateway_1b1mtz6" />
+    <bpmn:sequenceFlow id="Flow_0qob9iv" sourceRef="Activity_11us0y7" targetRef="Activity_0drakgg" />
+    <bpmn:sequenceFlow id="Flow_1tgz9eq" sourceRef="Activity_0drakgg" targetRef="Activity_11jrmah" />
+    <bpmn:sequenceFlow id="Flow_04l1xm2" sourceRef="StartEvent_1" targetRef="Activity_1ygyek2" />
+    <bpmn:sequenceFlow id="Flow_1ohvcb9" sourceRef="Activity_1ygyek2" targetRef="Activity_11us0y7" />
+    <bpmn:serviceTask id="Activity_19ripu8" name="Envia “Fluxo” para Precificação&#10;(POST/v2/pricing/{ecid}/&#10;financials)" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="httpMethod">post</camunda:inputParameter>
+          <camunda:inputParameter name="url">https://private-credit.captalysplatform.io/pricing/${ecid}/financials</camunda:inputParameter>
+          <camunda:inputParameter name="authorization">${tokenCaptalys}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="javascript">var bodyJson = {
+  "financials": [
+    {
+      "data": JSON.parse(fluxoEnviarCaptalys)
+    }
+  ]
+};
+  
+execution.setVariable("bodyJson", JSON.stringify(bodyJson));</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ij4jx8</bpmn:incoming>
+      <bpmn:outgoing>Flow_0f9ew5f</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_1b1mtz6" default="Flow_0jgr5dq">
+      <bpmn:incoming>Flow_0f9ew5f</bpmn:incoming>
+      <bpmn:outgoing>Flow_17ligiz</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0jgr5dq</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_1454iuf" name="Atualizar “Fluxo” para Precificação&#10;(PUT/v2/pricing/{ecid}/&#10;financials)" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="httpMethod">PUT</camunda:inputParameter>
+          <camunda:inputParameter name="url">https://private-credit.captalysplatform.io/pricing/${ecid}/financials</camunda:inputParameter>
+          <camunda:inputParameter name="authorization">${tokenCaptalys}</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="javascript">var bodyJson = {
+  "financials": [
+    {
+      "data": JSON.parse(fluxoEnviarCaptalys)
+    }
+  ]
+};
+  
+execution.setVariable("bodyJson", JSON.stringify(bodyJson));</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_17ligiz</bpmn:incoming>
+      <bpmn:outgoing>Flow_1ximbzr</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_0op39g8">
+      <bpmn:incoming>Flow_0jgr5dq</bpmn:incoming>
+      <bpmn:incoming>Flow_1ximbzr</bpmn:incoming>
+      <bpmn:outgoing>Flow_0kwry2q</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_03wfkcf" name="Informar sucesso na coleta do tpv para Captalys" camunda:type="external" camunda:topic="ExecutarRequisicaoDinamica">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="javascript">var bodyJson = {
+    "operation_id": operation_id,
+    "cnpj": cnpj,
+    "nome_adquirente": adquirente,
+    "status": "SUCESSO",
+    "msg": "Fluxo capturado"
+};
+  
+var url = "https://tomatico.captalys.io/api//falazap/save-status-adquirente";
+var httpMethod = "POST";
+var headers = {
+  "x-api-key": "ab6a14cac3952375c1c25889202d8e0b25c4228a5b8ba29ddfca0a4596f2369a"
+}
+  
+execution.setVariable("bodyJson", JSON.stringify(bodyJson));  
+execution.setVariable("headers", JSON.stringify(headers));  
+execution.setVariable("httpMethod", httpMethod);
+execution.setVariable("url", url);</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0kwry2q</bpmn:incoming>
+      <bpmn:incoming>Flow_1oo55ji</bpmn:incoming>
+      <bpmn:outgoing>Flow_16vco8r</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_14itrvy">
+      <bpmn:incoming>Flow_16vco8r</bpmn:incoming>
+      <bpmn:outgoing>Flow_1f1pnsb</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0fd0wu1</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:serviceTask id="Activity_0ney2u1" name="Enviar e-mail notificando erro" camunda:type="external" camunda:topic="enviarEmailSimplificado">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="javascript">var instanceId = execution.getProcessInstanceId();
+
+var text = "Ouve um erro na integração Captalys \n Instancia: " + instanceId;
+
+text += "\n BusinessKey: " + businessKey;
+
+text += "\n Url: " + url;
+
+text += "\n StatusCode: " + statusCode;
+
+var to = "camundongos@zazvendas.com.br";
+
+var from = "automacao@zazvendas.com.br";
+
+var subject = "Erro na api Captalys";
+
+execution.setVariable("to", to);
+
+execution.setVariable("text", text);
+
+execution.setVariable("subject", subject);
+
+execution.setVariable("from", from);</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1f1pnsb</bpmn:incoming>
+      <bpmn:outgoing>Flow_1nep7yp</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:userTask id="Activity_0bhi4m7" name="Verificar erro na integração">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="statusCode" label="statusCode" type="long" defaultValue="${statusCode}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="url" label="url" type="string" defaultValue="${url}" />
+          <camunda:formField id="bodyJson" label="bodyJson" type="string" defaultValue="${bodyJson}" />
+          <camunda:formField id="httpMethod" label="httpMethod" type="string" defaultValue="${httpMethod}" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1nep7yp</bpmn:incoming>
+      <bpmn:outgoing>Flow_1oo55ji</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_0430004">
+      <bpmn:incoming>Flow_0fd0wu1</bpmn:incoming>
+    </bpmn:endEvent>
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_1oqekw1">
+      <bpmndi:BPMNShape id="Participant_1ep0nzv_di" bpmnElement="Participant_1ep0nzv" isHorizontal="true">
+        <dc:Bounds x="129" y="81" width="2410" height="330" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1ohvcb9_di" bpmnElement="Flow_1ohvcb9">
+        <di:waypoint x="380" y="227" />
+        <di:waypoint x="420" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04l1xm2_di" bpmnElement="Flow_04l1xm2">
+        <di:waypoint x="215" y="227" />
+        <di:waypoint x="280" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1tgz9eq_di" bpmnElement="Flow_1tgz9eq">
+        <di:waypoint x="660" y="227" />
+        <di:waypoint x="710" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qob9iv_di" bpmnElement="Flow_0qob9iv">
+        <di:waypoint x="520" y="227" />
+        <di:waypoint x="560" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0f9ew5f_di" bpmnElement="Flow_0f9ew5f">
+        <di:waypoint x="1520" y="227" />
+        <di:waypoint x="1585" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_17ligiz_di" bpmnElement="Flow_17ligiz">
+        <di:waypoint x="1635" y="227" />
+        <di:waypoint x="1790" y="227" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1685" y="196" width="55" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ximbzr_di" bpmnElement="Flow_1ximbzr">
+        <di:waypoint x="1890" y="227" />
+        <di:waypoint x="1955" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jgr5dq_di" bpmnElement="Flow_0jgr5dq">
+        <di:waypoint x="1610" y="202" />
+        <di:waypoint x="1610" y="100" />
+        <di:waypoint x="1980" y="100" />
+        <di:waypoint x="1980" y="202" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qty5lp_di" bpmnElement="Flow_0qty5lp">
+        <di:waypoint x="810" y="227" />
+        <di:waypoint x="860" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_036lnvo_di" bpmnElement="Flow_036lnvo">
+        <di:waypoint x="1030" y="202" />
+        <di:waypoint x="1030" y="120" />
+        <di:waypoint x="1152" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ij4jx8_di" bpmnElement="Flow_1ij4jx8">
+        <di:waypoint x="1315" y="227" />
+        <di:waypoint x="1420" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1dwnhqe_di" bpmnElement="Flow_1dwnhqe">
+        <di:waypoint x="1030" y="252" />
+        <di:waypoint x="1030" y="340" />
+        <di:waypoint x="1152" y="340" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0phw4bf_di" bpmnElement="Flow_0phw4bf">
+        <di:waypoint x="1188" y="340" />
+        <di:waypoint x="1290" y="340" />
+        <di:waypoint x="1290" y="252" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0nahww8_di" bpmnElement="Flow_0nahww8">
+        <di:waypoint x="1188" y="120" />
+        <di:waypoint x="1290" y="120" />
+        <di:waypoint x="1290" y="202" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0npivxl_di" bpmnElement="Flow_0npivxl">
+        <di:waypoint x="960" y="227" />
+        <di:waypoint x="1005" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0kwry2q_di" bpmnElement="Flow_0kwry2q">
+        <di:waypoint x="2005" y="227" />
+        <di:waypoint x="2100" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_16vco8r_di" bpmnElement="Flow_16vco8r">
+        <di:waypoint x="2200" y="227" />
+        <di:waypoint x="2355" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1f1pnsb_di" bpmnElement="Flow_1f1pnsb">
+        <di:waypoint x="2380" y="252" />
+        <di:waypoint x="2380" y="310" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="2286" y="270" width="87" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1nep7yp_di" bpmnElement="Flow_1nep7yp">
+        <di:waypoint x="2330" y="350" />
+        <di:waypoint x="2200" y="350" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0fd0wu1_di" bpmnElement="Flow_0fd0wu1">
+        <di:waypoint x="2405" y="227" />
+        <di:waypoint x="2482" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1oo55ji_di" bpmnElement="Flow_1oo55ji">
+        <di:waypoint x="2150" y="310" />
+        <di:waypoint x="2150" y="267" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0eba5z7_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="209" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="154" y="243" width="85" height="53" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ygyek2_di" bpmnElement="Activity_1ygyek2">
+        <dc:Bounds x="280" y="187" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0gbw4p9_di" bpmnElement="Activity_0drakgg">
+        <dc:Bounds x="560" y="187" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0gpx2ou_di" bpmnElement="Activity_11jrmah">
+        <dc:Bounds x="710" y="187" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_11us0y7_di" bpmnElement="Activity_11us0y7">
+        <dc:Bounds x="420" y="187" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0jlw3rd_di" bpmnElement="Gateway_0jlw3rd" isMarkerVisible="true">
+        <dc:Bounds x="1005" y="202" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1vkz6x9_di" bpmnElement="Gateway_1vkz6x9" isMarkerVisible="true">
+        <dc:Bounds x="1265" y="202" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0bipndi_di" bpmnElement="Event_0bipndi" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="1152" y="322" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1130" y="365" width="83" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_05fbbs8_di" bpmnElement="Event_05fbbs8" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="1152" y="102" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1140" y="145" width="62" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_164xr71_di" bpmnElement="Activity_12pns6r">
+        <dc:Bounds x="860" y="187" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_19ripu8_di" bpmnElement="Activity_19ripu8">
+        <dc:Bounds x="1420" y="187" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1b1mtz6_di" bpmnElement="Gateway_1b1mtz6" isMarkerVisible="true">
+        <dc:Bounds x="1585" y="202" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1454iuf_di" bpmnElement="Activity_1454iuf">
+        <dc:Bounds x="1790" y="187" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0op39g8_di" bpmnElement="Gateway_0op39g8" isMarkerVisible="true">
+        <dc:Bounds x="1955" y="202" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1bk7q5p_di" bpmnElement="Activity_03wfkcf">
+        <dc:Bounds x="2100" y="187" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_14itrvy_di" bpmnElement="Gateway_14itrvy" isMarkerVisible="true">
+        <dc:Bounds x="2355" y="202" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0ney2u1_di" bpmnElement="Activity_0ney2u1">
+        <dc:Bounds x="2330" y="310" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0bhi4m7_di" bpmnElement="Activity_0bhi4m7">
+        <dc:Bounds x="2100" y="310" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0430004_di" bpmnElement="Event_0430004" bioc:stroke="#000" bioc:fill="#fff">
+        <dc:Bounds x="2482" y="209" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="1510" y="196" width="79" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

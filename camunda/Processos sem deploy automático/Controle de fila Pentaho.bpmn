@@ -1,0 +1,225 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1gowdej" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.9.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="controleDeFilaPentaho" name="Controle de fila Pentaho" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_0h411gz</bpmn:outgoing>
+      <bpmn:timerEventDefinition id="TimerEventDefinition_01143o7">
+        <bpmn:timeCycle xsi:type="bpmn:tFormalExpression">0 0/5 * * * ?</bpmn:timeCycle>
+      </bpmn:timerEventDefinition>
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_03x94y7">
+      <bpmn:incoming>Flow_1c78t1e</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:endEvent id="Event_15wpsyn">
+      <bpmn:incoming>Flow_1g3phgf</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1g3phgf" sourceRef="Activity_0z8r8st" targetRef="Event_15wpsyn" />
+    <bpmn:sequenceFlow id="Flow_0h411gz" sourceRef="StartEvent_1" targetRef="Activity_06u66p8" />
+    <bpmn:sequenceFlow id="Flow_1sipght" sourceRef="Activity_06u66p8" targetRef="Activity_04mhnge" />
+    <bpmn:sequenceFlow id="Flow_1c78t1e" name="Sim&#10;&#10;" sourceRef="Gateway_0oxn4m5" targetRef="Event_03x94y7" />
+    <bpmn:sequenceFlow id="Flow_0xg155a" name="Não há jobGeral" sourceRef="Gateway_0oxn4m5" targetRef="Activity_0z8r8st">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.hasVariable("jobGeral") &amp;&amp; execution.getVariable("jobGeral") != "Running"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:serviceTask id="Activity_06u66p8" name="Verificar se já existe execução ativa" camunda:type="external" camunda:topic="WorkerConsumirAPI">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="httpMethod">Post</camunda:inputParameter>
+          <camunda:inputParameter name="queryParams">
+            <camunda:map>
+              <camunda:entry key="rep">ServidorPentahoAWS</camunda:entry>
+              <camunda:entry key="trans">home/dados_zaz/statusServidor/statusServidorCarte</camunda:entry>
+              <camunda:entry key="level">INFO</camunda:entry>
+            </camunda:map>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="headers">
+            <camunda:map>
+              <camunda:entry key="Authorization">Basic Y2FtdW5kYTpIdUY5SndhNGFzMkI=</camunda:entry>
+            </camunda:map>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="url">http://pentaho.zaz.vc/pentaho/kettle/executeTrans/</camunda:inputParameter>
+          <camunda:outputParameter name="body">${result.data.Body}</camunda:outputParameter>
+          <camunda:outputParameter name="dadosRetornoRequisicao">${result.data}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0h411gz</bpmn:incoming>
+      <bpmn:outgoing>Flow_1sipght</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_0z8r8st" name="Iniciar execução" camunda:type="external" camunda:topic="WorkerConsumirAPI">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="url">http://pentaho.zaz.vc/pentaho/kettle/executeJob/</camunda:inputParameter>
+          <camunda:inputParameter name="headers">
+            <camunda:map>
+              <camunda:entry key="Authorization">Basic Y2FtdW5kYTpIdUY5SndhNGFzMkI=</camunda:entry>
+            </camunda:map>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="queryParams">
+            <camunda:map>
+              <camunda:entry key="job">/home/dados_zaz/job/jobGeral</camunda:entry>
+              <camunda:entry key="level">Basic</camunda:entry>
+              <camunda:entry key="pass">CYjHfrAQPzn3</camunda:entry>
+              <camunda:entry key="user">admin</camunda:entry>
+              <camunda:entry key="rep">ServidorPentahoAWS</camunda:entry>
+            </camunda:map>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="httpMethod">Get</camunda:inputParameter>
+          <camunda:outputParameter name="retornoJobGeral">${result.data}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0xg155a</bpmn:incoming>
+      <bpmn:outgoing>Flow_1g3phgf</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1ysuspb" name="Iniciar execução" camunda:type="external" camunda:topic="WorkerConsumirAPI">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="url">http://pentaho.zaz.vc/pentaho/kettle/executeJob/</camunda:inputParameter>
+          <camunda:inputParameter name="headers">
+            <camunda:map>
+              <camunda:entry key="Authorization">Basic Y2FtdW5kYTpIdUY5SndhNGFzMkI=</camunda:entry>
+            </camunda:map>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="queryParams">
+            <camunda:map>
+              <camunda:entry key="job">/home/dados_zaz/staging_area_zaz/processamentoArquivos/gatekeeper/job/job_processamento</camunda:entry>
+              <camunda:entry key="level">Basic</camunda:entry>
+              <camunda:entry key="pass">CYjHfrAQPzn3</camunda:entry>
+              <camunda:entry key="user">admin</camunda:entry>
+              <camunda:entry key="rep">ServidorPentahoAWS</camunda:entry>
+            </camunda:map>
+          </camunda:inputParameter>
+          <camunda:inputParameter name="httpMethod">Get</camunda:inputParameter>
+          <camunda:outputParameter name="retornoJobProcessamento">${result.data}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_12qxgzp</bpmn:incoming>
+      <bpmn:outgoing>Flow_08viso3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0lrz5sd">
+      <bpmn:incoming>Flow_08viso3</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_08viso3" sourceRef="Activity_1ysuspb" targetRef="Event_0lrz5sd" />
+    <bpmn:sequenceFlow id="Flow_12qxgzp" sourceRef="Gateway_0oxn4m5" targetRef="Activity_1ysuspb">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.hasVariable("jobProcessamento") &amp;&amp; execution.getVariable("jobProcessamento") != "Running"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:inclusiveGateway id="Gateway_0oxn4m5" name="Existe execução ativa" default="Flow_1c78t1e">
+      <bpmn:incoming>Flow_1mjcial</bpmn:incoming>
+      <bpmn:outgoing>Flow_1c78t1e</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0xg155a</bpmn:outgoing>
+      <bpmn:outgoing>Flow_12qxgzp</bpmn:outgoing>
+    </bpmn:inclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_1mjcial" sourceRef="Activity_04mhnge" targetRef="Gateway_0oxn4m5" />
+    <bpmn:scriptTask id="Activity_04mhnge" name="Processar Retorno Verificação Status" scriptFormat="groovy">
+      <bpmn:incoming>Flow_1sipght</bpmn:incoming>
+      <bpmn:outgoing>Flow_1mjcial</bpmn:outgoing>
+      <bpmn:script>if(!body?.trim()){
+  execution.setVariable("jobProcessamento", "Not Started");
+  execution.setVariable("jobGeral", "Not Started");
+}else{
+  def bodyContent = execution.getVariable("body");
+  def parser = new groovy.json.JsonSlurper();
+  def jsonRetorno = parser.parseText(bodyContent);
+  execution.setVariable("jsonRetorno", jsonRetorno);
+
+  for(item in jsonRetorno.values()[0]){
+    def valores = item.values();
+    def processo = valores[0];
+    if(processo == "jobGeral"){
+      execution.setVariable("jobGeral", valores[3]);
+    }else{
+  		execution.setVariable("jobGeral", "Not Started");
+    }
+    if(processo == "job_processamento"){
+      	execution.setVariable("jobProcessamento", valores[3]);
+    }else{
+  		execution.setVariable("jobProcessamento", "Not Started");
+    }
+  }
+}</bpmn:script>
+    </bpmn:scriptTask>
+    <bpmn:textAnnotation id="TextAnnotation_16wxlnx">
+      <bpmn:text>Iniciado a cada 5 min </bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_1magsi2" sourceRef="StartEvent_1" targetRef="TextAnnotation_16wxlnx" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="controleDeFilaPentaho">
+      <bpmndi:BPMNEdge id="Flow_12qxgzp_di" bpmnElement="Flow_12qxgzp">
+        <di:waypoint x="595" y="227" />
+        <di:waypoint x="700" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_08viso3_di" bpmnElement="Flow_08viso3">
+        <di:waypoint x="800" y="227" />
+        <di:waypoint x="872" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xg155a_di" bpmnElement="Flow_0xg155a">
+        <di:waypoint x="570" y="202" />
+        <di:waypoint x="570" y="90" />
+        <di:waypoint x="700" y="90" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="588" y="72" width="81" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1c78t1e_di" bpmnElement="Flow_1c78t1e">
+        <di:waypoint x="570" y="252" />
+        <di:waypoint x="570" y="380" />
+        <di:waypoint x="872" y="380" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="622" y="360" width="19" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1sipght_di" bpmnElement="Flow_1sipght">
+        <di:waypoint x="371" y="227" />
+        <di:waypoint x="410" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0h411gz_di" bpmnElement="Flow_0h411gz">
+        <di:waypoint x="215" y="227" />
+        <di:waypoint x="271" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1g3phgf_di" bpmnElement="Flow_1g3phgf">
+        <di:waypoint x="800" y="90" />
+        <di:waypoint x="872" y="90" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1mjcial_di" bpmnElement="Flow_1mjcial">
+        <di:waypoint x="510" y="227" />
+        <di:waypoint x="545" y="227" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_12n4kpv_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="209" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1er7gyc_di" bpmnElement="Activity_06u66p8">
+        <dc:Bounds x="271" y="187" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_16wxlnx_di" bpmnElement="TextAnnotation_16wxlnx">
+        <dc:Bounds x="147" y="325" width="100" height="39" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_03x94y7_di" bpmnElement="Event_03x94y7">
+        <dc:Bounds x="872" y="362" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_15wpsyn_di" bpmnElement="Event_15wpsyn">
+        <dc:Bounds x="872" y="72" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_17os8g2_di" bpmnElement="Activity_0z8r8st">
+        <dc:Bounds x="700" y="50" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1ysuspb_di" bpmnElement="Activity_1ysuspb">
+        <dc:Bounds x="700" y="187" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0lrz5sd_di" bpmnElement="Event_0lrz5sd">
+        <dc:Bounds x="872" y="209" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_00bodzx_di" bpmnElement="Gateway_0oxn4m5">
+        <dc:Bounds x="545" y="202" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="369" y="156" width="81" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_18sthm2_di" bpmnElement="Activity_04mhnge">
+        <dc:Bounds x="410" y="187" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_1magsi2_di" bpmnElement="Association_1magsi2">
+        <di:waypoint x="197" y="245" />
+        <di:waypoint x="197" y="325" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

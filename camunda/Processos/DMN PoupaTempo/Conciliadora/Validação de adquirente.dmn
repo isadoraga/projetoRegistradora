@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_1n2j2xe" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
+  <decision id="validacaoAdquirente" name="Validação de Adquirente na operação">
+    <decisionTable id="DecisionTable_0cfzype" hitPolicy="COLLECT">
+      <output id="Output_1" label="Adquirente" name="adquirente" typeRef="string" biodi:width="192">
+        <outputValues id="UnaryTests_08raykj">
+          <text>"CIELO","BIN","STONE","REDE","GETNET","SIPAG"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_0muu26g">
+        <description>oi</description>
+        <outputEntry id="LiteralExpression_1ix66v7">
+          <text>"CIELO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0z2vwfb">
+        <outputEntry id="LiteralExpression_1pd9sqy">
+          <text>"BIN"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1gqryiw">
+        <outputEntry id="LiteralExpression_02gxxau">
+          <text>"STONE"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08xprwf">
+        <outputEntry id="LiteralExpression_0xpd2ii">
+          <text>"REDE"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0rfx05a">
+        <outputEntry id="LiteralExpression_18kxmnw">
+          <text>"GETNET"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ajn06k">
+        <outputEntry id="LiteralExpression_08fhj8e">
+          <text>"SIPAG"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="validacaoAdquirente">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

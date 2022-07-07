@@ -1,0 +1,190 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_0pxo3bv" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
+  <decision id="identificarStatusPosVendaB2W" name="Identificação status pós vendas B2W">
+    <informationRequirement id="InformationRequirement_1twzgfu">
+      <requiredDecision href="#identificarStatus" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1kmofzu" hitPolicy="FIRST">
+      <input id="InputClause_1i9jupm" label="Cadastro Realizado" biodi:width="193" camunda:inputVariable="cadastroRealizado">
+        <inputExpression id="LiteralExpression_1cig7q8" typeRef="boolean">
+          <text>cadastroRealizado</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0xq1n0d" label="Ativação Realizada" camunda:inputVariable="ativacaoRealizada">
+        <inputExpression id="LiteralExpression_1t098la" typeRef="boolean">
+          <text>ativacaoRealizada</text>
+        </inputExpression>
+      </input>
+      <input id="Input_1" label="Prazo Dentro da Operação?" biodi:width="268" camunda:inputVariable="prazoOperacao">
+        <inputExpression id="InputExpression_1" typeRef="boolean">
+          <text>prazoOperacao</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Status Pós-Venda" name="statusPosVenda" typeRef="string" biodi:width="232">
+        <outputValues id="UnaryTests_1vrsob5">
+          <text>"Cadastro não foi realizado","Cadastro ativado","Cadastro não foi ativado","Cadastro fora do prazo"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_19v81w1">
+        <inputEntry id="UnaryTests_09bgw2u">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yaaiwj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11xvobn">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0yu92ht">
+          <text>"Cadastro não foi realizado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0c3kv70">
+        <inputEntry id="UnaryTests_0nv2jsw">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bfjgq4">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0w8mzzc">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0p3yurs">
+          <text>"Cadastro pendente de ativação"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ow28bx">
+        <inputEntry id="UnaryTests_13g33yq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17162r7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xh6y1o">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1akcofn">
+          <text>"Cadastro fora do prazo"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1kwen4g">
+        <inputEntry id="UnaryTests_1d9e3c1">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qumn9a">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jpp41x">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16jq0sw">
+          <text>"Cadastro ativado"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="identificarStatus" name="Verificar se está ativo ou não">
+    <decisionTable id="DecisionTable_1uz52vl" hitPolicy="FIRST">
+      <input id="InputClause_027lx3u" label="Data do Cadastro" camunda:inputVariable="dataCadastro">
+        <inputExpression id="LiteralExpression_1o157k3" typeRef="string">
+          <text>dataCadastro</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1ir07u2" label="Data Ativação" camunda:inputVariable="dataAtivacao">
+        <inputExpression id="LiteralExpression_1mqvltd" typeRef="string" expressionLanguage="javascript">
+          <text>dataAtivacao</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_05kn4zc" label="Data Dentro do Prazo" camunda:inputVariable="prazoOperacao">
+        <inputExpression id="LiteralExpression_0x7t58k" typeRef="boolean">
+          <text>prazoOperacao</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0n11qda" label="Cadastro Realizado" name="cadastroRealizado" typeRef="boolean" />
+      <output id="OutputClause_18ejnga" label="Ativação Realizada" name="ativacaoRealizada" typeRef="boolean" />
+      <rule id="DecisionRule_1ahivpl">
+        <inputEntry id="UnaryTests_0mpe2sg">
+          <text>not("")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ctzibo">
+          <text>not("")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1x9jxjo">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1kygy4r">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1j45709">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0z2aanr">
+        <inputEntry id="UnaryTests_1dj2997">
+          <text>not("")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01ao2fa">
+          <text>not("")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18lgcsp">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0uoxis1">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0haptpu">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wb1dnw">
+        <inputEntry id="UnaryTests_1ifv4gh">
+          <text>not("")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_085aydv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tvso0w">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1or79dk">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1peradj">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_189654c">
+        <inputEntry id="UnaryTests_1nitvo7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wheg8r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nj287h">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gk8fqv">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_096wa9b">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="identificarStatusPosVendaB2W">
+        <dc:Bounds height="80" width="180" x="170" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0r8jd11" dmnElementRef="identificarStatus">
+        <dc:Bounds height="80" width="180" x="160" y="260" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_12hom9z" dmnElementRef="InformationRequirement_1twzgfu">
+        <di:waypoint x="250" y="260" />
+        <di:waypoint x="260" y="200" />
+        <di:waypoint x="260" y="180" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

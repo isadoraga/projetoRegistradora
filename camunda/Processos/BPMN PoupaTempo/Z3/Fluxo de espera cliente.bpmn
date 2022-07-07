@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_13p69x1" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.11.1" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:signal id="Signal_1q8b0us" name="SIG_FluxoDeEsperaCliente" />
+  <bpmn:collaboration id="Collaboration_06xko1i">
+    <bpmn:participant id="Participant_1b08vt0" name="Fluxo Espera Cliente" processRef="fluxo_espera_cliente" />
+  </bpmn:collaboration>
+  <bpmn:process id="fluxo_espera_cliente" name="Fluxo Espera Cliente" isExecutable="true">
+    <bpmn:businessRuleTask id="Activity_1db90a8" name="Identificar processos redirecionamento" camunda:resultVariable="listaProcessos" camunda:decisionRef="RedirecionamentoProcessos" camunda:mapDecisionResult="collectEntries">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="processoAtual">${execution.hasVariable("processoAtual") ? processoAtual : ""}</camunda:inputParameter>
+          <camunda:inputParameter name="operacao">${execution.hasVariable("operacao") ? operacao : ""}</camunda:inputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0j4hq3i</bpmn:incoming>
+      <bpmn:outgoing>Flow_0dtld3w</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:startEvent id="StartEvent_1" name="SIG_FluxoDeEsperaCliente">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="javascript">execution.setProcessBusinessKey(execution.getVariable('businessKey'));
+execution.setVariable('processoAtual', 'Fluxo de espera cliente');</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_1wppzuc</bpmn:outgoing>
+      <bpmn:signalEventDefinition id="SignalEventDefinition_0x3880d" signalRef="Signal_1q8b0us" />
+    </bpmn:startEvent>
+    <bpmn:endEvent id="Event_0o3b176" name="Fim">
+      <bpmn:incoming>Flow_11uyrv4</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_11uyrv4" sourceRef="Activity_0b3uwi9" targetRef="Event_0o3b176" />
+    <bpmn:sequenceFlow id="Flow_0dtld3w" sourceRef="Activity_1db90a8" targetRef="Activity_0b3uwi9" />
+    <bpmn:sequenceFlow id="Flow_0j4hq3i" sourceRef="Event_08vw92h" targetRef="Activity_1db90a8" />
+    <bpmn:sequenceFlow id="Flow_1wppzuc" sourceRef="StartEvent_1" targetRef="Event_08vw92h" />
+    <bpmn:intermediateCatchEvent id="Event_08vw92h" name="MSG_LiberarFluxoEspera">
+      <bpmn:incoming>Flow_1wppzuc</bpmn:incoming>
+      <bpmn:outgoing>Flow_0j4hq3i</bpmn:outgoing>
+      <bpmn:messageEventDefinition id="MessageEventDefinition_0rvbj95" messageRef="Message_1aweskc" />
+    </bpmn:intermediateCatchEvent>
+    <bpmn:subProcess id="Activity_0b3uwi9" name="Inicializar processos dinâmicos">
+      <bpmn:incoming>Flow_0dtld3w</bpmn:incoming>
+      <bpmn:outgoing>Flow_11uyrv4</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics camunda:collection="listaProcessos" camunda:elementVariable="iniciarProcesso" />
+      <bpmn:startEvent id="Event_0l5pksl" name="Inicio">
+        <bpmn:outgoing>Flow_04v2qm1</bpmn:outgoing>
+      </bpmn:startEvent>
+      <bpmn:endEvent id="Event_05611i0" name="Inicializar processo recuperado DMN">
+        <bpmn:incoming>Flow_04v2qm1</bpmn:incoming>
+        <bpmn:signalEventDefinition id="SignalEventDefinition_07k4eb9" signalRef="Signal_07i9rm7">
+          <bpmn:extensionElements>
+            <camunda:in variables="all" />
+          </bpmn:extensionElements>
+        </bpmn:signalEventDefinition>
+      </bpmn:endEvent>
+      <bpmn:sequenceFlow id="Flow_04v2qm1" sourceRef="Event_0l5pksl" targetRef="Event_05611i0" />
+    </bpmn:subProcess>
+  </bpmn:process>
+  <bpmn:signal id="Signal_07i9rm7" name="${iniciarProcesso}" />
+  <bpmn:message id="Message_1aweskc" name="MSG_LiberarFluxoEspera" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_06xko1i">
+      <bpmndi:BPMNShape id="Participant_1b08vt0_di" bpmnElement="Participant_1b08vt0" isHorizontal="true">
+        <dc:Bounds x="160" y="70" width="830" height="240" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_1wppzuc_di" bpmnElement="Flow_1wppzuc">
+        <di:waypoint x="265" y="190" />
+        <di:waypoint x="342" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0j4hq3i_di" bpmnElement="Flow_0j4hq3i">
+        <di:waypoint x="378" y="190" />
+        <di:waypoint x="450" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0dtld3w_di" bpmnElement="Flow_0dtld3w">
+        <di:waypoint x="550" y="190" />
+        <di:waypoint x="620" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_11uyrv4_di" bpmnElement="Flow_11uyrv4">
+        <di:waypoint x="850" y="190" />
+        <di:waypoint x="902" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_1db90a8_di" bpmnElement="Activity_1db90a8" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <dc:Bounds x="450" y="150" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ikus5d_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="229" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="205" y="215" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0o3b176_di" bpmnElement="Event_0o3b176">
+        <dc:Bounds x="902" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="911" y="215" width="19" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_05nr631_di" bpmnElement="Event_08vw92h">
+        <dc:Bounds x="342" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="323" y="215" width="87" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0b3uwi9_di" bpmnElement="Activity_0b3uwi9" isExpanded="true" bioc:stroke="rgb(67, 160, 71)" bioc:fill="rgb(200, 230, 201)">
+        <dc:Bounds x="620" y="90" width="230" height="200" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_04v2qm1_di" bpmnElement="Flow_04v2qm1">
+        <di:waypoint x="688" y="190" />
+        <di:waypoint x="772" y="190" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Event_0l5pksl_di" bpmnElement="Event_0l5pksl">
+        <dc:Bounds x="652" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="657" y="215" width="26" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_05611i0_di" bpmnElement="Event_05611i0">
+        <dc:Bounds x="772" y="172" width="36" height="36" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="748" y="215" width="84" height="40" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

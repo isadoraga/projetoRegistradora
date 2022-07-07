@@ -1,0 +1,54 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="detalhesAnexosRH" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
+  <decision id="detalhes_anexosrh" name="Detalhes Anexos RH">
+    <decisionTable id="DecisionTable_02f6nzc" hitPolicy="COLLECT">
+      <input id="Input_1" label="Operação">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1d3vsqa">
+          <text>"SUMUP","B2W","Z3","SAFRA","Lets Delivery"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Nome variável" name="nomeVariavel" typeRef="string" />
+      <output id="OutputClause_1aiairf" label="Nome anexo" name="nomeAnexo" typeRef="string" />
+      <output id="OutputClause_0m4ljjj" label="Descrição anexo" name="descricaoAnexo" typeRef="string" biodi:width="397" />
+      <rule id="DecisionRule_07iowt3">
+        <description></description>
+        <inputEntry id="UnaryTests_1o95r3b">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ba2k6s">
+          <text>"fotoAtestado"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kk3vi7">
+          <text>"Foto Atestado"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hcnz2m">
+          <text>"Esperamos uma foto bem aparente do atestado, evidenciando o nome do colaborador, a data do atestado, as horas ou dias de afastamento e a assinatura ou carimbo médico."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1lfg3hm">
+        <inputEntry id="UnaryTests_0mrae0m">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1axluq1">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0psy3yr">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_03vsw0u">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="detalhes_anexosrh">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

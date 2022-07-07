@@ -1,0 +1,400 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_1btu2k5" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
+  <decision id="RedirecionamentoProcessos" name="Redirecionamento de processos">
+    <decisionTable id="DecisionTable_0gqy5qh" hitPolicy="COLLECT">
+      <input id="Input_1" label="Operação" camunda:inputVariable="operacao">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0kowoyb">
+          <text>"B2W","GETNET","SANTANDER","Z3","AMERICANAS DELIVERY","Lets Delivery","SUMUP","SAFRA","Tomático"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0t647j7" label="Processo Atual" camunda:inputVariable="processoAtual">
+        <inputExpression id="LiteralExpression_1b4jvei" typeRef="string">
+          <text>processoAtual</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0ib4vmb">
+          <text>"Poupa Tempo","Visita","Auditoria","Formalização de serviços","Prospecção dados de produtos","Negociacao","Formalização de produtos","Implantacao","Concessão Stone","Concessão Cielo"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1ud4p9c" label="Processo Inicializar" camunda:inputVariable="processoInicializar">
+        <inputExpression id="LiteralExpression_0iqf1z4" typeRef="string">
+          <text>processoInicializar</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0l9qhjx">
+          <text>"visita","prospeccao","auditoria","logProcessamentoPlanilhaDeExtrato","Fluxo qualificação de lead","Concessão Stone","Concessão Cielo"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Processo redirecionamento" name="processoRedirecionamento" typeRef="string" biodi:width="411">
+        <outputValues id="UnaryTests_0dy9c96">
+          <text>"SIG_InicializarProcessoVisita","SIG_InicializarProcessoNegociacao","SIG_InicializarProcessoProspeccaoDadosProdutos","SIG_InicializarProcessoFormalizacaoProdutos","SIG_Implantacao","SIG_InicializarFormalizacaoServicos","","SIG_InicializarAuditoria","SIG_InicializarProcessoPosVenda","SIG_AuditoriaSUMUP","SIG_InicializarFaltas","SIG_InicializarProcessoQualificacaoLead","SIG_FluxoConcessaoAcessoStone","SIG_FluxoConcessaoAcessoCielo","SIG_IniciarEncaminhamentoDeExtrato"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_0d4uizf">
+        <description>Poupa Tempo &gt; Visita</description>
+        <inputEntry id="UnaryTests_0qr1oce">
+          <text>"B2W","GETNET","SANTANDER","AMERICANAS DELIVERY","Lets Delivery","SUMUP","SAFRA","HUBSTER"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0vkhwjv">
+          <text>"Poupa Tempo"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fifl82">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ysxyu6">
+          <text>"SIG_InicializarProcessoVisita"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0k0w8cw">
+        <description>Visita &gt; Formalização de servicos</description>
+        <inputEntry id="UnaryTests_14xm419">
+          <text>"B2W","GETNET","SANTANDER","AMERICANAS DELIVERY","Lets Delivery","SAFRA","HUBSTER"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1848r9z">
+          <text>"Visita"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1p6d23r">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0qj2bgb">
+          <text>"SIG_InicializarFormalizacaoServicos"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0q6im3w">
+        <description>Formalização de serviços &gt; Implantação</description>
+        <inputEntry id="UnaryTests_0cnm0vl">
+          <text>"AMERICANAS DELIVERY"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00u6o3y">
+          <text>"Formalização de serviços"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jhbg12">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ak0bla">
+          <text>"SIG_Implantacao"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jbuegp">
+        <description>Visita &gt; Auditoria</description>
+        <inputEntry id="UnaryTests_1vjkwqq">
+          <text>"SANTANDER"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lqz5pu">
+          <text>"Visita"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ne1c70">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1980ja3">
+          <text>"SIG_IniciarAuditoria"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0d17zt0">
+        <description>Formalização de Serviços &gt; Auditoria</description>
+        <inputEntry id="UnaryTests_1s1x021">
+          <text>"B2W","Lets Delivery","SAFRA","HUBSTER"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0anwd9o">
+          <text>"Formalização de serviços"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1x8u65e">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0tlhkcw">
+          <text>"SIG_IniciarAuditoria"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1c1uloj">
+        <description>Auditoria &gt; Pós Vendas</description>
+        <inputEntry id="UnaryTests_02iuzc4">
+          <text>"B2W","Lets Delivery","SAFRA","HUBSTER"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0oe1sru">
+          <text>"Auditoria"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0c7flyp">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0nbemqc">
+          <text>"SIG_InicializarProcessoPosVenda"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0skzwr0">
+        <description>Visita &gt; Formalização de Serviços</description>
+        <inputEntry id="UnaryTests_18qbujm">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08ezd8h">
+          <text>"Visita"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uglq77">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1v4de3d">
+          <text>"SIG_InicializarFormalizacaoServicos"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0a6p1cd">
+        <description>Formalização de Serviços &gt; Formalização de Produtos</description>
+        <inputEntry id="UnaryTests_1fsc7z9">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0z2j5w6">
+          <text>"Formalização de serviços"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1542rot">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1m3hggb">
+          <text>"SIG_InicializarProcessoFormalizacaoProdutos"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06n5mx5">
+        <description>Formalização de Produtos &gt; Implantação</description>
+        <inputEntry id="UnaryTests_0chscu5">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0aopu6u">
+          <text>"Formalização de produtos"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gbnhoc">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1j3voko">
+          <text>"SIG_Implantacao"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0t9bwcf">
+        <description>Implantação &gt; Pós Venda</description>
+        <inputEntry id="UnaryTests_1dwp8gv">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lyjp98">
+          <text>"Implantacao"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1j2zdjl">
+          <text>"visita"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0p69w8t">
+          <text>"SIG_InicializarProcessoPosVenda"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0god3t2">
+        <description>Implantação &gt; Auditoria</description>
+        <inputEntry id="UnaryTests_00nu5r7">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0q10lg1">
+          <text>"Implantacao"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pe4zj3">
+          <text>"visita"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_056u9ik">
+          <text>"SIG_IniciarAuditoria"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0pa6h6t">
+        <description>Visita &gt; Prospecção dados produtos</description>
+        <inputEntry id="UnaryTests_1n8ykhv">
+          <text>"Z3"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1d4m2aj">
+          <text>"Visita"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05sw5vl">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_01txeas">
+          <text>"SIG_InicializarProcessoProspeccaoDadosProdutos"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0h9rxqz">
+        <description>Prospecção dados produtos &gt; Formalização de produtos</description>
+        <inputEntry id="UnaryTests_0gdtpoh">
+          <text>"Z3"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vy8mer">
+          <text>"Prospecção dados de produtos"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0psh8og">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wro5hj">
+          <text>"SIG_InicializarProcessoFormalizacaoProdutos"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0rmbclt">
+        <description>Formalização de produtos &gt; Implantação</description>
+        <inputEntry id="UnaryTests_1l32vwf">
+          <text>"Z3"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rr66zd">
+          <text>"Formalização de produtos"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bpxtxh">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19373wx">
+          <text>"SIG_Implantacao"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1w4xa8y">
+        <description>PoupaTempo &gt; Log Processamento Planilha de Extrato</description>
+        <inputEntry id="UnaryTests_0e64cxt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09pmbcg">
+          <text>"Poupa Tempo"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hwwo2o">
+          <text>"logProcessamentoPlanilhaDeExtrato"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_086nc9w">
+          <text>"SIG_InicializarProcessoLogProcessamentoPlanilhaDeExtrato"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_069rh95">
+        <description>PoupaTempo &gt; Fluxo qualificação de lead</description>
+        <inputEntry id="UnaryTests_04mwgzs">
+          <text>"Z3"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1co09ab">
+          <text>"Poupa Tempo"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fqsm50">
+          <text>"Fluxo qualificação de lead"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0kmrxqv">
+          <text>"SIG_InicializarProcessoQualificacaoLead"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1j6afll">
+        <description>Fluxo qualificação de lead &gt;  Fluxo qualificação de bureau</description>
+        <inputEntry id="UnaryTests_00ag4d8">
+          <text>"Z3"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yt24im">
+          <text>"Fluxo qualificação de lead"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0em2c20">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1alh9j2">
+          <text>"SIG_FluxoProspeccaoLead"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1enoqu4">
+        <description>Fluxo qualificação de bureau &gt; Fluxo de prospecção de lead</description>
+        <inputEntry id="UnaryTests_1ne2y0s">
+          <text>"Z3"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_119nd8p">
+          <text>"Fluxo qualificação de bureau"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1txetac">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ogubwz">
+          <text>"SIG_FluxoDeEsperaCliente"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0s6i8hp">
+        <description>Fluxo de prospecção de lead &gt; Fluxo concessão Stone</description>
+        <inputEntry id="UnaryTests_1mjk2lb">
+          <text>"Z3"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02gl3nn">
+          <text>"Fluxo Prospecção Lead"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0avqehd">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vdb06n">
+          <text>"SIG_FluxoConcessaoAcessoStone"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_17u2b6q">
+        <description>Fluxo concessão Stone &gt; Fluxo espera de cliente</description>
+        <inputEntry id="UnaryTests_0hcxdu2">
+          <text>"Z3"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hxlulz">
+          <text>"Concessão Stone"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vy5t6x">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0t8i4hh">
+          <text>"SIG_InicializarProcessoQualificacaoBureau"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0aw17f6">
+        <inputEntry id="UnaryTests_0fydi57">
+          <text>"Tomático"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s486ps">
+          <text>"Poupa Tempo"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1y7a7i7">
+          <text>"Concessão Stone"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ez8qbn">
+          <text>"SIG_FluxoConcessaoAcessoStone"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0y6kid0">
+        <inputEntry id="UnaryTests_1x9co3d">
+          <text>"Tomático"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bl9yap">
+          <text>"Poupa Tempo"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r2v4ma">
+          <text>"Concessão Cielo"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12y36j3">
+          <text>"SIG_FluxoConcessaoAcessoCielo"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1papkbm">
+        <inputEntry id="UnaryTests_1pm4xtd">
+          <text>"Tomático"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fdhq7e">
+          <text>"Concessão Stone","Concessão Cielo"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12d6f30">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1bk527m">
+          <text>"SIG_IniciarEncaminhamentoDeExtrato"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0rlhp2x">
+        <description>DEFAULT NECESSÁRIO para redirecionamentos</description>
+        <inputEntry id="UnaryTests_0z2vahd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ut5gq0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1aacgh0">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1dm34dx">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="RedirecionamentoProcessos">
+        <dc:Bounds height="80" width="180" x="180" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

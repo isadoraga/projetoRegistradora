@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_07d3z5o" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="PosVenda_AcoesPromotorRentabilizacao" name="Ações e notificações promotor">
+    <decisionTable id="DecisionTable_07gim77" hitPolicy="FIRST">
+      <input id="Input_1" label="Idade Pós Venda" camunda:inputVariable="processamentoPosVenda.idadePosVenda">
+        <inputExpression id="InputExpression_1" typeRef="integer">
+          <text>processamentoPosVenda.idadePosVenda</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_14wg1pj" label="Tpv acumulado mês" camunda:inputVariable="processamentoPosVenda.tpvAcumuladoMesAtual">
+        <inputExpression id="LiteralExpression_1j5vezb" typeRef="double">
+          <text>processamentoPosVenda.tpvAcumuladoMesAtual</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Evento notificação" name="eventoNotificacaoPromotor" typeRef="string" />
+      <output id="OutputClause_1d3eaa1" label="Mensagem" name="mensagemPromotor" typeRef="string" />
+      <output id="OutputClause_1g22bma" label="Ação" name="acaoPromotor" typeRef="string" />
+      <rule id="DecisionRule_0rslmg0">
+        <description>visita para acompanhamento de não atingimento TPV esperado</description>
+        <inputEntry id="UnaryTests_0rg1p9c">
+          <text>30,60,90,120,150,180,210,240,270,300,330,360</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yeinpi">
+          <text>&lt; 9000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0aciutk">
+          <text>"principal_pushnotificacao"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kz2bko">
+          <text>"Olá! seu cliente não alcançou o TPV esperado neste mês. Faça uma visita para entender o motivo e auxiliá-lo!"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1u0t1vr">
+          <text>"Revisita"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mn8lmq">
+        <description>Regra default para não enviar nenhuma mensagem ou criar ação caso não se enquadre em nenhuma regra acima</description>
+        <inputEntry id="UnaryTests_0m2puru">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r5kekz">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vb1v5r">
+          <text>""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_119s407">
+          <text>""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14jsrjm">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="PosVenda_AcoesPromotorRentabilizacao">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

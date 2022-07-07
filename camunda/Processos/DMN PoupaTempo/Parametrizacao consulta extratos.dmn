@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_03xo3ht" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
+  <decision id="parametrizacaoConsultaExtratos" name="Parametrização de consulta de extratos">
+    <decisionTable id="DecisionTable_10wjmz9" hitPolicy="FIRST">
+      <input id="Input_1" label="Operação" camunda:inputVariable="operacao">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_196o5gm">
+          <text>"SUMUP"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_1xhnn3t" label="Quantidade de meses análise de extratos" name="quantidadeMesesAnaliseExtratos" typeRef="integer" />
+      <rule id="DecisionRule_0b9snwv">
+        <inputEntry id="UnaryTests_15ktq6p">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0l8j46l">
+          <text>1</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16p88sz">
+        <inputEntry id="UnaryTests_06mpcn6">
+          <text>"Tomático"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_01cbpgs">
+          <text>6</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0i000kk">
+        <inputEntry id="UnaryTests_0qo97ud">
+          <text>"Z3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0g98swb">
+          <text>6</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="parametrizacaoConsultaExtratos">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

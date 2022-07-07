@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_1quj1yw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="tpvMinimoAcaoTPV" name="Identificar TPV mínimo para elegibilidade Ação TPV">
+    <decisionTable id="DecisionTable_0bl8uaj" hitPolicy="FIRST">
+      <input id="Input_1" label="Operação" camunda:inputVariable="operacao">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0imcqvp">
+          <text>"SUMUP"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0begzuw" label="Tipo cliente" camunda:inputVariable="tipoCliente">
+        <inputExpression id="LiteralExpression_0a0cz1r" typeRef="string">
+          <text>tipoCliente</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="TPV mínimo elegibilidade Ação TPV" name="tpvMinimoAcaoTPV" typeRef="double" />
+      <rule id="DecisionRule_1lad1wa">
+        <inputEntry id="UnaryTests_15luqgl">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1wc2xcp">
+          <text>"PJ"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0stbf3p">
+          <text>12000</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0d7jbsn">
+        <inputEntry id="UnaryTests_0z05flm">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1oe8qzl">
+          <text>"PF"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1qi15td">
+          <text>7000</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_17v2fib">
+        <inputEntry id="UnaryTests_0zkwc7h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kjx10l">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19bnr4y">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="tpvMinimoAcaoTPV">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

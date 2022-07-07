@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_051qcvk" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="statusRentabilizacao" name="Status rentabilização">
+    <decisionTable id="DecisionTable_14pf3af" hitPolicy="FIRST">
+      <input id="Input_1" label="Tpv projetado mês" camunda:inputVariable="processamentoPosVenda.tpvProjetado">
+        <inputExpression id="InputExpression_1" typeRef="double">
+          <text>processamentoPosVenda.tpvProjetado</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1h0l0wt" label="Tpv acumulado mês" camunda:inputVariable="processamentoPosVenda.tpvAcumuladoMesAtual">
+        <inputExpression id="LiteralExpression_0ko85j4" typeRef="double">
+          <text>processamentoPosVenda.tpvAcumuladoMesAtual</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Status rentabilização" name="statusRentabilizacao" typeRef="string">
+        <outputValues id="UnaryTests_1sc9hvr">
+          <text>"projetando","naoProjetando"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1d81dh8">
+        <inputEntry id="UnaryTests_00bfaa9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dn1pej">
+          <text>&gt;= 9000</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gdjfa5">
+          <text>"30_rentabilizacao_alcancado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06fhr6g">
+        <inputEntry id="UnaryTests_103zagi">
+          <text>&gt;= 9000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kpqtdo">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xnuick">
+          <text>"29_rentabilizacao_projetando"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0yss3co">
+        <inputEntry id="UnaryTests_1yhu8ur">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s5vi7w">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hwwme2">
+          <text>"28_rentabilizacao_naoProjetando"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="statusRentabilizacao">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

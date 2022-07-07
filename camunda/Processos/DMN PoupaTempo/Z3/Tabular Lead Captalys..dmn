@@ -1,0 +1,1024 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_17hfdwj" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
+  <decision id="validar_lead_qualificado" name="Validar Lead Qualificado">
+    <decisionTable id="DecisionTable_1sv6fia" hitPolicy="FIRST">
+      <input id="InputClause_0c2knc8" label="Quantidade Meses" camunda:inputVariable="meses">
+        <inputExpression id="LiteralExpression_0octgts" typeRef="integer">
+          <text>meses</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_00gmbcs" label="6k+ de TPV nos meses" camunda:inputVariable="cumpriuTpvEsperado">
+        <inputExpression id="LiteralExpression_0pow2uw" typeRef="boolean">
+          <text>cumpriuTpvEsperado</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_15jyiby" label="Queda média ultimos meses" camunda:inputVariable="quedaUltimosMeses">
+        <inputExpression id="LiteralExpression_17qmhsl" typeRef="double">
+          <text>quedaUltimosMeses</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_06z0wpd" label="Quantidade meses valida" name="qtdMesesValido" typeRef="boolean" />
+      <output id="OutputClause_1xbts2j" label="Cumpriu TPV esperado" name="cumpriuTpv" typeRef="boolean" />
+      <output id="OutputClause_19ipq15" label="Queda menor que 30%" name="quedaUltimosMesesValido" typeRef="boolean" />
+      <rule id="DecisionRule_05a2pw8">
+        <inputEntry id="UnaryTests_01mqycy">
+          <text>&gt;= 6</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18jvss2">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cg49jn">
+          <text>&gt; -30</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ia3h9h">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11wx6ci">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0210okx">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1wphlyp">
+        <inputEntry id="UnaryTests_0ducyy3">
+          <text>&gt;= 6</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nkcgkb">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pp966c">
+          <text>&lt;= -30</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_097uc6g">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1hciveg">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07i8gmv">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0w2flw6">
+        <inputEntry id="UnaryTests_0svc9sr">
+          <text>&gt;= 6</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0g0qni2">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gbjrai">
+          <text>&lt;= -30</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1i83ddg">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_07ocd5s">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vozgzm">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1v6zpyx">
+        <inputEntry id="UnaryTests_0x1fwxo">
+          <text>&gt;= 6</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vn87dr">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0iogtpx">
+          <text>&gt; -30</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1uhe9wm">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1fqq8nq">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0slf17m">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14mgayk">
+        <inputEntry id="UnaryTests_1os04b6">
+          <text>&lt; 6</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17tqd40">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_078lyt8">
+          <text>&lt;= -30</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07lvybe">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0dldin7">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ehejk0">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_137jwfs">
+        <inputEntry id="UnaryTests_1clgwn8">
+          <text>&lt; 6</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tr5161">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1x9hipe">
+          <text>&gt; -30</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0v0q2g9">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1d4sy3u">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0m2wae7">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09cyf52">
+        <inputEntry id="UnaryTests_1l5auxt">
+          <text>&lt; 6</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nziayu">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_114cipv">
+          <text>&gt; -30</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_007la3x">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nqdsan">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1s2z0ie">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1q289y1">
+        <inputEntry id="UnaryTests_1nzu3ve">
+          <text>&lt; 6</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1s9k6dd">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pm7uy4">
+          <text>&lt;= -30</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1eocyjx">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ix1q57">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1fsc0fl">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07rgmb8">
+        <inputEntry id="UnaryTests_1ui7bb3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l1mm7h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_177ue5x">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0twj65w">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ozjf0q">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ua92i6">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="tabular_lead_Captalys" name="Qualificar lead">
+    <decisionTable id="DecisionTable_0uxab9p" hitPolicy="COLLECT">
+      <input id="InputClause_1yp2uzn" label="Celular valido" camunda:inputVariable="celularValido">
+        <inputExpression id="LiteralExpression_176chq2" typeRef="boolean">
+          <text>celularValido</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0rdiwjx" label="É CNPJ" camunda:inputVariable="isCNPJ">
+        <inputExpression id="LiteralExpression_1n1juph" typeRef="boolean">
+          <text>isCNPJ</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1pf6z4r" label="É CPF" camunda:inputVariable="isCPF">
+        <inputExpression id="LiteralExpression_07gld13" typeRef="boolean">
+          <text>isCPF</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1g1d9km" label="TPV Valido" camunda:inputVariable="resultadoTPVValido">
+        <inputExpression id="LiteralExpression_1bm7tie" typeRef="boolean">
+          <text>resultadoTPVValido</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1yb0fr6" label="Quantidade meses valida" camunda:inputVariable="qtdMesesValido">
+        <inputExpression id="LiteralExpression_0z5k8bm" typeRef="boolean">
+          <text>qtdMesesValido</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0ukwkhk" label="Cumpriu TPV" camunda:inputVariable="cumpriuTpv">
+        <inputExpression id="LiteralExpression_11vyk3n" typeRef="boolean">
+          <text>cumpriuTpv</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1sr8vvz" label="Queda menor que 30%" camunda:inputVariable="quedaUltimosMesesValido">
+        <inputExpression id="LiteralExpression_14gaeta" typeRef="boolean">
+          <text>quedaUltimosMesesValido</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0bp88t3" label="Lead Valido" camunda:inputVariable="leadDadosQualificado">
+        <inputExpression id="LiteralExpression_0ivrudh" typeRef="boolean">
+          <text>leadDadosQualificado</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0nvpjhy" label="Status" name="status" typeRef="string" />
+      <rule id="DecisionRule_1ayws9t">
+        <inputEntry id="UnaryTests_0phlj34">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hb2mi7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xg85z8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1eyfdrp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_046x79d">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pfgtt4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11a4wmc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yjsxz4">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ufvswt">
+          <text>"status_Z3_7_Lead_TelefoneValido"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1o8jns8">
+        <inputEntry id="UnaryTests_0f8nbs2">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sj5nvu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05oram5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1de4h2a">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pu1gt7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hnbzlk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0km1hj8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1exny07">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0u489pt">
+          <text>"status_Z3_17_Lead_TelefoneInvalido"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03adxwg">
+        <inputEntry id="UnaryTests_14e6xu6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cjnsva">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1x6pbg2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ckjpu4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c8dc3x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18tjrfl">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qjxhaw">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0q7acyt">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0dpkoqk">
+          <text>"status_Z3_1_Lead_CNPJValido"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0f5e66x">
+        <inputEntry id="UnaryTests_02tok5o">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0udn2wq">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_088zy7m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kewh2o">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mjmzyk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_138fgzk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10np9hn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lgsqcb">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04f7xx9">
+          <text>"status_Z3_11_Lead_CNPJInvalido"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04tt4cn">
+        <inputEntry id="UnaryTests_0bl3zjk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1682678">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xsl74k">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u7irkv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ddipyq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_181278f">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13xylcr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ftfpj6">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08add8a">
+          <text>"status_Z3_2_Lead_CPFValido"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0vca1qm">
+        <inputEntry id="UnaryTests_0lpm37u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ca08vi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0l50khl">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xl76cd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c21np8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q486jx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f6niia">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bhnjm2">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_085bq19">
+          <text>"status_Z3_12_Lead_CPFInvalido"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_00bzn8f">
+        <inputEntry id="UnaryTests_1ujk7q7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cq58la">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12czy5a">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tjfmby">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_050m5ve">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11fdzck">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hf6pr0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r0li59">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19dycoo">
+          <text>"status_Z3_6_Lead_TPVQualificado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16g0346">
+        <inputEntry id="UnaryTests_1i5fdar">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1951u3x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ft6c3z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xtwait">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lrc2uc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_142upt6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yalocv">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qzoxdx">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wtxygp">
+          <text>"status_Z3_16_Lead_TPVNaoQualificado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11fxk5w">
+        <inputEntry id="UnaryTests_1egxzpi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1jgn5vf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s9l9ad">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0v3h5tf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07zwf94">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ov4q4s">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1d5strn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0djf8p3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0555q6x">
+          <text>"status_Z3_3_Lead_QtdMesesValida"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0x3awjv">
+        <inputEntry id="UnaryTests_0l4v28s">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1y5j0t5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0efb1zj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1f1hk61">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pwkjhb">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11hsacj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1u0ywyc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ddg2di">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_099nzuy">
+          <text>"status_Z3_13_Lead_QtdMesesInvalida"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1rsixf6">
+        <inputEntry id="UnaryTests_0kt8m39">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dxjjq4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00iu3es">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11gm9fu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q436yr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1p8wbmi">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10ny64v">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0god815">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1d3tgij">
+          <text>"status_Z3_4_Lead_CumpriuTpv"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qebnie">
+        <inputEntry id="UnaryTests_14tc1p7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_164uwcj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ma5bpk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0a9eju0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e1njpd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fjcwkg">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xiy8uc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r5920w">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hjdkdd">
+          <text>"status_Z3_14_Lead_NaoCumpriuTpv"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0sjs0fx">
+        <inputEntry id="UnaryTests_0z1lfa0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d9qiku">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_13qz3jq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xlabr2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10bq52i">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0o122wx">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mzz3er">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0e5pkfa">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0r6v20d">
+          <text>"status_Z3_5_Lead_QuedaBaixaTPV"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1s7ldf8">
+        <inputEntry id="UnaryTests_1miflw6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xfe1ji">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15jv8z7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ysgz2u">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xvsupz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0g3nkua">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kb2mik">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dhmprq">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12yepzw">
+          <text>"status_Z3_15_Lead_QuedaAltaTPV"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1iislrd">
+        <inputEntry id="UnaryTests_0eitm5l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ulaxd0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1dghcsb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1as3fat">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1teo3rc">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09d9r3r">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bx90sn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17mtqkf">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1o9y706">
+          <text>"status_Z3_11_Lead_Qualificado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0zuhyym">
+        <inputEntry id="UnaryTests_0jhmayy">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gw0l37">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_157em3h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ytq2wh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kphczn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yt0s4m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pksfkm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sf96ab">
+          <text>false</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ykdke8">
+          <text>"status_Z3_21_Lead_NaoQualificado"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="verificar_lead_dados_qualificado" name="Verificar Lead Dados Qualificado">
+    <decisionTable id="DecisionTable_0qwobq3" hitPolicy="FIRST">
+      <input id="InputClause_1njunvn" label="É CNPJ" camunda:inputVariable="isCNPJ">
+        <inputExpression id="LiteralExpression_0r255d0" typeRef="boolean">
+          <text>isCNPJ</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0m39fas" label="É CPF" camunda:inputVariable="isCPF">
+        <inputExpression id="LiteralExpression_1fbud0w" typeRef="boolean">
+          <text>isCPF</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0upy3rx" label="Celular valido" camunda:inputVariable="celularValido">
+        <inputExpression id="LiteralExpression_0fav0l4" typeRef="boolean">
+          <text>celularValido</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_04v2pvi" label="TPV Valido" camunda:inputVariable="resultadoTPVValido">
+        <inputExpression id="LiteralExpression_03cec0y" typeRef="boolean">
+          <text>resultadoTPVValido</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0g3zaxu" label="Valido" name="valido" typeRef="boolean" />
+      <rule id="DecisionRule_1e4rloh">
+        <inputEntry id="UnaryTests_02mnf05">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_020i2ue">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tbzw3n">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0k2xn7o">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0l9pfvy">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0vtaxmz">
+        <inputEntry id="UnaryTests_0havub5">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0w7pkrm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vk7kc0">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gnj9u5">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_01lwnzj">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="verificar_tpv_valido" name="Verificar TPV Valido">
+    <decisionTable id="DecisionTable_1qsct5x" hitPolicy="FIRST">
+      <input id="InputClause_1l1g407" label="Quantidade de meses validos" camunda:inputVariable="qtdMesesValido">
+        <inputExpression id="LiteralExpression_0bgxmjs" typeRef="boolean">
+          <text>qtdMesesValido</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_183f1fh" label="Cumpriu tpv" camunda:inputVariable="cumpriuTpv">
+        <inputExpression id="LiteralExpression_1da4rdp" typeRef="boolean">
+          <text>cumpriuTpv</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1cr11qy" label="Queda menor que 30%" camunda:inputVariable="quedaUltimosMesesValido">
+        <inputExpression id="LiteralExpression_0eaixss" typeRef="boolean">
+          <text>quedaUltimosMesesValido</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0tp4wwx" label="Valido" name="valido" typeRef="boolean" />
+      <rule id="DecisionRule_133ds4g">
+        <inputEntry id="UnaryTests_043drh7">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pt09p7">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14vc59j">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1f6xv0k">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0q27w6u">
+        <inputEntry id="UnaryTests_0xaemn8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1scsbv3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0x5gwie">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1miicwh">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="verificar_bureau_valido" name="Verificar Bureau">
+    <decisionTable id="DecisionTable_02wh8cd" hitPolicy="FIRST">
+      <input id="InputClause_1hq7omc" label="Cheque sem fundo" camunda:inputVariable="totalChequeSemFundo">
+        <inputExpression id="LiteralExpression_1uedh4z" typeRef="integer">
+          <text>totalChequeSemFundo</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0rrzl8i" label="Sem Pendencia financeira" camunda:inputVariable="semPendenciaFinanceira">
+        <inputExpression id="LiteralExpression_045uqg0" typeRef="boolean">
+          <text>semPendenciaFinanceira</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1loojs7" label="Valido" name="valido" typeRef="boolean" />
+      <rule id="DecisionRule_0r1mrkb">
+        <inputEntry id="UnaryTests_02mw7w8">
+          <text>&lt; 3</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s2dhaw">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02sv2op">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0v2e8x4">
+        <inputEntry id="UnaryTests_1hckifs">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1na9di8">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0f9puxr">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="verificar_lead_bureau_valido" name="Verificar Lead Bureau Valido">
+    <decisionTable id="DecisionTable_0qp7mzn" hitPolicy="FIRST">
+      <input id="InputClause_1uhimvu" label="Dados bureau valido" camunda:inputVariable="leadBureauValido">
+        <inputExpression id="LiteralExpression_0kzdcbn" typeRef="boolean">
+          <text>leadBureauValido</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1l9irog" label="Dados lead qualificado" camunda:inputVariable="leadDadosQualificado">
+        <inputExpression id="LiteralExpression_0j3nnd7" typeRef="boolean">
+          <text>leadDadosQualificado</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0zvppdh" label="Valido" name="valido" typeRef="boolean" />
+      <rule id="DecisionRule_0cibr07">
+        <inputEntry id="UnaryTests_0n784j6">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gmosh5">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16b8pxq">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1lxqwy0">
+        <inputEntry id="UnaryTests_1rtho2q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14oyrcd">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_11us5wp">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="tabular_lead_bureau" name="Tabular lead bureau">
+    <decisionTable id="DecisionTable_04ug2fd" hitPolicy="COLLECT">
+      <input id="InputClause_1xy83oz" label="leadBureauValido" camunda:inputVariable="leadBureauValido">
+        <inputExpression id="LiteralExpression_0d593e2" typeRef="boolean">
+          <text>leadBureauValido</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1ccjaya" label="semPendenciaFinanceira" camunda:inputVariable="semPendenciaFinanceira">
+        <inputExpression id="LiteralExpression_16xlwda" typeRef="boolean">
+          <text>semPendenciaFinanceira</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0l8ysas" label="totalChequeSemFundo" camunda:inputVariable="totalChequeSemFundo">
+        <inputExpression id="LiteralExpression_0cl7xn1" typeRef="long">
+          <text>totalChequeSemFundo</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_1ecl426" label="Status" name="status" typeRef="string" />
+      <rule id="DecisionRule_1ur0ug2">
+        <inputEntry id="UnaryTests_0m8dool">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16bcv51">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rxrelw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wxv9x3">
+          <text>"status_Z3_10_Lead_BureauValido"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xxuwv7">
+        <inputEntry id="UnaryTests_1l0uqcq">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1t3lged">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_088oajx">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00hokkd">
+          <text>"status_Z3_20_Lead_BureauInvalido"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1gvk1q2">
+        <inputEntry id="UnaryTests_0wtpzph">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cy6zds">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15k90gk">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1q0a8il">
+          <text>"status_Z3_8_Lead_SemPendenciaFinanceira"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ky1k7o">
+        <inputEntry id="UnaryTests_0ulmoaf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18ykcix">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xedy3a">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0z9roum">
+          <text>"status_Z3_18_Lead_ComPendenciaFinanceira"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nn7nz7">
+        <inputEntry id="UnaryTests_19jlx5q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01i3521">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qfsn5p">
+          <text>&lt; 3</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vg25dm">
+          <text>"status_Z3_9_Lead_ChequeSemFundoValido"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0nlhru9">
+        <inputEntry id="UnaryTests_0if5pb4">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lnkwzr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19i26yu">
+          <text>&gt; 2</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13h2k7f">
+          <text>"status_Z3_19_Lead_ChequeSemFundoInvalido"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="validar_lead_qualificado">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_184daue" dmnElementRef="tabular_lead_Captalys">
+        <dc:Bounds height="80" width="180" x="440" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1l595tt" dmnElementRef="verificar_lead_dados_qualificado">
+        <dc:Bounds height="80" width="180" x="160" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_19t7uwx" dmnElementRef="verificar_tpv_valido">
+        <dc:Bounds height="80" width="180" x="440" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_186323e" dmnElementRef="verificar_bureau_valido">
+        <dc:Bounds height="80" width="180" x="160" y="330" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_01g0y8m" dmnElementRef="verificar_lead_bureau_valido">
+        <dc:Bounds height="80" width="180" x="440" y="330" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_19gzlbs" dmnElementRef="tabular_lead_bureau">
+        <dc:Bounds height="80" width="180" x="300" y="450" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

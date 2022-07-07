@@ -1,0 +1,264 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_0nlhtmg" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
+  <decision id="resultadoEnvioEmail" name="Email por operação">
+    <decisionTable id="DecisionTable_174q507" hitPolicy="FIRST">
+      <input id="Input_1" label="Operação" camunda:inputVariable="operacao">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1naxnrw">
+          <text>"B2W","Z3","SUMUP","SAFRA","GETNET","SANTANDER"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Template" name="emailTemplate" typeRef="string" biodi:width="230" />
+      <output id="OutputClause_1vg9nce" label="Assunto Proposta" name="assuntoProposta" typeRef="string">
+        <outputValues id="UnaryTests_04rj2wd">
+          <text>"Proposta Comercial B2W","ZAZ - Proposta Comercial"</text>
+        </outputValues>
+      </output>
+      <output id="OutputClause_07lvur5" label="Email Remetente" name="emailRemetente" typeRef="string">
+        <outputValues id="UnaryTests_19ftcyb">
+          <text>"b2w@zazvendas.vc","atendimento@z3bank.com.br","sumup@zazvendas.com.br","safra@zazvendas.com.br","getnet@zazvendas.vc","santander@zazvendas.vc"</text>
+        </outputValues>
+      </output>
+      <output id="OutputClause_1mfblit" label="Usuário SMTP" name="usuarioSmtp" typeRef="string">
+        <outputValues id="UnaryTests_1ox1488">
+          <text>"SENDINBLUE","Z3"</text>
+        </outputValues>
+      </output>
+      <output id="OutputClause_1tcv5gp" label="Link Redirecionamento" name="linkRedirecionamento" typeRef="string" biodi:width="280" />
+      <rule id="DecisionRule_0li7g7c">
+        <inputEntry id="UnaryTests_1dx4bqm">
+          <text>"B2W"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ixgfa1">
+          <text>"PropostaB2W.html"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1w5v3b3">
+          <text>"Proposta Comercial B2W"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09osprx">
+          <text>"b2w@zazvendas.vc"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1i43rp0">
+          <text>"SENDINBLUE"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_066g9k6">
+          <text>"https://www.b2wmarketplace.com.br/v3/"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1tf5q85">
+        <inputEntry id="UnaryTests_0uim0kh">
+          <text>"Z3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ywi44a">
+          <text>"PropostaZ3Emprestimo.html"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0e39tpc">
+          <text>"Proposta Comercial Z3"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ypprxg">
+          <text>"atendimento@z3bank.com.br"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qpesto">
+          <text>"Z3"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_128ja4l">
+          <text>"https://www.zazvendas.com.br/"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1q0eztv">
+        <inputEntry id="UnaryTests_09g8mj1">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hv3kd4">
+          <text>"PropostaSumup.html"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ornavc">
+          <text>"Proposta Comercial SUMUP"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0q0exn3">
+          <text>"sumup@zazvendas.com.br"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hem8q4">
+          <text>"SENDINBLUE"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_095l39m">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0c59mjr">
+        <inputEntry id="UnaryTests_0hmhvh5">
+          <text>"SAFRA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0fzd402">
+          <text></text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ql5wne">
+          <text>"Proposta Comercial SAFRA"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ukzvc8">
+          <text>"safra@zazvendas.com.br"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_13x5ggq">
+          <text>"SENDINBLUE"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01my57v">
+          <text></text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0c4a7tc">
+        <inputEntry id="UnaryTests_1k7inkr">
+          <text>"GETNET"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0hfdrro">
+          <text>"PropostaGetNet.html"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vkibh6">
+          <text>"Proposta Comercial GETNET"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0rommac">
+          <text>"getnet@zazvendas.vc"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vyxpja">
+          <text>"SENDINBLUE"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0bh4kui">
+          <text>"https://site.getnet.com.br/"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0167orw">
+        <inputEntry id="UnaryTests_0o57b80">
+          <text>"SANTANDER"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12mzz03">
+          <text>"PropostaSantander.html"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1lmvs02">
+          <text>"Proposta Comercial SANTANDER"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05dpoeu">
+          <text>"santander@zazvendas.vc"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0v2eur4">
+          <text>"SENDINBLUE"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1q0ydxw">
+          <text>"https://www.santander.com.br/"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_001uozn">
+        <inputEntry id="UnaryTests_0d9rskv">
+          <text>"AMERICANAS DELIVERY"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0980al7">
+          <text>"FaqTreinamentoAmericanasDelivery.html"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1g7fxa1">
+          <text>"Treinamento plataforma Americanas Delivery"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1a7q3s9">
+          <text>"americanas.delivery@zazvendas.com.br"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kjawjq">
+          <text>"SENDINBLUE"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1m9ziza">
+          <text>"https://www.americanas.com.br/"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="configuracaoSmtp" name="Configurações SMTP">
+    <informationRequirement id="InformationRequirement_1gfz7rj">
+      <requiredDecision href="#resultadoEnvioEmail" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0ly7poj" hitPolicy="FIRST">
+      <input id="InputClause_1b6dgwu" label="Usuario SMTP">
+        <inputExpression id="LiteralExpression_0mupj6t" typeRef="string" />
+        <inputValues id="UnaryTests_0pzwjjh">
+          <text>"SENDINBLUE","Z3"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_079bh46" label="SMTPHOST" name="SMTPHOST" typeRef="string">
+        <outputValues id="UnaryTests_1l03ir2">
+          <text>"smtp.gmail.com","smtp-relay-sendinblue.com"</text>
+        </outputValues>
+      </output>
+      <output id="OutputClause_1rsr8v0" label="SMTPPORT" name="SMTPPORT" typeRef="integer" />
+      <output id="OutputClause_09jg81y" label="ENABLESSL" name="ENABLESSL" typeRef="boolean" />
+      <output id="OutputClause_15gvxpc" label="DEFAULTCREDENTIALS" name="DEFAULTCREDENTIALS" typeRef="boolean" />
+      <output id="OutputClause_04gdgr4" label="SMTPUSERNAME" name="SMTPUSERNAME" typeRef="string" biodi:width="236">
+        <outputValues id="UnaryTests_10fjbkc">
+          <text>"ccordeiro@zazvendas.com.br","atendimento@z3bank.com.br"</text>
+        </outputValues>
+      </output>
+      <output id="OutputClause_0wdbz75" label="SMTPPASSWORD" name="SMTPPASSWORD" typeRef="string">
+        <outputValues id="UnaryTests_0yvihva">
+          <text>"pFAZEvMPX0rbL3kx","KS:oB|go0DtpG"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1j6hl8y">
+        <inputEntry id="UnaryTests_1d4vi19">
+          <text>"SENDINBLUE"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00kn4af">
+          <text>"smtp-relay.sendinblue.com"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1fe3u9v">
+          <text>587</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17u67i3">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1btbqxi">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zevqg5">
+          <text>"ccordeiro@zazvendas.com.br"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nwlkyo">
+          <text>"pFAZEvMPX0rbL3kx"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qmpdpn">
+        <inputEntry id="UnaryTests_14lzk7t">
+          <text>"Z3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1bsg9as">
+          <text>"smtp.gmail.com"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15m7lfr">
+          <text>587</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05wfjo3">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0rmp2i7">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04atsbd">
+          <text>"atendimento@z3bank.com.br"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1281zvl">
+          <text>"KS:oB|go0DtpG"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="resultadoEnvioEmail">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1nl3kda" dmnElementRef="configuracaoSmtp">
+        <dc:Bounds height="80" width="180" x="450" y="100" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_12io5hx" dmnElementRef="InformationRequirement_1gfz7rj">
+        <di:waypoint x="340" y="140" />
+        <di:waypoint x="430" y="140" />
+        <di:waypoint x="450" y="140" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

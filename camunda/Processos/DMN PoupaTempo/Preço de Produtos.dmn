@@ -1,0 +1,717 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_15c7yi0" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="preco_de_produtos" name="Preços de Produtos">
+    <informationRequirement id="InformationRequirement_1fyjusn">
+      <requiredDecision href="#Decision_1p3wcr5" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_0geg1ij">
+      <requiredDecision href="#disponibilidadeAcaoTPV" />
+    </informationRequirement>
+    <informationRequirement id="InformationRequirement_1341eh7">
+      <requiredDecision href="#Decision_10n6qu9" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0n62103" hitPolicy="COLLECT">
+      <input id="InputClause_0v6jrdg" label="Vende SUMUP On" camunda:inputVariable="vendeSumupOn">
+        <inputExpression id="LiteralExpression_0fgxaxp" typeRef="boolean">
+          <text>vendeSumupOn</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0ttszjo" label="Vende Sumup Total" camunda:inputVariable="vendeSumupTotal">
+        <inputExpression id="LiteralExpression_0q4qpww" typeRef="boolean">
+          <text>vendeSumupTotal</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_028itdo" label="Vende Comodato?" camunda:inputVariable="vendeComodato">
+        <inputExpression id="LiteralExpression_194cs98" typeRef="boolean">
+          <text>vendeComodato</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0qcbp0d" label="Vende para PJ?" camunda:inputVariable="vendePJ">
+        <inputExpression id="LiteralExpression_093z3h4" typeRef="boolean">
+          <text>vendePJ</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_03swcc6" label="Vende para PF?" camunda:inputVariable="vendePF">
+        <inputExpression id="LiteralExpression_01x9tie" typeRef="boolean">
+          <text>vendePF</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_038koio" label="produto" name="produto" typeRef="string" biodi:width="192">
+        <outputValues id="UnaryTests_11dk8m0">
+          <text>"SumupTotal","SumupOn"</text>
+        </outputValues>
+      </output>
+      <output id="OutputClause_1hdgocc" label="tipoPagamento" name="tipoPagamento" typeRef="string">
+        <outputValues id="UnaryTests_0fw65vn">
+          <text>"Débito","Crédito a Vista","Pix","Crédito Parcelado","Ação TPV"</text>
+        </outputValues>
+      </output>
+      <output id="Output_1" label="preco" name="preco" typeRef="double" />
+      <output id="OutputClause_1q3l854" label="tipoCliente" name="tipoCliente" typeRef="string">
+        <outputValues id="UnaryTests_0lcjbb7">
+          <text>"pf","pj"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1ey16ac">
+        <description>Campinas começou dia 17/05 e não tem previsão para fim;</description>
+        <inputEntry id="UnaryTests_0jj0z7l">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06gtm7t">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00aze6m">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_111y9ii">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0htxxck">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0il168k">
+          <text>"SumupTotal"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0d0zj39">
+          <text>"Ação TPV"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_171rmrd">
+          <text>0</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1njb0qv">
+          <text>"pf"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_005n797">
+        <description>Santos começou dia 28/06 e durará 3 meses;</description>
+        <inputEntry id="UnaryTests_1lctnt3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pubok9">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1v0yo4x">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03ys7tf">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0rriwap">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1yhlb12">
+          <text>"SumupTotal"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mqrvur">
+          <text>"Ação TPV"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_00hojvz">
+          <text>0</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0tprqpr">
+          <text>"pj"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04ptt9n">
+        <inputEntry id="UnaryTests_01ku2ow">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hryt9c">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02dse60">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uj6fc4">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hnkfqd">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1cdg5ne">
+          <text>"SumupTotal"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1bkhp1z">
+          <text>"Débito"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18w3fdg">
+          <text>258.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nsl7gd">
+          <text>"pj"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09j9uyv">
+        <inputEntry id="UnaryTests_145nfyb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1gbqltf">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ml7ue6">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1686m1q">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0soz85j">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0t27037">
+          <text>"SumupTotal"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18598xq">
+          <text>"Crédito a Vista"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ane8lz">
+          <text>258.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1pvlqht">
+          <text>"pj"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0yn05zc">
+        <inputEntry id="UnaryTests_0ptooov">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_18tz89f">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ubuvaz">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0cl2jxl">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04tbc5h">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_004w76w">
+          <text>"SumupTotal"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17tut8p">
+          <text>"Pix"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_10wgi3b">
+          <text>258.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_193nf0q">
+          <text>"pj"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1i4lz8x">
+        <inputEntry id="UnaryTests_1y7hsqp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08d79et">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gpxf4k">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qs6mmy">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1trm1vz">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15z1vsm">
+          <text>"SumupTotal"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_109ml6h">
+          <text>"Crédito Parcelado"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15q3qel">
+          <text>358.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1fp1ag1">
+          <text>"pj"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0inmknk">
+        <inputEntry id="UnaryTests_0m9imxq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1582hbk">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01bxmhl">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00b04av">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1b9c03i">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0kiudli">
+          <text>"SumupTotal"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1reh5j5">
+          <text>"Débito"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kidm91">
+          <text>258.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ifmx30">
+          <text>"pf"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_048v7r8">
+        <inputEntry id="UnaryTests_1mb4r7x">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zdzk6t">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11a7su8">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19jzhci">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03vrmoa">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1n1loxz">
+          <text>"SumupTotal"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_028sx9i">
+          <text>"Crédito a Vista"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01iqq5h">
+          <text>258.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0s3al59">
+          <text>"pf"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ffmhnj">
+        <inputEntry id="UnaryTests_028gz3t">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19uu16o">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09a1iq6">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lg2354">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0y35y7h">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1dupdhu">
+          <text>"SumupTotal"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0m4q40z">
+          <text>"Pix"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1yzi3po">
+          <text>258.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1im9a22">
+          <text>"pf"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_169ucq3">
+        <inputEntry id="UnaryTests_02vhn1q">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1drc54n">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0lchlzc">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1i0zq48">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yuwv3p">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0b8ngj1">
+          <text>"SumupTotal"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06ew6kc">
+          <text>"Crédito Parcelado"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kyxvkg">
+          <text>358.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1x6mcpn">
+          <text>"pf"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1cu0czj">
+        <inputEntry id="UnaryTests_0xe3kjh">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1snw40m">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0co6fxd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ieqn5p">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mrew5m">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1mvb611">
+          <text>"SumupOn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_071j44a">
+          <text>"Débito"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_16mgyim">
+          <text>199.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wvixh5">
+          <text>"pj"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1l4mz4a">
+        <inputEntry id="UnaryTests_0vt57iz">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_192v3bb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1axa7yk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fp7gn5">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1489t7v">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0y4ru4e">
+          <text>"SumupOn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_19ix7pj">
+          <text>"Crédito a Vista"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_00vksvv">
+          <text>199.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0gq71f4">
+          <text>"pj"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03d033i">
+        <inputEntry id="UnaryTests_075n7kc">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0r0ksyi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1c8hzqi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11995ar">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dsdn48">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1c7s2pi">
+          <text>"SumupOn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1y02xsg">
+          <text>"Pix"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wi688a">
+          <text>199.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0aupukp">
+          <text>"pj"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1x15wsd">
+        <inputEntry id="UnaryTests_06qz0yg">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_16xomep">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kh5mys">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06gxxra">
+          <text>true</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0g13l16">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1symsuy">
+          <text>"SumupOn"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1a0s9ds">
+          <text>"Crédito Parcelado"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04fbteb">
+          <text>214.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1b4hdd2">
+          <text>"pj"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="disponibilidadeAcaoTPV" name="Disponibilidade venda Ação TPV">
+    <decisionTable id="DecisionTable_08xaoeo" hitPolicy="FIRST">
+      <input id="InputClause_1agu6o4" label="Operação" camunda:inputVariable="operacao">
+        <inputExpression id="LiteralExpression_16trnw0" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0yfsl1i">
+          <text>"SUMUP"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0xbz94l" label="Login" camunda:inputVariable="login">
+        <inputExpression id="LiteralExpression_1rd1p42" typeRef="string">
+          <text>login</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0jlhver" label="Vende Comodato?" name="vendeComodato" typeRef="boolean" />
+      <output id="OutputClause_1crx9v2" label="TPV mínimo Ação TPV" name="tpvMinimoAcaoTPV" typeRef="string" />
+      <rule id="DecisionRule_0z8w29p">
+        <inputEntry id="UnaryTests_1t7jjfj">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ti66cb">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0grc89a">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_00idy6h">
+          <text>0</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_1p3wcr5" name="Disponibilidade venda PF e PJ">
+    <informationRequirement id="InformationRequirement_08o91tp">
+      <requiredDecision href="#Decision_0iubi0s" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1u4fsln" hitPolicy="FIRST">
+      <input id="InputClause_1331r8v" label="Operação" camunda:inputVariable="operacao">
+        <inputExpression id="LiteralExpression_01h3zfn" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1mrmjtl">
+          <text>"SUMUP"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1ne6ikb" label="Login" camunda:inputVariable="login">
+        <inputExpression id="LiteralExpression_0gnntb2" typeRef="string">
+          <text>login</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1b1z8c6" label="Região" biodi:width="192" camunda:inputVariable="regiao">
+        <inputExpression id="LiteralExpression_0tc7zhk" typeRef="string">
+          <text>regiao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_03tw1lm">
+          <text>"Campinas","Santos","Ribeirão Preto","Caruaru","Duque de Caxias","Nova Iguaçu","Valadares","Itabira","Piracicaba","Limeira","Mogi das Cruzes","Sorocaba","Votorantim","Sinop","RJ - Zona Oeste 1","RJ - Zona Oeste 2"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_0kmuelk" label="Vende para PJ?" name="vendePJ" typeRef="boolean" />
+      <output id="OutputClause_1r77kf5" label="Vende para PF?" name="vendePF" typeRef="boolean" />
+      <rule id="DecisionRule_1xpfwvu">
+        <inputEntry id="UnaryTests_1uf73in">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pjifil">
+          <text>"paloma.calderari","bruno.agostinho","felipe.almeida2","juliana.silva8","leandro.vicentin","thiago.brito","eduardo.souza","rafaela.santos","erika.silva","josiane.pereira","claudia.oliveira2","matheus.santos4","jessica.bueno","henrique.santos2","ananda.pereira","rafael.prado","halerson.almeida","antonia.santos","gabriela.athanasio","alexsandro.alves","rodney.rodrigues","isabela.silva3", "gustavo.souza","aline.oliveira2"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_17zsjwa">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0u7e9yl">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wlvbhz">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0zt3nhv">
+        <inputEntry id="UnaryTests_0m5lgf4">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_10smz5h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nuzz7r">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0q5a4qq">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_08szadm">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_10n6qu9" name="Disponibilidade de produtos">
+    <informationRequirement id="InformationRequirement_1e53w0j">
+      <requiredDecision href="#Decision_0iubi0s" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_0ik86he" hitPolicy="FIRST">
+      <input id="InputClause_0o0xdrp" label="Operação" camunda:inputVariable="operacao">
+        <inputExpression id="LiteralExpression_1p7v2l8" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0c6vhmz">
+          <text>"SUMUP"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0o6u0yv" label="Região" camunda:inputVariable="regiao">
+        <inputExpression id="LiteralExpression_0u5c5mh" typeRef="string">
+          <text>regiao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1b74ij5">
+          <text>"Campinas","Santos","Ribeirão Preto","Caruaru","Duque de Caxias","Nova Iguaçu","Valadares","Itabira","Piracicaba","Limeira","Mogi das Cruzes","Sorocaba","Votorantim","Sinop","RJ - Zona Oeste 1","RJ - Zona Oeste 2"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_0sz8452" label="Vende SUMUP On" name="vendeSumupOn" typeRef="boolean" biodi:width="192" />
+      <output id="OutputClause_0rlmp8y" label="Vende SUMUP Total" name="vendeSumupTotal" typeRef="boolean" />
+      <rule id="DecisionRule_1q4uwxp">
+        <inputEntry id="UnaryTests_1rcff31">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1stqxvo">
+          <text>"Ribeirão Preto","Caruaru"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ljl1nh">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1v5vxp6">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ah34gq">
+        <inputEntry id="UnaryTests_0axoy02">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tq1ujq">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1px3g9h">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_031p8dm">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="Decision_0iubi0s" name="Região por conjunto de bairros">
+    <decisionTable id="DecisionTable_1lllanp" hitPolicy="FIRST">
+      <input id="InputClause_0rxc41b" label="Bairro" camunda:inputVariable="bairro">
+        <inputExpression id="LiteralExpression_1bj4lwg" typeRef="string">
+          <text>bairro</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_18p3wdw">
+          <text>"Santa Cruz","Paciência","Sepetiba","Cosmos","Pedra de Guaratiba","Guaratiba","Campo Grande","Santíssimo","Jabour","Senador Camará","Bangu","Realengo","Sulacap"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1h7ej35" label="Cidade" camunda:inputVariable="cidade">
+        <inputExpression id="LiteralExpression_1os9zyo" typeRef="string">
+          <text>cidade</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_04neah3">
+          <text>"Rio de Janeiro"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_0q65d60" label="Região" name="regiao" typeRef="string">
+        <outputValues id="UnaryTests_1uoizoi">
+          <text>"RJ - Zona Oeste 1","RJ - Zona Oeste 2"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1lzrj07">
+        <inputEntry id="UnaryTests_0op2g6x">
+          <text>"Santa Cruz","Paciência","Sepetiba","Cosmos","Pedra de Guaratiba","Guaratiba","Campo Grande"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1bqgmpm">
+          <text>"Rio de Janeiro"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_060rci8">
+          <text>"RJ - Zona Oeste 1"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1hs3ux0">
+        <inputEntry id="UnaryTests_12my0mj">
+          <text>"Santíssimo","Jabour","Senador Camará","Bangu","Realengo","Sulacap"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0w4tt2g">
+          <text>"Rio de Janeiro"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1dk56h8">
+          <text>"RJ - Zona Oeste 2"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1yny0eq">
+        <inputEntry id="UnaryTests_0cfz9hi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gocznl">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09f58z8">
+          <text>cidade</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="preco_de_produtos">
+        <dc:Bounds height="80" width="180" x="370" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0880j5d" dmnElementRef="disponibilidadeAcaoTPV">
+        <dc:Bounds height="80" width="180" x="160" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_08060ql" dmnElementRef="InformationRequirement_1fyjusn">
+        <di:waypoint x="670" y="220" />
+        <di:waypoint x="505" y="180" />
+        <di:waypoint x="505" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_1m3f674" dmnElementRef="InformationRequirement_0geg1ij">
+        <di:waypoint x="250" y="220" />
+        <di:waypoint x="415" y="180" />
+        <di:waypoint x="415" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_1q3gg1l" dmnElementRef="Decision_1p3wcr5">
+        <dc:Bounds height="80" width="180" x="580" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_14rix97" dmnElementRef="InformationRequirement_1341eh7">
+        <di:waypoint x="460" y="220" />
+        <di:waypoint x="460" y="180" />
+        <di:waypoint x="460" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_0akqygh" dmnElementRef="Decision_10n6qu9">
+        <dc:Bounds height="80" width="180" x="370" y="220" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_1s0kfh4" dmnElementRef="Decision_0iubi0s">
+        <dc:Bounds height="80" width="180" x="370" y="370" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0kvdxa9" dmnElementRef="InformationRequirement_1e53w0j">
+        <di:waypoint x="460" y="370" />
+        <di:waypoint x="460" y="320" />
+        <di:waypoint x="460" y="300" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNEdge id="DMNEdge_0kljlop" dmnElementRef="InformationRequirement_08o91tp">
+        <di:waypoint x="460" y="370" />
+        <di:waypoint x="670" y="320" />
+        <di:waypoint x="670" y="300" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

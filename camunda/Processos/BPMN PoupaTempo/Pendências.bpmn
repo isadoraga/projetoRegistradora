@@ -1,0 +1,449 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_12yj9v3" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.9.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="pendencias" name="Pendências" isExecutable="true">
+    <bpmn:sequenceFlow id="Flow_06um6xm" sourceRef="StartEvent_1" targetRef="Gateway_0sou4dm" />
+    <bpmn:sequenceFlow id="Flow_0178rjj" name="Correção de dados - Camunda" sourceRef="Gateway_0sou4dm" targetRef="Activity_1xtkm5z">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.hasVariable("validacaoValida") &amp;&amp; !validacaoValida}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1ol5n7s" name="Correção de fotos - Scot APP" sourceRef="Gateway_0sou4dm" targetRef="Activity_037z9ie">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${(execution.hasVariable("fotoAprovada") &amp;&amp; !fotoAprovada) || (execution.hasVariable("cadastroAprovado") &amp;&amp; !cadastroAprovado)}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:inclusiveGateway id="Gateway_0sou4dm" name="Tipos de pendência">
+      <bpmn:incoming>Flow_06um6xm</bpmn:incoming>
+      <bpmn:outgoing>Flow_0178rjj</bpmn:outgoing>
+      <bpmn:outgoing>Flow_1ol5n7s</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0jsksdq</bpmn:outgoing>
+    </bpmn:inclusiveGateway>
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="javascript">execution.setProcessBusinessKey(execution.getVariable('businessKey'));
+
+if(!execution.hasVariable("cnpj"))
+{
+	  execution.setVariable("cnpj", "");
+}
+if(!execution.hasVariable("nome"))
+{
+	  execution.setVariable("nome", "");
+}
+if(!execution.hasVariable("nomeDecisor"))
+{
+	  execution.setVariable("nomeDecisor", "");
+}
+if(!execution.hasVariable("cpf"))
+{
+	  execution.setVariable("cpf", "");
+}
+if(!execution.hasVariable("email"))
+{
+	  execution.setVariable("email", "");
+}
+if(!execution.hasVariable("celular"))
+{
+	  execution.setVariable("celular", "");
+}
+if(!execution.hasVariable("logradouro"))
+{
+	  execution.setVariable("logradouro", "");
+}
+if(!execution.hasVariable("bairro"))
+{
+	  execution.setVariable("bairro", "");
+}
+if(!execution.hasVariable("cidade"))
+{
+	  execution.setVariable("cidade", "");
+}
+if(!execution.hasVariable("cep"))
+{
+	  execution.setVariable("cep", "");
+}
+if(!execution.hasVariable("produto"))
+{
+	  execution.setVariable("produto", "");
+}
+if(!execution.hasVariable("produtoID"))
+{
+	  execution.setVariable("produtoID", "");
+}
+if(!execution.hasVariable("produtoValor"))
+{
+	  execution.setVariable("produtoValor", "");
+}
+if(!execution.hasVariable("login"))
+{
+	  execution.setVariable("login", "");
+}
+if(!execution.hasVariable("celularPromotor"))
+{
+	  execution.setVariable("celularPromotor", "");
+}
+if(!execution.hasVariable("fotoSelfieFachada"))
+{
+	  execution.setVariable("fotoSelfieFachada", "");
+}
+if(!execution.hasVariable("fotoComprovanteProduto"))
+{
+	  execution.setVariable("fotoComprovanteProduto", "");
+}
+
+if(execution.hasVariable("fotoAprovada"))
+{
+ execution.setVariable("fotoAprovadaString", execution.getVariable("fotoAprovada") ? "Sim" : "Não");
+}
+else{
+  execution.setVariable("fotoAprovadaString", "");
+}
+if(execution.hasVariable("cnpjAprovado"))
+{
+ execution.setVariable("cnpjAprovadoString", execution.getVariable("cnpjAprovado") ? "Sim" : "Não");
+}
+else{
+ execution.setVariable("cnpjAprovadoString", "");
+}
+if(execution.hasVariable("cadastroAprovado"))
+{
+ execution.setVariable("cadastroAprovadoString", execution.getVariable("cadastroAprovado") ? "Sim" : "Não");
+}
+else{
+  execution.setVariable("cadastroAprovadoString", "");
+}</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_06um6xm</bpmn:outgoing>
+      <bpmn:signalEventDefinition id="SignalEventDefinition_0j3mr9b" signalRef="Signal_0oswmb0" />
+    </bpmn:startEvent>
+    <bpmn:userTask id="Activity_1xtkm5z" name="Corrigir dados">
+      <bpmn:documentation>Os dados enviados não são compreensíveis, portanto, devem ser corrigidos e então serão validados novamente.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="login" label="Login do usuário" type="string" defaultValue="${login}" />
+          <camunda:formField id="operacao" label="Operação" type="string" defaultValue="${operacao}" />
+          <camunda:formField id="decisorLocalizado" label="Decisor localizado? (Sim/Não)" type="string" defaultValue="${decisorLocalizado}" />
+          <camunda:formField id="possuiInteresse" label="Possui interesse? (Sim/Não)" type="string" defaultValue="${possuiInteresse}" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0178rjj</bpmn:incoming>
+      <bpmn:outgoing>Flow_0zjivt7</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0zjivt7" sourceRef="Activity_1xtkm5z" targetRef="Gateway_0vlyeka" />
+    <bpmn:userTask id="Activity_0d3u4w4" name="Inserir dados">
+      <bpmn:documentation>A instância não tem os dados necessários para ir para o processo destino então deve-se preencher estes dados e eles serão validados novamente.</bpmn:documentation>
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="camposMinimos" label="Campos mínimos necessários por processo" type="string" defaultValue="${camposMinimos}" />
+          <camunda:formField id="login" label="Id do usuário" type="string" defaultValue="${login}" />
+          <camunda:formField id="operacao" label="Operação" type="string" defaultValue="${operacao}" />
+          <camunda:formField id="decisorLocalizado" label="Decisor localizado? (Sim/Não)" type="string" defaultValue="${decisorLocalizado}" />
+          <camunda:formField id="possuiInteresse" label="Possui interesse? (Sim/Não)" type="string" defaultValue="${possuiInteresse}" />
+          <camunda:formField id="processoInicializar" label="Processo que deseja ser iniciado" type="string" defaultValue="${processoInicializar}" />
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_0jsksdq</bpmn:incoming>
+      <bpmn:outgoing>Flow_1pc7fyv</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0jsksdq" name="Inserção de dados - Camunda" sourceRef="Gateway_0sou4dm" targetRef="Activity_0d3u4w4">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${execution.hasVariable("camposMinimosPreenchidos") &amp;&amp; !camposMinimosPreenchidos}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_1pc7fyv" sourceRef="Activity_0d3u4w4" targetRef="Gateway_0vlyeka" />
+    <bpmn:endEvent id="Event_1r9z2a7">
+      <bpmn:incoming>Flow_0xes28t</bpmn:incoming>
+      <bpmn:signalEventDefinition id="SignalEventDefinition_1okpnkb" signalRef="Signal_1kqro4p">
+        <bpmn:extensionElements>
+          <camunda:in variables="all" />
+        </bpmn:extensionElements>
+      </bpmn:signalEventDefinition>
+    </bpmn:endEvent>
+    <bpmn:userTask id="Activity_037z9ie" name="Correção de fotos/cadastro" camunda:candidateGroups="BPO">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="data" label="Data do credenciamento" type="string" defaultValue="${data}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="operacao" label="Operação" type="string" defaultValue="${operacao}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="cnpj" label="CNPJ do estabelecimento" type="string" defaultValue="${cnpj}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="nome" label="Nome do estabelecimento" type="string" defaultValue="${nome}" />
+          <camunda:formField id="nomeDecisor" label="Nome do decisor" type="string" defaultValue="${nomeDecisor}" />
+          <camunda:formField id="cpf" label="CPF do decisor" type="string" defaultValue="${cpf}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="email" label="E-mail do estabelecimento/decisor" type="string" defaultValue="${email}" />
+          <camunda:formField id="celular" label="Celular do estabelecimento/decisor" type="string" defaultValue="${celular}" />
+          <camunda:formField id="logradouro" label="Logradouro" type="string" defaultValue="${logradouro}" />
+          <camunda:formField id="bairro" label="Bairro" type="string" defaultValue="${bairro}" />
+          <camunda:formField id="cidade" label="Cidade" type="string" defaultValue="${cidade}" />
+          <camunda:formField id="cep" label="CEP" type="string" defaultValue="${cep}" />
+          <camunda:formField id="produto" label="Produto adquirido" type="string" defaultValue="${produto}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="produtoID" label="ID do produto" type="string" defaultValue="${produtoID}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="produtoValor" label="Valor do produto" type="string" defaultValue="${produtoValor}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="login" label="Login do promotor" type="string" defaultValue="${login}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="celularPromotor" label="Login do promotor" type="string" defaultValue="${celularPromotor}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="fotoSelfieFachada" label="Foto Selfie Fachada" type="string" defaultValue="${fotoSelfieFachada}" />
+          <camunda:formField id="fotoComprovanteProduto" label="Foto Comprovante Produto" type="string" defaultValue="${fotoComprovanteProduto}" />
+          <camunda:formField id="cadastroAprovadoString" label="Cadastro aprovado?" type="string" defaultValue="${cadastroAprovadoString}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="motivoCadastroReprovado" label="Motivo Cadastro Reprovado?" type="string" defaultValue="${motivoCadastroReprovado}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="cnpjAprovadoString" label="CNPJ aprovado?" type="string" defaultValue="${cnpjAprovadoString}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="motivoCNPJReprovado" label="Motivo CNPJ reprovado?" type="string" defaultValue="${motivoCNPJReprovado}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="fotoAprovadaString" label="Foto aprovada?" type="string" defaultValue="${fotoAprovadaString}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="motivoFotoReprovada" label="Motivo foto reprovada" type="string" defaultValue="${motivoFotoReprovada}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1ol5n7s</bpmn:incoming>
+      <bpmn:outgoing>Flow_0qfdwj0</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_0qfdwj0" sourceRef="Activity_037z9ie" targetRef="Gateway_0vlyeka" />
+    <bpmn:userTask id="Activity_1v4ctfv" name="Correção de cadastro" camunda:candidateGroups="BPO">
+      <bpmn:extensionElements>
+        <camunda:formData>
+          <camunda:formField id="data" label="Data do credenciamento" type="string" defaultValue="${data}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="operacao" label="Operação" type="string" defaultValue="${operacao}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="cnpj" label="CNPJ do estabelecimento" type="string" defaultValue="${cnpj}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="nome" label="Nome do estabelecimento" type="string" defaultValue="${nome}" />
+          <camunda:formField id="nomeDecisor" label="Nome do decisor" type="string" defaultValue="${nomeDecisor}" />
+          <camunda:formField id="cpf" label="CPF do decisor" type="string" defaultValue="${cpf}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="email" label="E-mail do estabelecimento/decisor" type="string" defaultValue="${email}" />
+          <camunda:formField id="celular" label="Celular do estabelecimento/decisor" type="string" defaultValue="${celular}" />
+          <camunda:formField id="logradouro" label="Logradouro" type="string" defaultValue="${logradouro}" />
+          <camunda:formField id="bairro" label="Bairro" type="string" defaultValue="${bairro}" />
+          <camunda:formField id="cidade" label="Cidade" type="string" defaultValue="${cidade}" />
+          <camunda:formField id="cep" label="CEP" type="string" defaultValue="${cep}" />
+          <camunda:formField id="produto" label="Produto adquirido" type="string" defaultValue="${produto}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="produtoID" label="ID do produto" type="string" defaultValue="${produtoID}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="produtoValor" label="Valor do produto" type="string" defaultValue="${produtoValor}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="login" label="Login do promotor" type="string" defaultValue="${login}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="celularPromotor" label="Login do promotor" type="string" defaultValue="${celularPromotor}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="fotoSelfieFachada" label="Foto Selfie Fachada" type="string" defaultValue="${fotoSelfieFachada}" />
+          <camunda:formField id="fotoComprovanteProduto" label="Foto Comprovante Produto" type="string" defaultValue="${fotoComprovanteProduto}" />
+          <camunda:formField id="cadastroAprovadoString" label="Cadastro aprovado?" type="string" defaultValue="${cadastroAprovado ? &#34;Sim&#34; : Não}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="motivoCadastroReprovado" label="Motivo Cadastro Reprovado?" type="string" defaultValue="${motivoCadastroReprovado}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="cnpjAprovadoString" label="CNPJ aprovado?" type="string" defaultValue="${cnpjAprovadoString}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="motivoCNPJReprovado" label="Motivo CNPJ reprovado?" type="string" defaultValue="${motivoCNPJReprovado}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="fotoAprovadaString" label="Foto aprovada?" type="string" defaultValue="${fotoAprovadaString}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+          <camunda:formField id="motivoFotoReprovada" label="Motivo foto reprovada" type="string" defaultValue="${motivoFotoReprovada}">
+            <camunda:validation>
+              <camunda:constraint name="readonly" />
+            </camunda:validation>
+          </camunda:formField>
+        </camunda:formData>
+      </bpmn:extensionElements>
+      <bpmn:outgoing>Flow_06r4bnn</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_06r4bnn" sourceRef="Activity_1v4ctfv" targetRef="Gateway_0vlyeka" />
+    <bpmn:sequenceFlow id="Flow_0xes28t" sourceRef="Gateway_0vlyeka" targetRef="Event_1r9z2a7" />
+    <bpmn:inclusiveGateway id="Gateway_0vlyeka">
+      <bpmn:incoming>Flow_0zjivt7</bpmn:incoming>
+      <bpmn:incoming>Flow_1pc7fyv</bpmn:incoming>
+      <bpmn:incoming>Flow_0qfdwj0</bpmn:incoming>
+      <bpmn:incoming>Flow_06r4bnn</bpmn:incoming>
+      <bpmn:outgoing>Flow_0xes28t</bpmn:outgoing>
+    </bpmn:inclusiveGateway>
+    <bpmn:textAnnotation id="TextAnnotation_1w3k2g5">
+      <bpmn:text>A instância deve ser direcionada para o início do Poupatempo.</bpmn:text>
+    </bpmn:textAnnotation>
+    <bpmn:association id="Association_081kmt6" sourceRef="Event_1r9z2a7" targetRef="TextAnnotation_1w3k2g5" />
+  </bpmn:process>
+  <bpmn:message id="Message_0ljxab3" name="Correção concluída" />
+  <bpmn:signal id="Signal_0oswmb0" name="SIG_InicializarProcessoPendencias" />
+  <bpmn:signal id="Signal_1kqro4p" name="${signalName}" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="pendencias">
+      <bpmndi:BPMNEdge id="Flow_06r4bnn_di" bpmnElement="Flow_06r4bnn">
+        <di:waypoint x="540" y="342" />
+        <di:waypoint x="670" y="342" />
+        <di:waypoint x="670" y="142" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0qfdwj0_di" bpmnElement="Flow_0qfdwj0">
+        <di:waypoint x="540" y="450" />
+        <di:waypoint x="670" y="450" />
+        <di:waypoint x="670" y="142" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1pc7fyv_di" bpmnElement="Flow_1pc7fyv">
+        <di:waypoint x="540" y="230" />
+        <di:waypoint x="670" y="230" />
+        <di:waypoint x="670" y="142" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0jsksdq_di" bpmnElement="Flow_0jsksdq">
+        <di:waypoint x="290" y="142" />
+        <di:waypoint x="290" y="230" />
+        <di:waypoint x="440" y="230" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="326" y="196" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0zjivt7_di" bpmnElement="Flow_0zjivt7">
+        <di:waypoint x="540" y="117" />
+        <di:waypoint x="645" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1ol5n7s_di" bpmnElement="Flow_1ol5n7s">
+        <di:waypoint x="290" y="142" />
+        <di:waypoint x="290" y="450" />
+        <di:waypoint x="440" y="450" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="326" y="416" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0178rjj_di" bpmnElement="Flow_0178rjj">
+        <di:waypoint x="315" y="117" />
+        <di:waypoint x="440" y="117" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="334" y="86" width="88" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_06um6xm_di" bpmnElement="Flow_06um6xm">
+        <di:waypoint x="215" y="117" />
+        <di:waypoint x="265" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xes28t_di" bpmnElement="Flow_0xes28t">
+        <di:waypoint x="695" y="117" />
+        <di:waypoint x="722" y="117" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Gateway_0w151u8_di" bpmnElement="Gateway_0sou4dm">
+        <dc:Bounds x="265" y="92" width="50" height="50" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="264" y="66" width="51" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1uvwz6x_di" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1xtkm5z_di" bpmnElement="Activity_1xtkm5z" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="440" y="77" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0d3u4w4_di" bpmnElement="Activity_0d3u4w4" bioc:stroke="black" bioc:fill="white">
+        <dc:Bounds x="440" y="190" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_037z9ie_di" bpmnElement="Activity_037z9ie">
+        <dc:Bounds x="440" y="410" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1v4ctfv_di" bpmnElement="Activity_1v4ctfv">
+        <dc:Bounds x="440" y="302" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="TextAnnotation_1w3k2g5_di" bpmnElement="TextAnnotation_1w3k2g5">
+        <dc:Bounds x="770" y="102" width="100" height="82" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1uf3vw4_di" bpmnElement="Event_1r9z2a7">
+        <dc:Bounds x="722" y="99" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_0gqydz7_di" bpmnElement="Gateway_0vlyeka">
+        <dc:Bounds x="645" y="92" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Association_081kmt6_di" bpmnElement="Association_081kmt6">
+        <di:waypoint x="758" y="117" />
+        <di:waypoint x="770" y="117" />
+      </bpmndi:BPMNEdge>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

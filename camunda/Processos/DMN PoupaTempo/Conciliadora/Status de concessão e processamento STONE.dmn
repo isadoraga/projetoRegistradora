@@ -1,0 +1,214 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_1c6uu16" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
+  <decision id="StatusConcessaoStone" name="Identificar Status Stone">
+    <decisionTable id="DecisionTable_040allm" hitPolicy="FIRST">
+      <input id="Input_1" label="StatusCode" camunda:inputVariable="codigoHttp">
+        <inputExpression id="InputExpression_1" typeRef="integer">
+          <text>codigoHttp</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1xxknqk" label="Current Access Status ">
+        <inputExpression id="LiteralExpression_0upwd3y" typeRef="string">
+          <text>currentAccessStatus</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1luijsi">
+          <text>"Allowed","Denied"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_137jotz" label="Action Type" biodi:width="192">
+        <inputExpression id="LiteralExpression_1m2wvrk" typeRef="string">
+          <text>actionType</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_03n2266">
+          <text>"RequestReceived","RequestSent","AccessGranted","AccessRevoked"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1jep7jh" label="Status Processamento">
+        <inputExpression id="LiteralExpression_1gvdqye" typeRef="string">
+          <text>statusProcessamento</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0cmuejy">
+          <text>"I"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Status" name="status" typeRef="string" />
+      <rule id="DecisionRule_12cjmna">
+        <inputEntry id="UnaryTests_1oyi9q5">
+          <text>404</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ha6m68">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02d70bs">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1x6ftyz">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jttgyr">
+          <text>"NaoExiste"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0i032ap">
+        <inputEntry id="UnaryTests_0um944f">
+          <text>400</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0wlrwj3">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1sgxocz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0hveqd4">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1t14wyw">
+          <text>"NaoExiste"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ysmny6">
+        <inputEntry id="UnaryTests_06uuznt">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l2gnf8">
+          <text>"Allowed"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lrbsxb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1mc7kzx">
+          <text>"F"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0a2s2r3">
+          <text>"LiberadoComTPV"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_142g7c2">
+        <inputEntry id="UnaryTests_08t64fj">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_04zg307">
+          <text>"Allowed"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1d5tx0h">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ur132n">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wcf4o9">
+          <text>"LiberadoSemTPV"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0jfmt4i">
+        <inputEntry id="UnaryTests_0zv0836">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12mvh8z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fye2l3">
+          <text>"RequestReceived"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bfma1f">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0akfnrs">
+          <text>"Aguardando"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1kayznu">
+        <inputEntry id="UnaryTests_1aq9hpe">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_179d8o2">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09w4a05">
+          <text>"RequestSent"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sxci0o">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1i3rlxh">
+          <text>"Aguardando"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0emem8x">
+        <inputEntry id="UnaryTests_1f44kyu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_12db354">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14jo8sd">
+          <text>"AccessGranted"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_00pnwv0">
+          <text>"F"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mngihu">
+          <text>"LiberadoComTPV"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ylv4kr">
+        <inputEntry id="UnaryTests_0dxb4qn">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tgbd9k">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nczbdh">
+          <text>"AccessGranted"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15uawaf">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19ulva4">
+          <text>"LiberadoSemTPV"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0fkk28k">
+        <inputEntry id="UnaryTests_1mfm2yb">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_11m1l82">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0yse3ts">
+          <text>"AccessRevoked"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19v6f22">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1v2odlc">
+          <text>"NaoLiberado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mkcmdi">
+        <inputEntry id="UnaryTests_0c3cdql">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ppcamk">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0b0la6o">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xtj1bm">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ep38je">
+          <text>"Aguardando"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="StatusConcessaoStone">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

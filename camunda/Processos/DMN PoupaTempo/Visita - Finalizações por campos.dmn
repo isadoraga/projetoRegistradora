@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_16chs7c" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.8.1">
+  <inputData id="InputData_17cha1v" name="Campos que identifiquem o resultado do contato com o cliente" />
+  <decision id="finalizacaoPorCampos" name="Finalização por campos">
+    <informationRequirement id="InformationRequirement_0w54vwk">
+      <requiredInput href="#InputData_17cha1v" />
+    </informationRequirement>
+    <decisionTable id="DecisionTable_1vq2pze" hitPolicy="FIRST">
+      <input id="InputClause_0ziphts" label="Decisor localizado?">
+        <inputExpression id="LiteralExpression_0uvte99" typeRef="string">
+          <text>decisorLocalizado</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1bftl2n" label="Possui interesse?">
+        <inputExpression id="LiteralExpression_1fuh5f4" typeRef="string">
+          <text>possuiInteresse</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0asz7m8" label="Finalização" name="finalizacao" typeRef="string" />
+      <rule id="DecisionRule_1skasog">
+        <inputEntry id="UnaryTests_1rbqi8i">
+          <text>"Não"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fqxaxp">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18z2grc">
+          <text>"Decisor não localizado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_17rp5kd">
+        <inputEntry id="UnaryTests_1ice8c8">
+          <text>"Sim"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06cq0xd">
+          <text>"Sim"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_06hplas">
+          <text>"Possui interesse"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0qoxzb7">
+        <inputEntry id="UnaryTests_049vbql">
+          <text>"Sim"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0z87vra">
+          <text>"Não"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_15k4fs7">
+          <text>"Não possui interesse"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0j9ha89">
+        <inputEntry id="UnaryTests_0e6p33i">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hwncbr">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07z12ck">
+          <text>"Erro"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <textAnnotation id="TextAnnotation_0qx7dab">
+    <text>Finalização</text>
+  </textAnnotation>
+  <association id="Association_0d3kh3v">
+    <sourceRef href="#finalizacaoPorCampos" />
+    <targetRef href="#TextAnnotation_0qx7dab" />
+  </association>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="DMNShape_0fv0mf5" dmnElementRef="InputData_17cha1v">
+        <dc:Bounds height="45" width="125" x="158" y="97" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0iwnsgg" dmnElementRef="InformationRequirement_0w54vwk">
+        <di:waypoint x="283" y="120" />
+        <di:waypoint x="340" y="120" />
+        <di:waypoint x="360" y="120" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_026w893" dmnElementRef="TextAnnotation_0qx7dab">
+        <dc:Bounds height="30" width="100" x="610" y="105" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0jr0wo5" dmnElementRef="finalizacaoPorCampos">
+        <dc:Bounds height="80" width="180" x="360" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1ia9u6u" dmnElementRef="Association_0d3kh3v">
+        <di:waypoint x="540" y="120" />
+        <di:waypoint x="610" y="120" />
+      </dmndi:DMNEdge>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

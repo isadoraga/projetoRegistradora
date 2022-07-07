@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_1of54m7" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="regrasCancelarCNPJ" name="Verificar regras para cancelar CNPJ">
+    <decisionTable id="DecisionTable_1jftqo6" hitPolicy="FIRST">
+      <input id="Input_1" label="Situação">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>situacaoCNPJ</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1r4x3oe">
+          <text>"INAPTA"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Cancelar" name="cancelar" typeRef="boolean" biodi:width="192" />
+      <rule id="DecisionRule_1s55m87">
+        <inputEntry id="UnaryTests_0xki2gb">
+          <text>"INAPTA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03arksl">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_077a6vf">
+        <inputEntry id="UnaryTests_0t9ecx5">
+          <text>"BAIXADA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13h7258">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08jvoxj">
+        <inputEntry id="UnaryTests_0ljawxz">
+          <text>"ATIVA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0pz7eik">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14tnyqc">
+        <inputEntry id="UnaryTests_0nuz3sn">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0hg039y">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="regrasCancelarCNPJ">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

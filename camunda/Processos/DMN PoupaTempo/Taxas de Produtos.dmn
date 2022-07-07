@@ -1,0 +1,527 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_15c7yi0" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="taxas_de_produtos" name="Taxas de Produtos">
+    <decisionTable id="DecisionTable_0y0z9wv" hitPolicy="FIRST">
+      <input id="InputClause_0d5cdjl" label="operacao" camunda:inputVariable="operacao">
+        <inputExpression id="LiteralExpression_1si2cez" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0i6cf92">
+          <text>"SUMUP","Z3"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_1in4ppi" label="produto" camunda:inputVariable="produto">
+        <inputExpression id="LiteralExpression_0o20w53" typeRef="string">
+          <text>produto</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0h14avv" label="tpv" biodi:width="192" camunda:inputVariable="tpv">
+        <inputExpression id="LiteralExpression_10tajd0" typeRef="double">
+          <text>tpv</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0tyevq1" label="plano" camunda:inputVariable="plano">
+        <inputExpression id="LiteralExpression_1uyzcyi" typeRef="string">
+          <text>plano</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1ehctl1">
+          <text>"À Vista","Parcelado","Balanceado","TPV"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_0wj33ye" label="Débito" name="Débito" typeRef="double" />
+      <output id="OutputClause_06mgkat" label="Crédito 1x (plano acelerado)" name="Crédito 1x (plano acelerado)" typeRef="double" />
+      <output id="OutputClause_01ghiou" label="Crédito 2x (plano acelerado)" name="Crédito 2x (plano acelerado)" typeRef="double" biodi:width="192" />
+      <output id="OutputClause_0hn2ikq" label="Crédito 3x (plano acelerado)" name="Crédito 3x (plano acelerado)" typeRef="double" />
+      <output id="OutputClause_06nk063" label="Crédito 4x (plano acelerado)" name="Crédito 4x (plano acelerado)" typeRef="double" />
+      <output id="OutputClause_1nrdsr3" label="Crédito 5x (plano acelerado)" name="Crédito 5x (plano acelerado)" typeRef="double" />
+      <output id="OutputClause_145zmjr" label="Crédito 6x (plano acelerado)" name="Crédito 6x (plano acelerado)" typeRef="double" />
+      <output id="OutputClause_0whvlex" label="Crédito 7x (plano acelerado)" name="Crédito 7x (plano acelerado)" typeRef="double" />
+      <output id="OutputClause_05wbrzu" label="Crédito 8x (plano acelerado)" name="Crédito 8x (plano acelerado)" typeRef="double" />
+      <output id="OutputClause_0iqg4k6" label="Crédito 9x (plano acelerado)" name="Crédito 9x (plano acelerado)" typeRef="double" />
+      <output id="OutputClause_1009is3" label="Crédito 10x (plano acelerado)" name="Crédito 10x (plano acelerado)" typeRef="double" />
+      <output id="OutputClause_0i5svyd" label="Crédito 11x (plano acelerado)" name="Crédito 11x (plano acelerado)" typeRef="double" />
+      <output id="OutputClause_1cjd4j0" label="Crédito 12x (plano acelerado)" name="Crédito 12x (plano acelerado)" typeRef="double" />
+      <output id="OutputClause_1ohihzx" label="Crédito (plano econômico)" name="Crédito (plano econômico)" typeRef="double" />
+      <output id="OutputClause_1qkfdqh" label="Crédito - parcelas (plano econômico)" name="Crédito - parcelas (plano econômico)" typeRef="double" biodi:width="267" />
+      <rule id="DecisionRule_16foq76">
+        <inputEntry id="UnaryTests_0t1u7li">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_01uis60">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0d58d75">
+          <text>[10000..30000)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h4dy73">
+          <text>"À Vista"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1gp5vib">
+          <text>1.40</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pg4jhf">
+          <text>2.70</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0fjbwaf">
+          <text>5.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1m0j2qe">
+          <text>6.20</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qt46h1">
+          <text>7.40</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lu3ymi">
+          <text>8.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05eje30">
+          <text>9.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11tk1qv">
+          <text>11.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1okndso">
+          <text>12.20</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0et4jof">
+          <text>13.40</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1x9gqsf">
+          <text>14.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0aoemhi">
+          <text>15.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qp1vsw">
+          <text>17.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1vn5bj3">
+          <text>2.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_03x7jkj">
+          <text>4.90</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0tseksk">
+        <inputEntry id="UnaryTests_1xgtv75">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1xq6r0g">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kmzcwr">
+          <text>[30000..60000)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_14u95dt">
+          <text>"À Vista"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1p53328">
+          <text>1.30</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0zbmga8">
+          <text>2.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0joiyku">
+          <text>5.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_131hfn5">
+          <text>6.20</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_154bkcp">
+          <text>7.40</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k4s7dt">
+          <text>8.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0if4jwg">
+          <text>9.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0m2cdr6">
+          <text>11.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0oeyu6s">
+          <text>12.20</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ghx9qh">
+          <text>13.40</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0aso14f">
+          <text>14.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k7u1d9">
+          <text>15.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0awhynq">
+          <text>17.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1hiuig8">
+          <text>2.50</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0my16t0">
+          <text>4.90</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0a7yzni">
+        <inputEntry id="UnaryTests_01r9cns">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1kqhrah">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bzrowe">
+          <text>&gt;= 60000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0mzm7e6">
+          <text>"À Vista"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vcdrq8">
+          <text>1.20</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1pvq570">
+          <text>2.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1aaqehc">
+          <text>5.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_08ygdlm">
+          <text>6.20</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0kopyw3">
+          <text>7.40</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1hsrui0">
+          <text>8.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_187784j">
+          <text>9.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_11ztonf">
+          <text>11.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ufwb41">
+          <text>12.20</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0rf3oq4">
+          <text>13.40</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qlnpzf">
+          <text>14.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_10mh9sw">
+          <text>15.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qnmmjp">
+          <text>17.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14nauur">
+          <text>2.50</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wlyz3s">
+          <text>4.90</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1iuazzk">
+        <inputEntry id="UnaryTests_0igkimv">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1r0toi1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_07sqbrl">
+          <text>[10000..30000)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1l6vk2d">
+          <text>"Parcelado","Balanceado"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1yvks43">
+          <text>1.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1sqwltd">
+          <text>2.90</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0b5iqgt">
+          <text>4.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0a3iaj8">
+          <text>4.50</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ccm9a1">
+          <text>5.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1dqyygf">
+          <text>5.50</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0f61x70">
+          <text>6.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1gyb26t">
+          <text>6.50</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0twivpm">
+          <text>7.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04u2rrm">
+          <text>7.50</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0vzcq53">
+          <text>8.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lewu9v">
+          <text>8.50</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0hn5d7z">
+          <text>9.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1xyhp6r">
+          <text>2.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0tlf4yz">
+          <text>3.40</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06xcwaq">
+        <inputEntry id="UnaryTests_0gmu6qn">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zr9fjs">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1b3vcus">
+          <text>[30000..60000)</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1epdp1j">
+          <text>"Parcelado","Balanceado"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0i7g52t">
+          <text>1.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09hl6ye">
+          <text>2.90</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1fpielm">
+          <text>4.50</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1u6os1h">
+          <text>4.90</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1r6udf9">
+          <text>5.30</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0id4n4c">
+          <text>5.70</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1kqhggt">
+          <text>6.10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wbkxxa">
+          <text>6.50</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0n7fo66">
+          <text>6.90</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12lw0ua">
+          <text>7.30</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ws5ffq">
+          <text>7.70</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0tq02ah">
+          <text>8.10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1gbiniz">
+          <text>8.50</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ge1b0g">
+          <text>2.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_013yady">
+          <text>3.40</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ldcewl">
+        <inputEntry id="UnaryTests_02t7smd">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1ssm50s">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h8t13i">
+          <text>&gt;= 60000</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0zmgz2f">
+          <text>"Parcelado","Balanceado"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1rh9opx">
+          <text>1.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0tyy597">
+          <text>2.90</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_02seuc0">
+          <text>5.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_01inr6z">
+          <text>5.30</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_13xc9x0">
+          <text>5.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_053f56k">
+          <text>5.90</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0e8r8c8">
+          <text>6.20</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0n56kly">
+          <text>6.50</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1457xm3">
+          <text>6.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12xo1ey">
+          <text>7.10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1wnxe8x">
+          <text>7.40</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0arvb21">
+          <text>7.70</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1yrd04f">
+          <text>8.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qbumpg">
+          <text>2.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_184vl44">
+          <text>3.40</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0kihrgr">
+        <inputEntry id="UnaryTests_0vxw7yr">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0jx71no">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_15o0109">
+          <text>[7000..10000]</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qdw108">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0db67tc">
+          <text>1.70</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0pcuss5">
+          <text>3.90</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0lavchu">
+          <text>5.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1518kpu">
+          <text>6.20</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_09npgwg">
+          <text>7.40</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1pqtltd">
+          <text>8.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1yj5ete">
+          <text>9.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06rjand">
+          <text>11.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_137hpbe">
+          <text>12.20</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0k6ke8t">
+          <text>13.40</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qh168e">
+          <text>14.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1jdann3">
+          <text>15.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_12o4v88">
+          <text>17.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cqdx2x">
+          <text>3.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0g594s1">
+          <text>3.70</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1tyvtlt">
+        <inputEntry id="UnaryTests_0nmzfov">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0bcvxio">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0idvt3z">
+          <text>&gt; -1</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_121fgyh">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0fdqyno">
+          <text>1.70</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0c911ao">
+          <text>3.90</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_18c1suy">
+          <text>5.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0uiwb0m">
+          <text>6.20</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_10b7rw4">
+          <text>7.40</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_069qeqm">
+          <text>8.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0oupbm2">
+          <text>9.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1k8nkqd">
+          <text>11.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1d24t8w">
+          <text>12.20</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0cxyz0l">
+          <text>13.40</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_063kdil">
+          <text>14.60</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0fgz3ew">
+          <text>15.80</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ax0u56">
+          <text>17.00</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1p9vz4b">
+          <text>3.10</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1608fi1">
+          <text>3.70</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape id="DMNShape_12qfk5x" dmnElementRef="taxas_de_produtos">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

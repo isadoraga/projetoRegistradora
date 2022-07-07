@@ -1,0 +1,99 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0s2k1aq" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="PosVenda_Ativacao" name="Ativação">
+    <decisionTable id="DecisionTable_1czeqld" hitPolicy="FIRST">
+      <input id="Input_1" label="Operação" camunda:inputVariable="operacao">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_078wixi" label="Idade Pós Venda" biodi:width="192" camunda:inputVariable="processamentoPosVenda.idadePosVenda">
+        <inputExpression id="LiteralExpression_1cvjuky" typeRef="integer">
+          <text>processamentoPosVenda.idadePosVenda</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_193fosv" label="TPV acumulado" camunda:inputVariable="processamentoPosVenda.tpvAcumulado">
+        <inputExpression id="LiteralExpression_14x64yb" typeRef="double">
+          <text>processamentoPosVenda.tpvAcumulado</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Ativo" name="ativo" typeRef="boolean" />
+      <output id="OutputClause_1h3oz9s" label="Churn" name="churn" typeRef="boolean" />
+      <rule id="DecisionRule_18wn9eh">
+        <inputEntry id="UnaryTests_0y7gda0">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_037m4vj">
+          <text>&lt;= 15</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0xpyuba">
+          <text>&gt;= 300</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0edp49w">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1qw24sd">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ollfnq">
+        <inputEntry id="UnaryTests_1i2lb3h">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1hzzlvb">
+          <text>&lt;=15</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nkw7kj">
+          <text>&lt; 300</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1nvf1sh">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1xcnlav">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1tyzysx">
+        <inputEntry id="UnaryTests_061wih9">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0je9z8o">
+          <text>&gt; 15</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_110rags">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0kix2y8">
+          <text>false</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0fmk8j9">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_05pdr3k">
+        <inputEntry id="UnaryTests_0j1she9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1szf6mm">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_05rjjh2">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_04gut8c">
+          <text>true</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0a3bunz">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="PosVenda_Ativacao">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

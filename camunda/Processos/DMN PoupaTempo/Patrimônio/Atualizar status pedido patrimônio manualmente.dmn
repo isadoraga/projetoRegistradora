@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0dq1fc0" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="atualizarStatusPedidoPatrimonioManual" name="Atualizar status pedido patrimônio manualmente">
+    <decisionTable id="DecisionTable_090csgt" hitPolicy="FIRST">
+      <input id="Input_1" label="Status" camunda:inputVariable="statusAtualizacaoManual">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>statusAtualizacaoManual</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1f38fge">
+          <text>"Nota Fiscal","Logística"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0hhvl5q" label="Sub status" camunda:inputVariable="subStatusAtualizacaoManual">
+        <inputExpression id="LiteralExpression_1brfok2" typeRef="string">
+          <text>subStatusAtualizacaoManual</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0tzv13u">
+          <text>"Recibo confirmado polo","Entrega confirmada","Não entregue","Entrega atrasada","Em trânsito","Cancelada","Faturada"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_1nfcbzj" label="Status" name="statusVar" typeRef="string" />
+      <output id="OutputClause_0s94p3g" label="Finalizador?" name="statusFinalizador" typeRef="boolean" />
+      <rule id="DecisionRule_05ws1ej">
+        <inputEntry id="UnaryTests_0s7t2y9">
+          <text>"Nota Fiscal"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_036kfrt">
+          <text>"Faturada"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0r6omgq">
+          <text>"status_PATRIMONIO_7_notaFiscal_faturadaManualmente"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_08j5klw">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01fzz88">
+        <inputEntry id="UnaryTests_1nmohb8">
+          <text>"Nota Fiscal"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nkgz1s">
+          <text>"Cancelada"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0il1jwp">
+          <text>"status_PATRIMONIO_9_notaFiscal_canceladaManualmente"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mztk3y">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0dnu3cf">
+        <inputEntry id="UnaryTests_0vv8eza">
+          <text>"Logística"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0nlkg4z">
+          <text>"Em trânsito"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_098yjs3">
+          <text>"status_PATRIMONIO_11_logistica_emTransitoManualmente"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14jfr66">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0f10s45">
+        <inputEntry id="UnaryTests_1226gc8">
+          <text>"Logística"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1q4huj5">
+          <text>"Entrega atrasada"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_03xbal8">
+          <text>"status_PATRIMONIO_13_logistica_entregaAtrasadaManualmente"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_02ahbgp">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ug3d4p">
+        <inputEntry id="UnaryTests_0sur4dn">
+          <text>"Logística"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0gpmgd2">
+          <text>"Não entregue"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0dqpepv">
+          <text>"status_PATRIMONIO_15_logistica_naoEntregueManualmente"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1w1uc3b">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1aku3ee">
+        <inputEntry id="UnaryTests_0m2bq3e">
+          <text>"Logística"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0uk7syo">
+          <text>"Entrega confirmada"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19kf0h9">
+          <text>"status_PATRIMONIO_17_logistica_EntregaConfirmadaManualmente"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mywfm3">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1f2l623">
+        <inputEntry id="UnaryTests_02wmdsa">
+          <text>"Logística"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0pwfbvb">
+          <text>"Recibo confirmado polo"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0nzl4eg">
+          <text>"status_PATRIMONIO_18_logistica_ReciboConfirmadoPoloManualmente"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06kb967">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="atualizarStatusPedidoPatrimonioManual">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

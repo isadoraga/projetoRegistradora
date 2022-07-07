@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_0r7uij7" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
+  <decision id="anexos_detalhes" name="Detalhes anexos poupatempo">
+    <decisionTable id="DecisionTable_0q48l4q" hitPolicy="COLLECT">
+      <input id="InputClause_0xlftvt" label="Operação">
+        <inputExpression id="LiteralExpression_0mp4z82" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0z6l6z8">
+          <text>"SUMUP","Z3","GETNET","B2W","SANTANDER","Lets Delivery","SAFRA"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Nome váriavel" name="nomeVariavel" typeRef="string" />
+      <output id="OutputClause_0nnp8hj" label="Nome anexo" name="nomeAnexo" typeRef="string" />
+      <output id="OutputClause_1wdk6nk" label="Descrição anexo" name="descricaoAnexo" typeRef="string" />
+      <rule id="DecisionRule_1lsfv68">
+        <inputEntry id="UnaryTests_0rfnl32">
+          <text>"GETNET","SANTANDER"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10ueg5b">
+          <text>"fotoSlip"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1y5fw5u">
+          <text>"Foto Slip"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1a6wcpi">
+          <text>"Salva a fotoslip do CNPJ, nela esperamos uma foto com todos os dados do CNPJ."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14e0n3a">
+        <inputEntry id="UnaryTests_0ug39sb">
+          <text>"SUMUP","GETNET","B2W","SANTANDER"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02vwk6a">
+          <text>"fotoSelfieFachada"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_05h7fa5">
+          <text>"Foto Selfie Fachada"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_13jnlui">
+          <text>"Primeira foto solicitada em todos os fluxos, aqui vamos esperar uma foto selfie mostrando a fachada da Loja."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03fu9mi">
+        <inputEntry id="UnaryTests_0ke1b58">
+          <text>"B2W"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14o9kub">
+          <text>"fotoComprovanteProduto"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qq79h4">
+          <text>"Foto Produto Cadastrado"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0oj2z06">
+          <text>"Salva foto de comprovante de produto postado no site B2W"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_144ko7a">
+        <inputEntry id="UnaryTests_0azpddo">
+          <text>"B2W"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_11c7se9">
+          <text>"fotoBancario"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1vyqw1i">
+          <text>"Foto Dados Bancários"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1o6fl0c">
+          <text>"Salva foto do cadastro bancario do cliente."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03fhgw2">
+        <inputEntry id="UnaryTests_0vtiyll">
+          <text>"B2W"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1lv3rvo">
+          <text>"fotoContrato"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1cs5gk4">
+          <text>"Foto de confirmação aceite do Contrato"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1x3smq0">
+          <text>"Salva a foto do contrato assinado do cliente"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0jsn8fr">
+        <inputEntry id="UnaryTests_1cdizbr">
+          <text>"GETNET"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_01ip4pr">
+          <text>"fotoSN"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1uzqxmt">
+          <text>"SN da máquina Renova"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_00qkl4c">
+          <text>"Salva a foto do SN da maquina Renova"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0pl7e3v">
+        <inputEntry id="UnaryTests_12zw9jd">
+          <text>"GETNET"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0t83bm9">
+          <text>"fotoComprovanteProduto"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1nwg6tm">
+          <text>"Comprovante cadastro GETNET"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0jeh6f0">
+          <text>"Salva o comprovante de cadastro na Getnet"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01ser1q">
+        <inputEntry id="UnaryTests_1kyujgd">
+          <text>"SANTANDER"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1yep6se">
+          <text>"fotoProduto"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1fvhf8r">
+          <text>"Comprovante Contrato SANTANDER"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0wbpqje">
+          <text>"Salva o comprovante de contrato da SANTANDER"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1j09px1">
+        <inputEntry id="UnaryTests_17x2ifg">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1tirje0">
+          <text>"fotoTransacaoTeste"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14uw2l8">
+          <text>"Foto de transação teste"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0h71qmo">
+          <text>"Foto da transação teste para ativação"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0x6j2di">
+        <inputEntry id="UnaryTests_15ctcah">
+          <text>"Lets Delivery"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1q82hrh">
+          <text>"fotoSync"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0h735xb">
+          <text>"Foto Sincronização de plataforma"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0qd308y">
+          <text>"Foto da sincronização das plataformas delivery com o MAX"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1danzwc">
+        <inputEntry id="UnaryTests_1xppxnr">
+          <text>"Lets Delivery"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_169zq2v">
+          <text>"fotoPerfil"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1m36srp">
+          <text>"Foto dos dados cadastrados"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_03j3bxb">
+          <text>"Foto da pagina perfil onde mostra todos os dados principais do cliente."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1r2u5wt">
+        <inputEntry id="UnaryTests_0tbs7lf">
+          <text>"HUBSTER"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1i0zg0n">
+          <text>"fotoLogin"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_02sn6dk">
+          <text>"Foto do cliente logado"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1tyulk9">
+          <text>"Foto do cliente logado na plataforma da Hubster"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1c6vxid">
+        <inputEntry id="UnaryTests_17ym9vt">
+          <text>"SAFRA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09dz5mx">
+          <text>"fotoEndereco"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1gcboe4">
+          <text>"Foto endereço"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0ezqn6m">
+          <text>"Foto do endereço cadastrado no aplicativo da Safra"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0gjjdox">
+        <inputEntry id="UnaryTests_0347do6">
+          <text>"SAFRA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1f1ks94">
+          <text>"fotoProduto"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_17e3348">
+          <text>"Foto modalidade de recebimento"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14ldz2i">
+          <text>"Foto comprovante do produto comprado pelo cliente"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qwjv2g">
+        <inputEntry id="UnaryTests_0skhssi">
+          <text>"SAFRA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0tuj6lb">
+          <text>"fotoCadastro1"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0nedkte">
+          <text>"Primeira foto contendo dados cadastrais"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0s6zewq">
+          <text>"Foto contendo dados cadastrais do cliente"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0nxivoa">
+        <inputEntry id="UnaryTests_0sg4ull">
+          <text>"SAFRA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12aajrn">
+          <text>"fotoCadastro2"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0m34y6e">
+          <text>"Segunda foto contendo dados cadastrais"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0r84yik">
+          <text>"Foto contendo dados cadastrais do cliente"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0sg5990">
+        <inputEntry id="UnaryTests_0bdoe6h">
+          <text>"SAFRA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07kbh74">
+          <text>"fotoTelaSucesso"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_15dpnd6">
+          <text>"Foto tela de sucesso"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0xty3sb">
+          <text>"Foto da mensagem de sucesso que o cliente recebe da Safra"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0zpcnmq">
+        <inputEntry id="UnaryTests_0wd7l6n">
+          <text>"SAFRA"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vyhq7y">
+          <text>"fotoPrimeiroAcesso"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1smoxyw">
+          <text>"Foto primeiro acesso"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0clwocu">
+          <text>"Foto do acesso do cliente em sua conta no APP da Safra"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="anexos_detalhes">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

@@ -1,0 +1,608 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_0qu9f0j" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
+  <decision id="lista_bancos" name="Lista dos Bancos">
+    <decisionTable id="DecisionTable_0dor9es" hitPolicy="COLLECT">
+      <input id="Input_1" label="operacao" camunda:inputVariable="operacao">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="banco" name="banco" typeRef="string" biodi:width="551">
+        <outputValues id="UnaryTests_06e2zrt">
+          <text>"341 - Banco Itaú Unibanco S.A.","001 - Banco Do Brasil","104 - Caixa Economica Federal S.A","234 - Banco Bradesco (ou Next)","033 - Banco Santander (ou Super Digital)","208 - Banco Btg Pactual S.A.","422 - Banco Safra S.A.","332 - Acesso Solucoes De Pagamento S.A.","246 - Banco ABC Brasil S.A.","025 - Banco Alfa S.A.","213 - Banco Arbi S.A.","318 - Banco BMG S.A.","107 - Banco Bocom Bbm S.A.","218 - Banco BS2 S.A.","336 - Banco C6 S.A.","745 - Banco Citibank S.A.","748 - Banco Cooperativo Sicredi S.A.","069 - Banco Crefisa S","003 - Banco Da Amazonia S.A.","707 - Banco Daycoval","654 - Banco Digimais SA","037 - Banco Do Estado Do Pará S.A.","041 - Banco Do Estado Do Rio Grande Do Sul S.A.","004 - Banco Do Nordeste Do Brasil S.A.","224 - Banco Fibra S.A.","094 - Banco Finaxis S.A.","612 - Banco Guanabara S.A.","604 - Banco Industrial Do Brasil S.A.","653 - Banco Indusval S.A.","077 - Banco Inter","376 - Banco J.P. Morgan S.A.","757 - Banco Keb Hana Do Brasil S.A.","600 - Banco Luso Brasileiro S.A.","243 - Banco Maxima S.A.","389 - Banco Mercantil Do Brasil S.A.","212 - Banco Original S.A.","623 - Banco Pan S.A.","611 - Banco Paulista S.A.","643 - Banco Pine S.A.","633 - Banco Rendimento S.A.","741 - Banco Ribeirao Preto S.A.","120 - Banco Rodobens S.A","743 - Banco Semear S.A.","630 - Banco Smartbank S.A.","637 - Banco Sofisa S.A.","082 - Banco Topázio S.A.","634 - Banco Triângulo S.A.","655 - Banco Votorantim (ou Banco Neon)","047 - BANESE - Banco Do Estado De Sergipe S.A.","021 - BANESTES S.A. - Banco Do Estado Do Espírito Santo","755 - Bank Of America Merrill Lynch Banco Múltiplo S.A.","301 - BPP Instituição de Pagamentos S.A","125 - Brasil Plural S.A. Banco Multiplo","070 - BRB – Banco De Brasília S.A","130 - Caruana S.A.","085 - CECRED - Cooperativa Central De Crédito Urbano","089 - CREDISAN - Coop. De Crédito Rural Da Região Da Mogiana","097 - CREDISIS - Cooperativa Central De Credito Noroeste Brasileiro Ltda","133 - Cresol - Cooperativa de Credito Rural","487 - Deutsche Bank S. A. - Banco Alemao","364 - Gerencianet S/A","396 - Hub Pagamentos S.A.","274 - Money Plus Sociedade De Credito Ao Micro e a Empresa De Pequeno Porte Ltda","260 - Nubank","613 - Omni Banco S.A.","329 - Qi Sociedade De Credito Directo S/A","093 - Scm Polocred","756 - Sicoob (ou Bancoob)","197 - Stone Pagamentos S.A.","136 - UNICREDS - Confederacao Nacional Das Cooperativas Centrais Unicred Ltda","099 - UNIPRIME Central - Central Interestadual De Cooperativas De Credito Ltda","084 - Uniprime Norte Do Parana"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_0254fv3">
+        <inputEntry id="UnaryTests_1g0yg0l">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0q1gci2">
+          <text>"422 - Banco Safra S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_123s5lb">
+        <inputEntry id="UnaryTests_0o6zq2s">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0pbptfg">
+          <text>"001 - Banco Do Brasil"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08tb0y9">
+        <inputEntry id="UnaryTests_0y60rzy">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0jakt50">
+          <text>"104 - Caixa Economica Federal S.A"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_18ddcng">
+        <inputEntry id="UnaryTests_15hgcts">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0f4z8v7">
+          <text>"234 - Banco Bradesco (ou Next)"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_181mghj">
+        <inputEntry id="UnaryTests_0kvuzeh">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0nvz9h0">
+          <text>"033 - Banco Santander (ou Super Digital)"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1fou6f1">
+        <inputEntry id="UnaryTests_1s352iv">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02lbjio">
+          <text>"208 - Banco Btg Pactual S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1938dzj">
+        <inputEntry id="UnaryTests_1jozyig">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wg5eki">
+          <text>"341 - Banco Itaú Unibanco S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1gdqbg2">
+        <inputEntry id="UnaryTests_1ucaaho">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1h3s2xs">
+          <text>"332 - Acesso Solucoes De Pagamento S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01sefbg">
+        <inputEntry id="UnaryTests_01bh44c">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_096yw9b">
+          <text>"246 - Banco ABC Brasil S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0l8ok21">
+        <inputEntry id="UnaryTests_0ab18g6">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_187c1t6">
+          <text>"025 - Banco Alfa S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1y6lo1p">
+        <inputEntry id="UnaryTests_0wvb1vp">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1p55nbb">
+          <text>"213 - Banco Arbi S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1uqdquo">
+        <inputEntry id="UnaryTests_0wzszwn">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1j1k0we">
+          <text>"318 - Banco BMG S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0defz01">
+        <inputEntry id="UnaryTests_13hhvnr">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0suf6as">
+          <text>"107 - Banco Bocom Bbm S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1vdds4y">
+        <inputEntry id="UnaryTests_0sva02o">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0b2v6ak">
+          <text>"218 - Banco BS2 S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1k4mtt5">
+        <inputEntry id="UnaryTests_0mt9rof">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08uf3qv">
+          <text>"336 - Banco C6 S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01osilp">
+        <inputEntry id="UnaryTests_0b776qv">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0edpheh">
+          <text>"745 - Banco Citibank S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wythjm">
+        <inputEntry id="UnaryTests_0c3tncn">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16be47u">
+          <text>"748 - Banco Cooperativo Sicredi S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0w8negm">
+        <inputEntry id="UnaryTests_0ny3655">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0jclu6d">
+          <text>"069 - Banco Crefisa S"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19cfub8">
+        <inputEntry id="UnaryTests_00sgd2m">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02hgwwc">
+          <text>"003 - Banco Da Amazonia S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_17z1gti">
+        <inputEntry id="UnaryTests_0jk1f06">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1egd4up">
+          <text>"707 - Banco Daycoval"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jqestw">
+        <inputEntry id="UnaryTests_13gohqx">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1iml7x0">
+          <text>"654 - Banco Digimais SA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1g3neh6">
+        <inputEntry id="UnaryTests_157bmvw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1hdxmoo">
+          <text>"037 - Banco Do Estado Do Pará S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0mi3dtl">
+        <inputEntry id="UnaryTests_126zin2">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ox9u8q">
+          <text>"041 - Banco Do Estado Do Rio Grande Do Sul S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0l9ukmo">
+        <inputEntry id="UnaryTests_1wjhglp">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1jfnh5a">
+          <text>"004 - Banco Do Nordeste Do Brasil S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0tuuumk">
+        <inputEntry id="UnaryTests_0dv0b62">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12oxgs8">
+          <text>"224 - Banco Fibra S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1gtj2bc">
+        <inputEntry id="UnaryTests_1gh5pwk">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0m35hfe">
+          <text>"094 - Banco Finaxis S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1uvgdzd">
+        <inputEntry id="UnaryTests_0w4y3lz">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1p4hxnx">
+          <text>"612 - Banco Guanabara S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1rrspd3">
+        <inputEntry id="UnaryTests_130aqx2">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0nqhaky">
+          <text>"604 - Banco Industrial Do Brasil S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0o432d8">
+        <inputEntry id="UnaryTests_0simt2t">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xnj66s">
+          <text>"653 - Banco Indusval S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ad6v80">
+        <inputEntry id="UnaryTests_14ib2cu">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0pvq8ey">
+          <text>"077 - Banco Inter"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1801vuy">
+        <inputEntry id="UnaryTests_1prujma">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1cxga5n">
+          <text>"376 - Banco J.P. Morgan S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1u82y90">
+        <inputEntry id="UnaryTests_075tm20">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0gza8io">
+          <text>"757 - Banco Keb Hana Do Brasil S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_18r77r0">
+        <inputEntry id="UnaryTests_1z09o94">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0t414bh">
+          <text>"600 - Banco Luso Brasileiro S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1hng1kr">
+        <inputEntry id="UnaryTests_1a1dzw6">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ma7vkn">
+          <text>"243 - Banco Maxima S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ap5sfl">
+        <inputEntry id="UnaryTests_1ir64sd">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0y4ed8g">
+          <text>"389 - Banco Mercantil Do Brasil S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mdbxec">
+        <inputEntry id="UnaryTests_08ew969">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ace6nw">
+          <text>"212 - Banco Original S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jh85nx">
+        <inputEntry id="UnaryTests_04u2vh8">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1wk7mi4">
+          <text>"623 - Banco Pan S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0nley2e">
+        <inputEntry id="UnaryTests_0e7jzvz">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16fs9r6">
+          <text>"611 - Banco Paulista S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0yytveb">
+        <inputEntry id="UnaryTests_0uu9udw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1by2edf">
+          <text>"643 - Banco Pine S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0e81x6x">
+        <inputEntry id="UnaryTests_1pi7ayw">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1y3zjdb">
+          <text>"633 - Banco Rendimento S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0refy89">
+        <inputEntry id="UnaryTests_02ykgx6">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13smvrx">
+          <text>"741 - Banco Ribeirao Preto S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wy931d">
+        <inputEntry id="UnaryTests_1ro5wl3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1et24nj">
+          <text>"120 - Banco Rodobens S.A"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1kze266">
+        <inputEntry id="UnaryTests_1pdqfqr">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0cokfbo">
+          <text>"743 - Banco Semear S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1kq185p">
+        <inputEntry id="UnaryTests_1mu4snb">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1f8s1vz">
+          <text>"630 - Banco Smartbank S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0g0go9o">
+        <inputEntry id="UnaryTests_0zx538v">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_02u2cci">
+          <text>"637 - Banco Sofisa S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1a8r4bg">
+        <inputEntry id="UnaryTests_03ehhr0">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ibpdna">
+          <text>"082 - Banco Topázio S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0zsuh1a">
+        <inputEntry id="UnaryTests_04rlok0">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17qmf64">
+          <text>"634 - Banco Triângulo S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0lcw62z">
+        <inputEntry id="UnaryTests_0ljurjq">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_09ioasx">
+          <text>"655 - Banco Votorantim (ou Banco Neon)"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_18xsmx8">
+        <inputEntry id="UnaryTests_0ijuyr3">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_066yn4k">
+          <text>"047 - BANESE - Banco Do Estado De Sergipe S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xw1aow">
+        <inputEntry id="UnaryTests_1v3fn1c">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1k5i462">
+          <text>"021 - BANESTES S.A. - Banco Do Estado Do Espírito Santo"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1p9gyga">
+        <inputEntry id="UnaryTests_112ixm6">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18yfgta">
+          <text>"755 - Bank Of America Merrill Lynch Banco Múltiplo S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0rh71xl">
+        <inputEntry id="UnaryTests_1pc5mts">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0h6hmwg">
+          <text>"301 - BPP Instituição de Pagamentos S.A"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1z0m7w9">
+        <inputEntry id="UnaryTests_1xhgpv8">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ck38zf">
+          <text>"125 - Brasil Plural S.A. Banco Multiplo"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0x8knn8">
+        <inputEntry id="UnaryTests_1j6pndj">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0lzlpm8">
+          <text>"070 - BRB – Banco De Brasília S.A"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1iztkfo">
+        <inputEntry id="UnaryTests_06oc2im">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0m4qby2">
+          <text>"130 - Caruana S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0sd9i10">
+        <inputEntry id="UnaryTests_1vgu6db">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0trwn5t">
+          <text>"085 - CECRED - Cooperativa Central De Crédito Urbano"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1w3lkrp">
+        <inputEntry id="UnaryTests_17ii2qy">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vf0c17">
+          <text>"089 - CREDISAN - Coop. De Crédito Rural Da Região Da Mogiana"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0x0enx6">
+        <inputEntry id="UnaryTests_1wc2dda">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1l2ieh7">
+          <text>"097 - CREDISIS - Cooperativa Central De Credito Noroeste Brasileiro Ltda"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_06rr05t">
+        <inputEntry id="UnaryTests_0zlx0fo">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1c4rw9m">
+          <text>"133 - Cresol - Cooperativa de Credito Rural"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0cx1q5a">
+        <inputEntry id="UnaryTests_01zv997">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10dwdrd">
+          <text>"487 - Deutsche Bank S. A. - Banco Alemao"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0u53ac0">
+        <inputEntry id="UnaryTests_1j7gwu6">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0do3i3i">
+          <text>"364 - Gerencianet S/A"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_14afesq">
+        <inputEntry id="UnaryTests_0zhy34h">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0iurfc0">
+          <text>"396 - Hub Pagamentos S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1kvwwh4">
+        <inputEntry id="UnaryTests_1g6a4vg">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19v42sh">
+          <text>"274 - Money Plus Sociedade De Credito Ao Micro e a Empresa De Pequeno Porte Ltda"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1qfeykr">
+        <inputEntry id="UnaryTests_1odecuz">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1nm9gr7">
+          <text>"260 - Nubank"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11to04e">
+        <inputEntry id="UnaryTests_050qo74">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0k7wa6z">
+          <text>"613 - Omni Banco S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1q7ywk0">
+        <inputEntry id="UnaryTests_1e5nx0u">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ovedge">
+          <text>"329 - Qi Sociedade De Credito Directo S/A"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11eo9r8">
+        <inputEntry id="UnaryTests_1xmhg2t">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0qs2ok7">
+          <text>"093 - Scm Polocred"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01wna8v">
+        <inputEntry id="UnaryTests_0j943s7">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0jpfmpj">
+          <text>"756 - Sicoob (ou Bancoob)"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1r5nmgo">
+        <inputEntry id="UnaryTests_0t04zok">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0b7t32l">
+          <text>"197 - Stone Pagamentos S.A."</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0rdsw9m">
+        <inputEntry id="UnaryTests_0il9g14">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0fwc4pl">
+          <text>"136 - UNICREDS - Confederacao Nacional Das Cooperativas Centrais Unicred Ltda"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_03sctax">
+        <inputEntry id="UnaryTests_087nyhz">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_07nxoez">
+          <text>"099 - UNIPRIME Central - Central Interestadual De Cooperativas De Credito Ltda"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_18fbh9z">
+        <inputEntry id="UnaryTests_0vxnao4">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1v2ugh7">
+          <text>"084 - Uniprime Norte Do Parana"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1eexbe3">
+        <inputEntry id="UnaryTests_08avcxe">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_178ja60">
+          <text>"290 - Pagseguro Internet S.A."</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="lista_bancos">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

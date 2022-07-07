@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_00dyaag" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.3.0">
+  <decision id="tabelaProdutos" name="Tabela de produtos">
+    <decisionTable id="DecisionTable_0y3vulo" hitPolicy="COLLECT">
+      <input id="Input_1" label="Operação" biodi:width="192" camunda:inputVariable="operacao">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_10btkgh">
+          <text>"Z3","SUMUP"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0ivr2l0" label="Região" camunda:inputVariable="regiao">
+        <inputExpression id="LiteralExpression_1y59hd8" typeRef="string">
+          <text>regiao</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Nome do Produto" typeRef="string" />
+      <rule id="DecisionRule_170qkmt">
+        <inputEntry id="UnaryTests_0cq4gpj">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_052fvlv">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_065u31p">
+          <text>"Sumup Total"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1nblfzy">
+        <inputEntry id="UnaryTests_0xkagwy">
+          <text>"Z3"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0t498pr">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_00t8pl3">
+          <text>"Z3 Pay"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1vr2jkl">
+        <inputEntry id="UnaryTests_0e9gk6b">
+          <text>"Z3"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1iybm19">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17weg4u">
+          <text>"Market Place de Crédito"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1v1zggm">
+        <inputEntry id="UnaryTests_0pwda8z">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ice9wc">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0mf78ba">
+          <text>"Sumup On"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="tabelaProdutos">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:bioc="http://bpmn.io/schema/bpmn/biocolor/1.0" xmlns:color="http://www.omg.org/spec/BPMN/non-normative/color/1.0" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_1fj5p2h" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.10.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="enviarEmailPropostaSumup" name="Enviar email proposta SumUp" isExecutable="true">
+    <bpmn:serviceTask id="Activity_0d4p280" name="Gerar contrato" camunda:type="external" camunda:topic="gerarContrato">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:inputParameter name="nomeTemplateContrato">ContratoComodatoClienteSUMUP.html</camunda:inputParameter>
+          <camunda:inputParameter name="nomeTemplateContrato">ContratoComodatoClienteSUMUP.html</camunda:inputParameter>
+        </camunda:inputOutput>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="javascript">  if(ambiente == "prd"){
+    execution.setVariable("nomePastaContrato", "Contrato Cliente Comodato Sumup");
+    execution.setVariable("nomeTemplateContrato", "ContratoComodatoClienteSUMUP.html");
+  }else{
+    execution.setVariable("nomePastaContrato", "Contrato Cliente Comodato DEV Sumup");
+    execution.setVariable("nomeTemplateContrato", "DEV_ContrtAcaoTPVSU.html");
+  }</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_01xz3qs</bpmn:incoming>
+      <bpmn:outgoing>Flow_04tzie4</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:serviceTask id="Activity_1j0aarf" name="Assinar contrato" camunda:type="external" camunda:topic="assinarAlfresco">
+      <bpmn:incoming>Flow_04tzie4</bpmn:incoming>
+      <bpmn:outgoing>Flow_1vscgm2</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:endEvent id="Event_0ywwns4">
+      <bpmn:incoming>Flow_168cgh3</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:serviceTask id="Activity_0l1ih6m" name="Enviar email proposta" camunda:type="external" camunda:topic="enviarEmailSumup">
+      <bpmn:extensionElements>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="groovy">execution.setVariable('status_'+operacao+'_8_contrato_enviado',new Date());</camunda:script>
+        </camunda:executionListener>
+        <camunda:executionListener event="start">
+          <camunda:script scriptFormat="javascript">if(!execution.hasVariable("ambiente")){
+    execution.setVariable("ambiente", "prd");
+  }
+
+  if(tipoPagamento == "Ação TPV"){
+        execution.setVariable("nomeTemplateContratoEmail", "ContratoEmailComodatoClienteSUMUP.html");
+  }
+  else{
+    execution.setVariable("nomeTemplateContratoEmail", "ContratoEmailPropostaClienteSUMUP.html");
+  }
+  
+  var url = "https://zazvendas-sumup.herokuapp.com?";
+  
+  url += "messageName=MSG_Aceite_Contrato_Comodato&amp;businessKey=" + execution.getVariable("businessKey") + "&amp;message=Obrigado por adquirir nosso produto. Estamos muito felizes em ter você com a gente! 😀 pularEspaco Sempre que precisar, não hesite em nos contatar!&amp;ambiente=" + execution.getVariable("ambiente");
+  
+  execution.setVariable("urlConfirmacao", url);</camunda:script>
+        </camunda:executionListener>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_1vscgm2</bpmn:incoming>
+      <bpmn:incoming>Flow_0xwbfko</bpmn:incoming>
+      <bpmn:outgoing>Flow_168cgh3</bpmn:outgoing>
+    </bpmn:serviceTask>
+    <bpmn:exclusiveGateway id="Gateway_1gbuh68" default="Flow_0xwbfko">
+      <bpmn:incoming>Flow_0yyok7n</bpmn:incoming>
+      <bpmn:outgoing>Flow_01xz3qs</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0xwbfko</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_01xz3qs" name="Ação TPV" sourceRef="Gateway_1gbuh68" targetRef="Activity_0d4p280">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${tipoPagamento == "Ação TPV"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_04tzie4" sourceRef="Activity_0d4p280" targetRef="Activity_1j0aarf" />
+    <bpmn:sequenceFlow id="Flow_1vscgm2" sourceRef="Activity_1j0aarf" targetRef="Activity_0l1ih6m" />
+    <bpmn:sequenceFlow id="Flow_0yyok7n" sourceRef="Event_1ty2a5c" targetRef="Gateway_1gbuh68" />
+    <bpmn:sequenceFlow id="Flow_168cgh3" sourceRef="Activity_0l1ih6m" targetRef="Event_0ywwns4" />
+    <bpmn:sequenceFlow id="Flow_0xwbfko" name="Demais meios de pagamento" sourceRef="Gateway_1gbuh68" targetRef="Activity_0l1ih6m" />
+    <bpmn:startEvent id="Event_1ty2a5c">
+      <bpmn:outgoing>Flow_0yyok7n</bpmn:outgoing>
+      <bpmn:signalEventDefinition id="SignalEventDefinition_0nyw0fo" signalRef="Signal_0e8uuq5" />
+    </bpmn:startEvent>
+  </bpmn:process>
+  <bpmn:signal id="Signal_0e8uuq5" name="SIG_IniciarEnvioEmailPropostaSumup" />
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="enviarEmailPropostaSumup">
+      <bpmndi:BPMNEdge id="Flow_01xz3qs_di" bpmnElement="Flow_01xz3qs">
+        <di:waypoint x="275" y="110" />
+        <di:waypoint x="340" y="110" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="278" y="93" width="50" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_04tzie4_di" bpmnElement="Flow_04tzie4">
+        <di:waypoint x="440" y="110" />
+        <di:waypoint x="490" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1vscgm2_di" bpmnElement="Flow_1vscgm2">
+        <di:waypoint x="590" y="110" />
+        <di:waypoint x="630" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0yyok7n_di" bpmnElement="Flow_0yyok7n">
+        <di:waypoint x="188" y="110" />
+        <di:waypoint x="225" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_168cgh3_di" bpmnElement="Flow_168cgh3">
+        <di:waypoint x="730" y="110" />
+        <di:waypoint x="772" y="110" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0xwbfko_di" bpmnElement="Flow_0xwbfko">
+        <di:waypoint x="250" y="135" />
+        <di:waypoint x="250" y="190" />
+        <di:waypoint x="680" y="190" />
+        <di:waypoint x="680" y="150" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="218" y="146" width="86" height="27" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="Activity_0d4p280_di" bpmnElement="Activity_0d4p280">
+        <dc:Bounds x="340" y="70" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1j0aarf_di" bpmnElement="Activity_1j0aarf">
+        <dc:Bounds x="490" y="70" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ywwns4_di" bpmnElement="Event_0ywwns4">
+        <dc:Bounds x="772" y="92" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0l1ih6m_di" bpmnElement="Activity_0l1ih6m" bioc:stroke="#8e24aa" bioc:fill="#e1bee7" color:background-color="#e1bee7" color:border-color="#8e24aa">
+        <dc:Bounds x="630" y="70" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_1gbuh68_di" bpmnElement="Gateway_1gbuh68" isMarkerVisible="true">
+        <dc:Bounds x="225" y="85" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_134lnfa_di" bpmnElement="Event_1ty2a5c">
+        <dc:Bounds x="152" y="92" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>

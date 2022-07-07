@@ -1,0 +1,274 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="auditoria_dois_ponto_quartro" name="auditoria2.4" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.12.0-nightly.20211014">
+  <decision id="resultadoAuditoria" name="Resultado da auditoria">
+    <decisionTable id="DecisionTable_1o7yoj3" hitPolicy="FIRST">
+      <input id="Input_1" label="CNPJ aprovado" biodi:width="192" camunda:inputVariable="cnpjAprovado">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>cnpjAprovado</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_08q4hd6">
+          <text>"true","false"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0h212ab" label="Cadastro aprovado" biodi:width="192" camunda:inputVariable="cadastroAprovado">
+        <inputExpression id="LiteralExpression_1ruv1vb" typeRef="string">
+          <text>cadastroAprovado</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0toqo7m">
+          <text>"true","false"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0e2ca3w" label="Aprovação de fotos obrigatórias" biodi:width="192" camunda:inputVariable="aprovouObrigatorias">
+        <inputExpression id="LiteralExpression_1vyfb7k" typeRef="string">
+          <text>aprovouObrigatorias</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0eo4hxy">
+          <text>"true","false"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0q8hb1c" label="Operação" camunda:inputVariable="operacao">
+        <inputExpression id="LiteralExpression_1aqztt2" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0vygrs8">
+          <text>"SUMUP","Z3","B2W","AMERICANAS DELIVERY","GETNET","SANTANDER","Lets Delivery"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Resultado da análise de auditoria" name="resultadoAnaliseAuditoria" typeRef="string">
+        <outputValues id="UnaryTests_1wktbku">
+          <text>"Cancelado","Aprovado","Negado"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_0gqrr00">
+        <inputEntry id="UnaryTests_14vpsyx">
+          <text>"false"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1j6vbtq">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1fhn0s7">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dh4pym">
+          <text>"Z3","AMERICANAS DELIVERY","GETNET","SANTANDER"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_008k2nn">
+          <text>"Cancelado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_16bb0q9">
+        <inputEntry id="UnaryTests_12viep9">
+          <text>"true"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kxzaz5">
+          <text>"true"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ufzbg7">
+          <text>"true"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vmwzlk">
+          <text>"Z3","AMERICANAS DELIVERY","GETNET","SANTANDER"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ja63rd">
+          <text>"Aprovado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0xtlnfl">
+        <inputEntry id="UnaryTests_1gl59mz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1nw69u1">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0s7kecz">
+          <text>"true"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1yuhuf9">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_133w86z">
+          <text>"Aprovado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0d617g3">
+        <inputEntry id="UnaryTests_0mipmkd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1tit6ug">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1pbr7wi">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0dptgw3">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wj5sbh">
+          <text>"Negado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09vu7gn">
+        <inputEntry id="UnaryTests_0ccxob8">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ort2on">
+          <text>"false"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0sz6qff">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1rrhg1d">
+          <text>"B2W"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wedtfg">
+          <text>"Cancelado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1w5flws">
+        <inputEntry id="UnaryTests_0l2148f">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19pbtbs">
+          <text>"true"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1va9xnm">
+          <text>"true"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1byd85b">
+          <text>"B2W"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0lsatno">
+          <text>"Aprovado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1twwebk">
+        <inputEntry id="UnaryTests_1h3z3ut">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09lifmy">
+          <text>"true"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ccb5av">
+          <text>"false"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19xjwcj">
+          <text>"B2W"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1q85vlj">
+          <text>"Negado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ayoxb3">
+        <inputEntry id="UnaryTests_0tcohqu">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_08fu582">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0trodcp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0ot0dmw">
+          <text>"Z3","AMERICANAS DELIVERY","GETNET","SANTANDER"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1inmk0i">
+          <text>"Negado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_01w924c">
+        <inputEntry id="UnaryTests_1oorj6i">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1b3zc97">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fdhijn">
+          <text>"true"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_122k2u5">
+          <text>"Lets Delivery","HUBSTER"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_19ws8yy">
+          <text>"Aprovado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1ojal4r">
+        <inputEntry id="UnaryTests_0dieb71">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_19or1bd">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vpz2yh">
+          <text>"false"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_02236r4">
+          <text>"Lets Delivery","HUBSTER"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08y9ka6">
+          <text>"Negado"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ytjwh3">
+        <inputEntry id="UnaryTests_1bdf1hf">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1vwkjn6">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1in71d9">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tkwvze">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0p0x0fq">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <decision id="auditoriaPorOperacao" name="Auditoria por operação">
+    <decisionTable id="DecisionTable_0xhljpe" hitPolicy="COLLECT">
+      <input id="InputClause_055rcr6" label="Operação" biodi:width="192" camunda:inputVariable="operacao">
+        <inputExpression id="LiteralExpression_1g2aeyj" typeRef="string">
+          <text></text>
+        </inputExpression>
+        <inputValues id="UnaryTests_00eyxhb">
+          <text>"B2W"</text>
+        </inputValues>
+      </input>
+      <output id="OutputClause_1kihozf" label="Auditoria" name="auditoriaARealizar" typeRef="string">
+        <outputValues id="UnaryTests_01kh7nw">
+          <text>"Fotos","Cadastro/CNPJ"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_0ipkhge">
+        <inputEntry id="UnaryTests_11e7y8p">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18ic613">
+          <text>"Cadastro/CNPJ"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_13cb80b">
+        <inputEntry id="UnaryTests_0l8lyda">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08gny3g">
+          <text>"Fotos"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="resultadoAuditoria">
+        <dc:Bounds height="80" width="180" x="420" y="80" />
+      </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0i6115n" dmnElementRef="auditoriaPorOperacao">
+        <dc:Bounds height="80" width="180" x="160" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

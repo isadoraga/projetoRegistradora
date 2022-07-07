@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_07d3z5o" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="PosVenda_AcoesPromotor" name="Ações e notificações promotor">
+    <decisionTable id="DecisionTable_07gim77" hitPolicy="FIRST">
+      <input id="Input_1" label="Idade Pós Venda" camunda:inputVariable="processamentoPosVenda.idadePosVenda">
+        <inputExpression id="InputExpression_1" typeRef="integer">
+          <text>processamentoPosVenda.idadePosVenda</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0tpiet6" label="Ativo" camunda:inputVariable="resultadoAtivacao.ativo">
+        <inputExpression id="LiteralExpression_169wb4u" typeRef="boolean">
+          <text>resultadoAtivacao.ativo</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_1pd1ifu" label="Modalidade" camunda:inputVariable="TipoPagamento">
+        <inputExpression id="LiteralExpression_04zro8d" typeRef="string">
+          <text>tipoPagamento</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1f8tyy7">
+          <text>"Ação TPV"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Evento notificação" name="eventoNotificacaoPromotor" typeRef="string" />
+      <output id="OutputClause_1d3eaa1" label="Mensagem" name="mensagemPromotor" typeRef="string" />
+      <output id="OutputClause_1g22bma" label="Ação" name="acaoPromotor" typeRef="string" />
+      <rule id="DecisionRule_01i5oku">
+        <description>Visita para tabular a não ativação do cliente</description>
+        <inputEntry id="UnaryTests_1o00f11">
+          <text>7</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1cq9quj">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_09eyx72">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0b17zgo">
+          <text>"principal_pushnotificacao"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0mxz4b6">
+          <text>"Olá! Seu cliente efetuou a compra de nossos produtos há 7 dias, mas não ativou a máquina. Faça uma visita e incentive-o a utilizar. Lembrando que se o cliente nao ativar a máquina, você deverá recolhê-la."</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_04zv5ps">
+          <text>"Revisita"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_07a0mjv">
+        <description>visita para recolher máquinas</description>
+        <inputEntry id="UnaryTests_11e3j2e">
+          <text>15</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0smgor9">
+          <text>false</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1qi4797">
+          <text>"Ação TPV"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14mkpvb">
+          <text>"principal_pushnotificacao"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_0a7omxw">
+          <text>"Olá! Seu cliente não ativou a máquina em 15 dias e você deverá recolher a máquina."</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_06u8y7d">
+          <text>"Recolhimento POS"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1mn8lmq">
+        <description>Regra default para não enviar nenhuma mensagem ou criar ação caso não se enquadre em nenhuma regra acima</description>
+        <inputEntry id="UnaryTests_0m2puru">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0760bis">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0t3t9yc">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0vb1v5r">
+          <text>""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_119s407">
+          <text>""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_14jsrjm">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="PosVenda_AcoesPromotor">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

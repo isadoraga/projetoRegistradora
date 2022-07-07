@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Consulta_resultado_consulta_agenda_cerc" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
+  <decision id="ConsultaResultadoConsultaAgendaCerc" name="Consulta resultado da consulta agenda CERC">
+    <decisionTable id="DecisionTable_1xc2jl4">
+      <input id="Input_1" label="Código response" camunda:inputVariable="codConsultaAgenda">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>codConsultaAgenda</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Retorno do código" name="retornoDoCodigo" typeRef="string" />
+      <rule id="DecisionRule_0p4nm0i">
+        <inputEntry id="UnaryTests_1nycz45">
+          <text>"105001"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1sdny9b">
+          <text>"NAO FORAM ENCONTRADOS REGISTROS COM OS FILTROS ESPECIFICADOS NO OPT-IN/CONTRATO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_194ngrc">
+        <inputEntry id="UnaryTests_1l67hjh">
+          <text>"105002"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17i2bed">
+          <text>"USUARIO FINAL RECEBEDOR OU TITULAR NAO ENCONTRADOS"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0cmtjuc">
+        <inputEntry id="UnaryTests_1q47ijt">
+          <text>"105003"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ayg3l8">
+          <text>"FALHA NA COMUNICACAO COM ENTIDADE REGISTRADORA RESPONSAVEL PELO REGISTRO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_05ws7qg">
+        <inputEntry id="UnaryTests_1lh6jdx">
+          <text>"105999"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1flt748">
+          <text>"ERRO INESPERADO"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="ConsultaResultadoConsultaAgendaCerc">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

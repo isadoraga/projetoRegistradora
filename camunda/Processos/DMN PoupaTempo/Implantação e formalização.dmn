@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0tt7bcm" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
+  <decision id="processosImplantacaoFormalizacao" name="Identificar processos de implantação e formalização">
+    <decisionTable id="DecisionTable_062x96y" hitPolicy="COLLECT">
+      <input id="Input_1" label="Produto" biodi:width="192" camunda:inputVariable="produto">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>produto</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1qttp02">
+          <text>"Crédito Tomático Z3","Crédito Z3"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0gquhva" label="Operacao" camunda:inputVariable="operacao">
+        <inputExpression id="LiteralExpression_0olp8le" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1glkmtj">
+          <text>"Z3","SUMUP"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Processo" name="processo" typeRef="string" biodi:width="192">
+        <outputValues id="UnaryTests_1yytjhc">
+          <text>"Sumup","Z3 Pay","MarketPlace - Tomático"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_15mrn0c">
+        <inputEntry id="UnaryTests_1gapl5p">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_06jwud5">
+          <text>"SUMUP"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_18cxj1k">
+          <text>"Sumup"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0y59uxb">
+        <inputEntry id="UnaryTests_0thtcgy">
+          <text>"Z3 Pay"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0kd1nt8">
+          <text>"Z3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0ai9mwp">
+          <text>"Z3 Pay"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0o8llzz">
+        <inputEntry id="UnaryTests_08otvq8">
+          <text>"Crédito Tomático Z3"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_117nkgh">
+          <text>"Z3"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_004fk7g">
+          <text>"MarketPlace - Tomático"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_04j1h5j">
+        <inputEntry id="UnaryTests_0oqmcxr">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1abpkaj">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0wps69b">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="processosImplantacaoFormalizacao">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

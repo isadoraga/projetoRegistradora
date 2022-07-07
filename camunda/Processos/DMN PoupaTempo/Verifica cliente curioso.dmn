@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_0yu0fd5" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="verificaClienteCurioso" name="Verifica cliente curioso">
+    <decisionTable id="DecisionTable_148e048" hitPolicy="FIRST">
+      <input id="Input_1" label="Possui Interesse">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>possuiInteresse</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0qul9kw">
+          <text>"Sim","Não"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0jyju6y" label="Extrato Sim">
+        <inputExpression id="LiteralExpression_1gdf3qz" typeRef="string">
+          <text>extratoSim</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0qjaev2">
+          <text>"Sim","Não"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Cliente curioso" typeRef="boolean" />
+      <rule id="DecisionRule_0k2xlts">
+        <inputEntry id="UnaryTests_1i8hw4i">
+          <text>"Não"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0fc5l6v">
+          <text>"Sim"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0akpsep">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0q0u5wh">
+        <inputEntry id="UnaryTests_1gyctjp">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1h0omrc">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1s6cqg9">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="verificaClienteCurioso">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

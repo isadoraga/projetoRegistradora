@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Consulta_resultado_optout_cerc" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
+  <decision id="ConsultaResultadoOptOutCerc" name="Consulta resultado Opt-Out CERC">
+    <decisionTable id="DecisionTable_0tgadl0">
+      <input id="Input_1" label="Códogo response" camunda:inputVariable="codOptOut">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>codOptOut</text>
+        </inputExpression>
+      </input>
+      <output id="OutputClause_0pjf9sw" label="Retorno do código" name="retornoDoCodigo" typeRef="string" />
+      <rule id="DecisionRule_1yjvhzf">
+        <inputEntry id="UnaryTests_09rjnl0">
+          <text>"106001"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_13xvgiu">
+          <text>"REFERENCIA EXTERNA OBRIGATORIA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1z0abc6">
+        <inputEntry id="UnaryTests_0o90mji">
+          <text>"106002"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_013itsz">
+          <text>"REFERENCIA EXTERNA JA EXISTE"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0zenf5w">
+        <inputEntry id="UnaryTests_0wjlhrj">
+          <text>"106003"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_05hhbzg">
+          <text>"REFERENCIA EXTERNA INVALIDA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_09x7s8h">
+        <inputEntry id="UnaryTests_06jqutv">
+          <text>"106004"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1v135u1">
+          <text>"PROTOCOLO OPT IN OBRIGATORIO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1s0a72k">
+        <inputEntry id="UnaryTests_0v5je0f">
+          <text>"106005"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_14klye7">
+          <text>"PROTOCOLO OPT IN INVALIDO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0q1yc24">
+        <inputEntry id="UnaryTests_0lz85hu">
+          <text>"106006"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0aoikih">
+          <text>"PROTOCOLO OPT IN NAO ENCONTRADO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dpec0q">
+        <inputEntry id="UnaryTests_0tdi1q1">
+          <text>"106007"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0d7qv5k">
+          <text>"SOLICITANTE OBRIGATORIO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0wod5qm">
+        <inputEntry id="UnaryTests_0cc2wek">
+          <text>"106008"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_01at4nl">
+          <text>"CNPJ DO SOLICITANTE INVALIDO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_11u9hw5">
+        <inputEntry id="UnaryTests_0d9moo3">
+          <text>"106801"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_078uyra">
+          <text>"OPERACAO NAO PERMITIDA - ACESSO NEGADO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0ykrtt8">
+        <inputEntry id="UnaryTests_1f0icwz">
+          <text>"106802"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1peb9so">
+          <text>"OPERACAO INVALIDA PARA O REGISTRO ATUAL"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0bo1mb4">
+        <inputEntry id="UnaryTests_0dt03ve">
+          <text>"106803"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16toz9d">
+          <text>"OPT-OUT JA INFORMADO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1dzzbd7">
+        <inputEntry id="UnaryTests_1fii5fd">
+          <text>"106804"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1xulkrx">
+          <text>"FALHA NO REGISTRO NO AMBIENTE DE INTEROPERABILIDADE"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1f9es51">
+        <inputEntry id="UnaryTests_04q2erm">
+          <text>"106805"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0s7tvja">
+          <text>"ERRO GENERICO DE VALIDACAO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1l1zxx5">
+        <inputEntry id="UnaryTests_08ybzdi">
+          <text>"106901"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1964mhp">
+          <text>"LAYOUT INVALIDO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_129yhwb">
+        <inputEntry id="UnaryTests_05g0pyp">
+          <text>"106902"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_08m7rxs">
+          <text>"ARQUIVO ENVIADO FORA DA GRADE HORARIA"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0fmhtk1">
+        <inputEntry id="UnaryTests_084utge">
+          <text>"106903"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1vzxgoe">
+          <text>"NOME DO ARQUIVO JA ENVIADO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_071w67k">
+        <inputEntry id="UnaryTests_0jes4ye">
+          <text>"106904"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0v9wgc2">
+          <text>"NOME DO ARQUIVO INVALIDO"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0jpa4m8">
+        <inputEntry id="UnaryTests_1y98nj4">
+          <text>"106999"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0q8pqew">
+          <text>"ERRO INESPERADO"</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="ConsultaResultadoOptOutCerc">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

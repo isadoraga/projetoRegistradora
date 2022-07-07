@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_08lhn1l" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
+  <decision id="selecao_produto_hubster" name="Seleção do produto HUBSTER">
+    <decisionTable id="DecisionTable_05uqaso" hitPolicy="COLLECT">
+      <input id="Input_1" label="Operação" camunda:inputVariable="operacao">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_1bpa90w">
+          <text>"HUBSTER"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Produto" name="produto" typeRef="string">
+        <outputValues id="UnaryTests_0i8fkdc">
+          <text>"HOST","Integrações de deliveries"</text>
+        </outputValues>
+      </output>
+      <output id="OutputClause_17qsjsl" label="Preço" name="precoProduto" typeRef="string" />
+      <rule id="DecisionRule_0d3znxm">
+        <inputEntry id="UnaryTests_0e3y0cq">
+          <text>"HUBSTER"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0lidvof">
+          <text>"HOST"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_192w4cq">
+          <text>"60,00"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0io0qeq">
+        <inputEntry id="UnaryTests_13r09pd">
+          <text>"HUBSTER"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1sixccm">
+          <text>"Integrações de deliveries"</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1ohetrf">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1js67o3">
+        <inputEntry id="UnaryTests_0fp9s9j">
+          <text>not("HUBSTER")</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1famc1a">
+          <text>""</text>
+        </outputEntry>
+        <outputEntry id="LiteralExpression_1yxtkfh">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="selecao_produto_hubster">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

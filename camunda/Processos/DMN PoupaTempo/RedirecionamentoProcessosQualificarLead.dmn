@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:camunda="http://camunda.org/schema/1.0/dmn" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" id="Definitions_1btu2k5" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.9.0">
+  <decision id="RedirecionamentoProcessosQualificarLead" name="Redirecionamento de processos">
+    <decisionTable id="DecisionTable_0gqy5qh" hitPolicy="COLLECT">
+      <input id="Input_1" label="Operação" camunda:inputVariable="operacao">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>operacao</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0kowoyb">
+          <text>"B2W","GETNET","SANTANDER","Z3"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_0t647j7" label="Processo Atual" camunda:inputVariable="processoAtual">
+        <inputExpression id="LiteralExpression_1b4jvei" typeRef="string">
+          <text>processoAtual</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_0ib4vmb">
+          <text>"Poupa Tempo","Visita","Auditoria","Formalização de serviços","Prospecção dados de produtos","Negociacao","Formalização de produtos","Implantacao"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_00xtc99" label="CNPJ">
+        <inputExpression id="LiteralExpression_0n0pnsd" typeRef="string">
+          <text>cnpj</text>
+        </inputExpression>
+      </input>
+      <input id="InputClause_0oe398v" label="Cliente Curioso">
+        <inputExpression id="LiteralExpression_1bpo79n" typeRef="boolean">
+          <text>clienteCurioso</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Processo redirecionamento" name="processoRedirecionamento" typeRef="string" biodi:width="276">
+        <outputValues id="UnaryTests_0dy9c96">
+          <text>"SIG_InicializarProcessoVisita","SIG_InicializarProcessoNegociacao","SIG_InicializarProcessoProspeccaoDadosProdutos","SIG_InicializarProcessoFormalizacaoProdutos","SIG_Implantacao","SIG_InicializarFormalizacaoServicos","","SIG_InicializarAuditoria"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1jbuegp">
+        <description>Visita &gt; Auditoria</description>
+        <inputEntry id="UnaryTests_1vjkwqq">
+          <text>"B2W"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1lqz5pu">
+          <text>"Visita"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_03cvd8b">
+          <text>not("")</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0tahhl9">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1980ja3">
+          <text>"SIG_InicializarAuditoria"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1jpou1v">
+        <inputEntry id="UnaryTests_065xs5g">
+          <text>"Z3"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_180hk43">
+          <text>"Visita"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qnkenh">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1988ge4">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0u76icl">
+          <text>"SIG_InicializarProcessoProspeccaoDadosProdutos"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1enoqu4">
+        <description>DEFAULT NECESSÁRIO para redirecionamentos</description>
+        <inputEntry id="UnaryTests_1ne2y0s">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_119nd8p">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0srlpsz">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_1typwls">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1ogubwz">
+          <text>""</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="RedirecionamentoProcessosQualificarLead">
+        <dc:Bounds height="80" width="180" x="180" y="80" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>

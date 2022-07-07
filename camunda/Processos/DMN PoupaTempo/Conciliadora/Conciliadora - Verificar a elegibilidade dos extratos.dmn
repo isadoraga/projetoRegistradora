@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:biodi="http://bpmn.io/schema/dmn/biodi/2.0" xmlns:camunda="http://camunda.org/schema/1.0/dmn" id="Definitions_0ach8b8" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
+  <decision id="conciliadora_verificar_elegibilidade_extratos" name="Conciliadora - Verificar a elegibilidade dos extratos">
+    <decisionTable id="DecisionTable_03scr34" hitPolicy="FIRST">
+      <input id="Input_1" label="Processo atual" biodi:width="192">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>processoAtual</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_10xu6h9">
+          <text>"Fluxo Encaminhamento de Tpv"</text>
+        </inputValues>
+      </input>
+      <input id="InputClause_04yzayt" label="Não possui quantidade de meses de extratos" camunda:inputVariable="naoPossuiTodosExtratos">
+        <inputExpression id="LiteralExpression_1dh61ia" typeRef="boolean">
+          <text>naoPossuiTodosExtratos</text>
+        </inputExpression>
+      </input>
+      <output id="Output_1" label="Elegivel" typeRef="boolean" />
+      <rule id="DecisionRule_190kqq2">
+        <inputEntry id="UnaryTests_1rr4ru9">
+          <text>"Fluxo Encaminhamento de Tpv"</text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0f1mhr9">
+          <text>true</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0i2x3jx">
+          <text>true</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1say0lk">
+        <inputEntry id="UnaryTests_0wyif1z">
+          <text></text>
+        </inputEntry>
+        <inputEntry id="UnaryTests_0qv01qx">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_17hnai6">
+          <text>false</text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="conciliadora_verificar_elegibilidade_extratos">
+        <dc:Bounds height="80" width="180" x="160" y="100" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
